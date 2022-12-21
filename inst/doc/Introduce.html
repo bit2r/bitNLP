@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Introduce bitNLP</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduce bitNLP</h1>
+
+
+
+<div id="bitnlp" class="section level2">
+<h2>bitNLP</h2>
+<p>bitNLP는 텍스트 데이터의 자연어 처리(NLP, Natural Language
+Processing), 텍스트 분석 모델 및 텍스트 분석을 위한 시각화와 도구
+모음입니다.</p>
+<div id="기능" class="section level3">
+<h3>기능</h3>
+<div id="텍스트-데이터-전처리-기능" class="section level4">
+<h4>텍스트 데이터 전처리 기능</h4>
+<ul>
+<li>정규표현식 기반의 텍스트 데이터 조작으로 데이터를 정제함
+<ul>
+<li>문서 단위의 전처리
+<ul>
+<li>문서 필터링 (Filter Documents)</li>
+</ul></li>
+<li>텍스트 단위의 전처리
+<ul>
+<li>텍스트 대체 (Replace Texts)</li>
+<li>텍스트 연결 (Concatenate Texts)</li>
+<li>텍스트 분리 (Split Texts)</li>
+<li>텍스트 제거 (Remove Texts)</li>
+</ul></li>
+</ul></li>
+<li>띄어쓰기 보정<br />
+</li>
+<li>토큰화
+<ul>
+<li>N-Grams 토큰화 (Extracting N-Grams)</li>
+<li>품사 기반의 토큰화</li>
+</ul></li>
+</ul>
+</div>
+<div id="텍스트-데이터-탐색-기능" class="section level4">
+<h4>텍스트 데이터 탐색 기능</h4>
+<p>텍스트 데이터를 탐색하여, 분석의 실마리를 찾거나 정제하는 기능의
+Shiny 앱 제공</p>
+<ul>
+<li>데이터 탐색
+<ul>
+<li>패턴 검색</li>
+</ul></li>
+<li>데이터 정제
+<ul>
+<li>패턴 검색 및 치환</li>
+</ul></li>
+<li>키워드 검색과 맥락 파악
+<ul>
+<li>N-Grams 토큰화 (Extracting N-Grams)</li>
+<li>품사 기반의 토큰화 (Extracting Nouns)</li>
+</ul></li>
+<li>키워드 검색과 공동발현 분석
+<ul>
+<li>Collocation Analysis</li>
+</ul></li>
+<li>Vignettes
+<ul>
+<li><a href="https://r2bit.com/bitNLP/articles/explore_docs.html" target="_blank">Explore Docs</a></li>
+</ul></li>
+</ul>
+</div>
+<div id="형태소분석-기능" class="section level4">
+<h4>형태소분석 기능</h4>
+<ul>
+<li>mecab-ko 인터페이스
+<ul>
+<li>품사 태깅</li>
+<li>품사 기반의 토큰화</li>
+</ul></li>
+<li>Vignettes
+<ul>
+<li><a href="https://r2bit.com/bitNLP/articles/morphology.html" target="_blank">Morphological Analysis</a></li>
+</ul></li>
+</ul>
+</div>
+<div id="감성분석" class="section level4">
+<h4>감성분석</h4>
+<ul>
+<li>KOSAC(Korean Sentiment Analysis Corpus) 기반의 감성분석
+<ul>
+<li>긍정/부정 극성 도출
+<ul>
+<li>Positive/Negative</li>
+</ul></li>
+<li>감성확률 도출
+<ul>
+<li>복합 (Complex)</li>
+<li>부정 (Negative)</li>
+<li>긍정 (Positive)</li>
+<li>중립 (Neutral)</li>
+<li>해당없음 (None)</li>
+</ul></li>
+<li>주관성(subjectivity) 도출</li>
+</ul></li>
+</ul>
+</div>
+<div id="tidytext-패키지-호환" class="section level4">
+<h4>tidytext 패키지 호환</h4>
+<ul>
+<li>tokenizer
+<ul>
+<li>한글 형태소 기반의 POS tagger
+<ul>
+<li>morpho_mecab()</li>
+</ul></li>
+<li>N-Grams 명사 tokenizer
+<ul>
+<li>tokenize_noun_ngrams()</li>
+</ul></li>
+</ul></li>
+<li>Unnest 토큰
+<ul>
+<li>명사 n-grams 토큰 Unnest
+<ul>
+<li>unnest_noun_ngrams()</li>
+</ul></li>
+</ul></li>
+<li>Vignettes
+<ul>
+<li><a href="https://r2bit.com/bitNLP/articles/with_tidytext.html" target="_blank">Collaboration with tidytext package</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="특장점" class="section level2">
+<h2>특장점</h2>
+<p>bitNLP는 토이(Toy) 데이터가 아닌 대용량 텍스트 데이터 처리를 목적으로
+개발되었으며, 다음과 같은 특장점이 있습니다.</p>
+<ul>
+<li>빠른 속도
+<ul>
+<li>속도가 빠르고 성능이 좋은 mecab-ko를 형태소분석기로 채택</li>
+<li>병렬처리 프로세싱 구현</li>
+</ul></li>
+<li>텍스트 탐색기와 룰 기반의 데이터 전처리
+<ul>
+<li>Shiny 앱으로 텍스트 데이터를 탐색하여 정제 룰을 발견하고,</li>
+<li>정제룰을 메타 파일에 등록하여,</li>
+<li>룰 기반의 데이터 전처리 수행</li>
+</ul></li>
+<li>실무에 적용할 수 있는 사례 중심의 매뉴얼 제공
+<ul>
+<li>TO-DO</li>
+</ul></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

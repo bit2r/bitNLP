@@ -1,0 +1,39 @@
+Package: bitNLP
+Type: Package
+Title: Tools for NLP and Text Analytics
+Version: 1.3.4.9000
+Date: 2022-12-20
+Description: Tools that support "Natural Language Processing" for text analytics.
+License: GPL-2 | file LICENSE
+Encoding: UTF-8
+Depends: R (>= 2.13.0)
+Imports: 
+  cli,
+  dplyr,
+  glue,
+  ngram,
+  parallel,
+  purrr, 
+  rlang,
+  rstudioapi,
+  shiny, 
+  stringi,
+  stringr,
+  tibble,
+  tidytext,
+  tokenizers
+Suggests:
+  glue,
+  knitr,
+  RcppMeCab,  
+  RMeCab (>= 1.07), 
+  rmarkdown
+SystemRequirements:
+  mecab-ko (https://bitbucket.org/eunjeon/mecab-ko/src/master/) and mecab-ko-dic (https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/)
+Authors@R: c(
+  person("Choonghyun", "Ryu",, "choonghyun.ryu@gmail.com", role = c("aut", "cre"))
+  )  
+Maintainer: Choonghyun Ryu <choonghyun.ryu@gmail.com>   
+LazyData: true
+RoxygenNote: 7.2.2
+VignetteBuilder: knitr
