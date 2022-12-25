@@ -14,7 +14,7 @@ collocate(
 \arguments{
 \item{x}{character. 공동발생(co-occurrences) 분석에 사용할 document.}
 
-\item{node}{character. 공동발생 분석한 단어(term)}
+\item{node}{character. 공동발생 분석 단어(term)}
 
 \item{span}{integer. 공동발생 window 단위. 기본값은 3.}
 
@@ -24,7 +24,7 @@ collocate(
  일반명사만 추출함.}
 }
 \value{
-data.frame 공동발생 정보를 담은 data.frame
+data.frame. 공동발생 정보를 담은 data.frame
 }
 \description{
 공동발생 분석을 위한 공동발생 단어 추출 및 해당 단어의 공동발생 빈도 및 문서에서의 발생 빈도 정보 생성
