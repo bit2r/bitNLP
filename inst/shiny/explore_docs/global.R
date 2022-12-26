@@ -4,7 +4,6 @@
 library(shiny)
 library(dplyr)
 library(bitNLP)
-library(RMeCab)
 
 ##==============================================================================
 ## User defined function
@@ -27,15 +26,15 @@ getCoCollocate <- function(x, node, span = 2) {
     x[filter_tag, ]
   }
   
-  fname <- "tmp.txt"
-  cat(x, file = fname)
+  # fname <- "tmp.txt"
+  # cat(x, file = fname)
   
-  coll <- collocate(fname, node = node, span = span) %>%
+  coll <- collocate(x, node = node, span = span) %>%
     collocate_filter
   
   if (is.null(coll)) return(NULL)
   
-  coll <- collScores(coll, node = node, span = span) %>%
+  coll <- coll_scores(coll, node = node, span = span) %>%
     filter(!is.na(MI) & MI > 2)
   coll
 }

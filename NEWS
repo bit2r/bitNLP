@@ -1,4 +1,4 @@
-CHANGES IN R VERSION 1.3.4.9001:
+CHANGES IN R VERSION 1.3.4.9002:
   MAJOR CHANGES:
     * bitTA 패키지를 bitNLP로 개명
 
@@ -7,7 +7,10 @@ CHANGES IN R VERSION 1.3.4.9001:
       - collocate()      
       - coll_scores()
     
-    
+  MINOR CHANGES:
+    * Text Data Explorer인 explore_docs()에서 RMeCab 패키지 종속성 제거 (#1)
+        
+        
     
 CHANGES IN R VERSION 1.3.3:
   MINOR CHANGES:
