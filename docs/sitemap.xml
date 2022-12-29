@@ -46,7 +46,13 @@
     <loc>/reference/buzz.html</loc>
   </url>
   <url>
+    <loc>/reference/coll_scores.html</loc>
+  </url>
+  <url>
     <loc>/reference/collapse_noun.html</loc>
+  </url>
+  <url>
+    <loc>/reference/collocate.html</loc>
   </url>
   <url>
     <loc>/reference/explore_docs.html</loc>
