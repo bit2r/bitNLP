@@ -1,9 +1,16 @@
-CHANGES IN R VERSION 1.3.5.9000:
+CHANGES IN R VERSION 1.3.5.9001:
   NEW FEATURES:
     * 단어비용 기반의 플랜 조회 기능 추가 (#4)
       - get_plan_cost()      
-    
-  
+    * 인명사전 추가하는 기능의 추가 (#2)
+      - 인명사전 파일 읽어오기
+          - get_plan_cost()          
+      - 인명사전 파일에 인명 추가하기
+          - append_userdic_person()    
+    * 사용자 정의 사전 컴파일 및 설치하기 (#4)
+      - add_userdic
+      
+      
         
 CHANGES IN R VERSION 1.3.4:
   MAJOR CHANGES:

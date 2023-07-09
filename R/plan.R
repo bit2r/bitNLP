@@ -8,8 +8,8 @@
 #' 플랜 정보에서 변수는 다음과 같다.:
 #' \itemize{
 #' \item "우선순위" : 토큰화 우선 순위.
-#' \item "표현층" : 토큰화되는 토큰
-#' \item "품사" : 토큰의 품사.
+#' \item "표층형" : 토큰화되는 토큰
+#' \item "품사태그" : 토큰의 품사.
 #' \item "의미부류" : 인명, 혹은 지명과 같은 의미.
 #' \item "좌문맥ID" : 좌문맥 ID.
 #' \item "우문맥ID" : 우문맥 ID.
@@ -20,7 +20,7 @@
 #' @return tbl_df. 플랜을 담은 tibble 객체.
 #' @examples
 #' \dontrun{
-#' # get_plan_cost("가면무도회")
+#' get_plan_cost("가면무도회")
 #' }
 #' @export
 #' @import dplyr
@@ -64,9 +64,9 @@ get_plan_cost <- function(x) {
     mutate(plan = stringr::str_replace(plan, "\\t", ",")) %>% 
     tidyr::separate_wider_delim(
       plan, ",", 
-      names = c("표현층", "품사", "의미부류", "좌문맥ID", "우문맥ID", 
+      names = c("표층형", "품사태그", "의미부류", "좌문맥ID", "우문맥ID", 
                 "낱말비용", "연접비용", "누적비용")) %>% 
     mutate_at(vars(tidyselect::ends_with(c("비용", "ID"))), as.integer) %>% 
-    select(우선순위, 표현층:누적비용) %>% 
+    select(우선순위, 표층형:누적비용) %>% 
     print(n = Inf, width = Inf)
 }
