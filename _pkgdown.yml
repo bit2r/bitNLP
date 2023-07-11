@@ -51,3 +51,7 @@ reference:
   - starts_with("movie_ratings")
   - polarity
   - sentiment_dic
+- subtitle: 형태소분석기 사전 관리
+  contents:
+  - get_plan_cost
+  - contains("userdic")
