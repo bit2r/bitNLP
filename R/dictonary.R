@@ -32,7 +32,7 @@
 get_userdic_person <- function(userdic_path = NULL) {
   if (is_windows()) {
     installd <- "c:/mecab"
-    dic_path <- "mecab-ko-dic/user-dic"    
+    dic_path <- "user-dic"    
   } else {
     installd <- '/usr/local/install_resources' 
     dic_path <- "mecab-ko-dic-2.1.1-20180720/user-dic"   
@@ -74,7 +74,7 @@ get_userdic_person <- function(userdic_path = NULL) {
 append_userdic_person <- function(x, userdic_path = NULL) {
   if (is_windows()) {
     installd <- "c:/mecab"
-    dic_path <- "mecab-ko-dic/user-dic" 
+    dic_path <- "user-dic" 
     userdic_path <- glue::glue("{installd}/{dic_path}")    
     
     if (is.null(userdic_path)) {
@@ -167,8 +167,8 @@ add_userdic <- function() {
   if (is_windows()) {
     installd <- "c:/mecab"
     dic_path <- "mecab-ko-dic" 
-    cmd <- glue::glue("{installd}/{dic_path}/tools/add-userdic-win.ps1")
     
+    cmd <- glue::glue('powershell -Command "Start-Process powershell \\"-ExecutionPolicy Bypass -NoProfile -NoExit -Command `\\"cd \\`\\"{installd}\\`\\"; & \\`\\"./tools/add-userdic-win.ps1\\`\\"`\\"\\" -Verb RunAs"')
     system(glue::glue("{cmd}"))
   } else {
     script_path <- system.file("script", package = "bitNLP")

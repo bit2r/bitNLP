@@ -8,7 +8,7 @@ CHANGES IN R VERSION 1.3.5.9001:
       - 인명사전 파일에 인명 추가하기
           - append_userdic_person()    
     * 사용자 정의 사전 컴파일 및 설치하기 (#4)
-      - add_userdic
+      - add_userdic()
       
       
         

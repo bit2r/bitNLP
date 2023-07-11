@@ -185,7 +185,7 @@ install_mecab_ko <- function() {
     
     cat("Install mecab-ko-dic-msvc...")
     
-    mecabDicDist <- "https://github.com/Pusnow/mecab-ko-dic-msvc/releases/download/mecab-ko-dic-2.0.3-20170922-msvc/mecab-ko-dic-msvc.zip"
+    mecabDicDist <- "https://github.com/Pusnow/mecab-ko-dic-msvc/releases/download/mecab-ko-dic-2.1.1-20180720-msvc-3/mecab-ko-dic-msvc.zip"
     mecabDicDest <- file.path(mecabLocation, "mecab_dic.zip")
     
     suppressWarnings(download.file(url = mecabDicDist, destfile = mecabDicDest, 
