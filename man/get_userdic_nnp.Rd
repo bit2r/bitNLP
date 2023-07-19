@@ -4,7 +4,7 @@
 \alias{get_userdic_nnp}
 \title{Query the user-defined person dictionary file.}
 \usage{
-get_userdic_nnp(type = c("person", "place"), userdic_path = NULL)
+get_userdic_nnp(type = c("person", "place", "nnp"), userdic_path = NULL)
 }
 \arguments{
 \item{type}{character. 인명사전과 지명사전에서 조회할 사용자 정의 고유명사 사전 선택.}
@@ -40,6 +40,7 @@ tibble 객체에서 변수는 다음과 같다.:
 \itemize{
 \item 인명사전 : person.csv
 \item 지명사전 : place.csv
+\item 고유명사사전 : nnp.csv
 }
 고유명사 사전의 경우에는 타입, 첫번째 품사, 마지막 품사, 원형, 인텍스표현의 정보는 의미가 없어 모두 *로 표현함.
 }
