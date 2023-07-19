@@ -1,11 +1,16 @@
 #' Query the user-defined person dictionary file.
-#' @description 사용자 사전 중에서 인명사전의 내용을 조회한다.
-#' @param userdic_path character. 사용자 정의 인명사전 파일이 존재하는 경로.
+#' @description 사용자 사전 중에서 고유명사 사전의 내용을 조회한다.
+#' @param type character. 인명사전과 지명사전에서 조회할 사용자 정의 고유명사 사전 선택.
+#' @param userdic_path character. 사용자 정의 고유명사 파일이 존재하는 경로.
 #' 지정하지 않으면 사전이 설치된 기본 경로에서 파일을 읽어온다.
-#' @details 사용자 사전정의 디렉토리의 person.csv 파일을 읽어, 정의된 내용을 tibble 객체로 반환한다. 
-#' 이 기능을 통해서 사용자 인명 사전의 등록(정의) 여부를 파악할 수 있다.
-#' 인명사전의 경우에는 타입, 첫번째 품사, 마지막 품사, 원형, 인텍스표현의 정보는 의미가 없어 모두 *로 표현함.
-#' @return spec_tbl_df. 인명사전 정의를 담은 tibble 객체.
+#' @details 사용자 사전정의 디렉토리의 사전파일 읽어, 정의된 내용을 tibble 객체로 반환한다. 
+#' 이 기능을 통해서 사용자 고유명사 사전의 등록(정의) 여부를 파악할 수 있다.:
+#' \itemize{
+#' \item 인명사전 : person.csv
+#' \item 지명사전 : place.csv
+#' }
+#' 고유명사 사전의 경우에는 타입, 첫번째 품사, 마지막 품사, 원형, 인텍스표현의 정보는 의미가 없어 모두 *로 표현함.
+#' @return spec_tbl_df. 고유명사 사전 정의를 담은 tibble 객체.
 #' tibble 객체에서 변수는 다음과 같다.:
 #' \itemize{
 #' \item "표층형" : 단어명.
@@ -24,12 +29,14 @@
 #' }
 #' @examples
 #' \dontrun{
-#' get_userdic_person()
+#' get_userdic_nnp("person")
 #' }
 #' @importFrom glue glue
 #' @importFrom readr read_csv
 #' @export
-get_userdic_person <- function(userdic_path = NULL) {
+get_userdic_nnp <- function(type = c("person", "place"), userdic_path = NULL) {
+  type <- match.arg(type)
+  
   if (is_windows()) {
     installd <- "c:/mecab"
     dic_path <- "user-dic"    
@@ -39,9 +46,9 @@ get_userdic_person <- function(userdic_path = NULL) {
   }
   
   if (is.null(userdic_path)) {
-    fname <- glue::glue("{installd}/{dic_path}/person.csv")
+    fname <- glue::glue("{installd}/{dic_path}/{type}.csv")
   } else {
-    fname <- glue::glue("{userdic_path}/person.csv")
+    fname <- glue::glue("{userdic_path}/{type}.csv")
   }
   
   meta <- readr::read_csv(fname, col_names = FALSE, show_col_types = FALSE)
@@ -53,16 +60,18 @@ get_userdic_person <- function(userdic_path = NULL) {
 
 
 #' Write to the user-defined person dictionary file.
-#' @description 사용자 사전 중 인명사전에 등록하기 위해 인명을 인명사전 파일에 추가
-#' @param x character. 인명 사전에 등록할 이름들.
-#' @param userdic_path character. 사용자 정의 인명사전 파일이 존재하는 경로.
+#' @description 사용자 사전 중 고유명사 사전에 등록하기 위해 인명/지명을 인명/지명 사전 파일에 추가
+#' @param x character. 고유명사 사전에 등록할 이름들.
+#' @param type character. 인명사전과 지명사전에서 등록할 사용자 정의 고유명사 사전 선택.
+#' @param userdic_path character. 사용자 정의 고유명사 사전 파일이 존재하는 경로.
 #' 지정하지 않으면 사전이 설치된 기본 경로에서 파일을 읽어온다.
-#' @details 사용자 사전정의 디렉토리의 person.csv 파일에 등록할 인명을 추가한다. 
+#' @details 사용자 사전정의 디렉토리의 person.csv/place.csv 파일에 등록할 인명/지명을 추가한다. 
 #' @examples
 #' \dontrun{
-#' get_userdic_person()
-#' append_userdic_person(c("변학도"))
-#' get_userdic_person()
+#' get_userdic_nnp()
+#' append_userdic_nnp(c("변학도"))
+#' append_userdic_nnp(c("영귀미면"), "place")
+#' get_userdic_nnp()
 #' }
 #' @import dplyr
 #' @importFrom glue glue
@@ -71,7 +80,15 @@ get_userdic_person <- function(userdic_path = NULL) {
 #' @importFrom rstudioapi askForPassword
 #' @importFrom cli cli_rule cli_alert_success
 #' @export
-append_userdic_person <- function(x, userdic_path = NULL) {
+append_userdic_nnp <- function(x, type = c("person", "place"), userdic_path = NULL) {
+  type <- match.arg(type)
+  
+  type_name <- case_when(
+    type %in% "person" ~ "인명",
+    type %in% "place"  ~ "지명",
+    TRUE ~               "인명"
+  )
+  
   if (is_windows()) {
     installd <- "c:/mecab"
     dic_path <- "user-dic" 
@@ -85,7 +102,7 @@ append_userdic_person <- function(x, userdic_path = NULL) {
       dir.create(userdic_path)
     }
     
-    fname <- glue::glue("{userdic_path}/person.csv")
+    fname <- glue::glue("{userdic_path}/{type}.csv")
   } else {
     installd <- '/usr/local/install_resources' 
     dic_path <- "mecab-ko-dic-2.1.1-20180720/user-dic"   
@@ -98,7 +115,7 @@ append_userdic_person <- function(x, userdic_path = NULL) {
       dir.create(userdic_path)
     }
     
-    fname <- glue::glue("{userdic_path}/person.csv")
+    fname <- glue::glue("{userdic_path}/{type}.csv")
 
     if (file.access(fname, 2) == -1) {
       if (.Platform$GUI %in% "RStudio") {
@@ -111,29 +128,29 @@ append_userdic_person <- function(x, userdic_path = NULL) {
     } 
   }
   
-  meta <- get_userdic_person(userdic_path)
-  persons <- setdiff(x, meta$표층형)
+  meta <- get_userdic_nnp(type, userdic_path)
+  nnps <- setdiff(x, meta$표층형)
   
-  if (length(persons) == 0) {
-    stop("등록할 인명이 없거나 이미 모두 등록되어 있을 수도 있습니다.")
+  if (length(nnps) == 0) {
+    stop(glue::glue("등록할 {type_name}이 없거나 이미 모두 등록되어 있을 수도 있습니다."))
   }
   
-  final_consonants <- persons %>% 
+  final_consonants <- nnps %>% 
     purrr::map_lgl(
       has_final_consonant, last = TRUE
     )
   
-  df_persons <- meta %>% 
+  df_nnps <- meta %>% 
     bind_rows(
       data.frame(
-        표층형 = persons,
+        표층형 = nnps,
         미지정1 = NA,
         미지정2 = NA,
         미지정3 = NA,
         품사태그 = "NNP",
-        의미부류 = "인명",
+        의미부류 = type_name,
         종성유무 =  final_consonants,
-        읽기 = persons,
+        읽기 = nnps,
         타입 = "*",  
         첫번째품사 = "*",
         마지막품사 = "*", 
@@ -142,14 +159,14 @@ append_userdic_person <- function(x, userdic_path = NULL) {
       )
     )
   
-  df_persons$종성유무 <- substr(as.character(df_persons$종성유무), 1, 1)
-  readr::write_csv(df_persons, file = fname, na = "", col_names = FALSE)  
+  df_nnps$종성유무 <- substr(as.character(df_nnps$종성유무), 1, 1)
+  readr::write_csv(df_nnps, file = fname, na = "", col_names = FALSE)  
   
-  n_add_persons <- length(persons)  
+  n_add_nnps <- length(nnps)  
   
-  cli::cli_rule("사전 파일에 인명 추가하기")
-  cli::cli_alert_success(c("신규 추가 건수: {n_add_persons}"))
-  cli::cli_alert_success(c("최종 인명 건수: {NROW(df_persons)}"))  
+  cli::cli_rule(glue::glue("사전 파일에 {type_name} 추가하기"))
+  cli::cli_alert_success(c("신규 추가 건수: {n_add_nnps}"))
+  cli::cli_alert_success(c("최종 {type_name} 건수: {NROW(df_nnps)}"))  
 }
 
 
