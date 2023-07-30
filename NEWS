@@ -1,6 +1,6 @@
 CHANGES IN R VERSION 1.3.7.9000:
   NEW FEATURES:
-    * 명사 사용자 정의사전 관리 기능 (#8)
+    * 명사 사용자 정의사전 관리 기능 (thanks to @dataminds, #3, #8)
       - 명사 사전 파일 읽어오기
           - get_userdic_noun()          
       - 명사 사전 파일에 인명/지명/고유명사/일반명사 추가하기
