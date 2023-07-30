@@ -354,30 +354,32 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>다음은 CRAN에 등록된 패키지중에서 <code>tidy</code>라는 단어가 들어간
 패키지 이름을 조사한 결과입니다. 앞으로 계속 늘어날텐데, 이 작업을
 수행한 시점인 2022-07-31에는 73개 패키지가 있습니다.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">available.packages</span>(<span class="at">repos =</span> <span class="st">&quot;https://cran.rstudio.com/&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row.names</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_subset</span>(<span class="st">&quot;tidy&quot;</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;spotidy&quot;</span>        <span class="st">&quot;tidybayes&quot;</span>      <span class="st">&quot;tidyBdE&quot;</span>        <span class="st">&quot;tidybins&quot;</span>      </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;tidyboot&quot;</span>       <span class="st">&quot;tidycat&quot;</span>        <span class="st">&quot;tidyCDISC&quot;</span>      <span class="st">&quot;tidycensus&quot;</span>    </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;tidycharts&quot;</span>     <span class="st">&quot;tidyclust&quot;</span>      <span class="st">&quot;tidycmprsk&quot;</span>     <span class="st">&quot;tidycode&quot;</span>      </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">&quot;tidycomm&quot;</span>       <span class="st">&quot;tidyCpp&quot;</span>        <span class="st">&quot;tidycwl&quot;</span>        <span class="st">&quot;tidydatatutor&quot;</span> </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">17</span>] <span class="st">&quot;tidydice&quot;</span>       <span class="st">&quot;tidyDisasters&quot;</span>  <span class="st">&quot;tidydr&quot;</span>         <span class="st">&quot;tidyEmoji&quot;</span>     </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">21</span>] <span class="st">&quot;tidyestimate&quot;</span>   <span class="st">&quot;tidyfast&quot;</span>       <span class="st">&quot;tidyfit&quot;</span>        <span class="st">&quot;tidyfst&quot;</span>       </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">25</span>] <span class="st">&quot;tidygapminder&quot;</span>  <span class="st">&quot;tidygate&quot;</span>       <span class="st">&quot;tidygenomics&quot;</span>   <span class="st">&quot;tidygeocoder&quot;</span>  </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">29</span>] <span class="st">&quot;tidygeoRSS&quot;</span>     <span class="st">&quot;tidygraph&quot;</span>      <span class="st">&quot;tidyHeatmap&quot;</span>    <span class="st">&quot;tidyhydat&quot;</span>     </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">33</span>] <span class="st">&quot;tidyjson&quot;</span>       <span class="st">&quot;tidylda&quot;</span>        <span class="st">&quot;tidylo&quot;</span>         <span class="st">&quot;tidylog&quot;</span>       </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>[<span class="dv">37</span>] <span class="st">&quot;tidyLPA&quot;</span>        <span class="st">&quot;tidymodels&quot;</span>     <span class="st">&quot;tidymv&quot;</span>         <span class="st">&quot;tidync&quot;</span>        </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">41</span>] <span class="st">&quot;tidypaleo&quot;</span>      <span class="st">&quot;tidyplus&quot;</span>       <span class="st">&quot;tidypmc&quot;</span>        <span class="st">&quot;tidyposterior&quot;</span> </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">45</span>] <span class="st">&quot;tidypredict&quot;</span>    <span class="st">&quot;tidyquant&quot;</span>      <span class="st">&quot;tidyquery&quot;</span>      <span class="st">&quot;tidyqwi&quot;</span>       </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>[<span class="dv">49</span>] <span class="st">&quot;tidyr&quot;</span>          <span class="st">&quot;tidyREDCap&quot;</span>     <span class="st">&quot;tidyrgee&quot;</span>       <span class="st">&quot;tidyRSS&quot;</span>       </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">53</span>] <span class="st">&quot;tidyrules&quot;</span>      <span class="st">&quot;tidyselect&quot;</span>     <span class="st">&quot;tidySEM&quot;</span>        <span class="st">&quot;tidyseurat&quot;</span>    </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>[<span class="dv">57</span>] <span class="st">&quot;tidysmd&quot;</span>        <span class="st">&quot;tidysq&quot;</span>         <span class="st">&quot;tidystats&quot;</span>      <span class="st">&quot;tidystopwords&quot;</span> </span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>[<span class="dv">61</span>] <span class="st">&quot;tidystringdist&quot;</span> <span class="st">&quot;tidysynth&quot;</span>      <span class="st">&quot;tidytable&quot;</span>      <span class="st">&quot;tidytags&quot;</span>      </span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">65</span>] <span class="st">&quot;tidyterra&quot;</span>      <span class="st">&quot;tidytext&quot;</span>       <span class="st">&quot;tidytidbits&quot;</span>    <span class="st">&quot;tidytransit&quot;</span>   </span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>[<span class="dv">69</span>] <span class="st">&quot;tidytreatment&quot;</span>  <span class="st">&quot;tidytree&quot;</span>       <span class="st">&quot;tidytuesdayR&quot;</span>   <span class="st">&quot;tidyUSDA&quot;</span>      </span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">73</span>] <span class="st">&quot;tidyverse&quot;</span>      <span class="st">&quot;tidyvpc&quot;</span>        <span class="st">&quot;tidywikidatar&quot;</span>  <span class="st">&quot;tidyxl&quot;</span>        </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">available.packages</span>(<span class="at">repos =</span> <span class="st">&quot;https://cran.rstudio.com/&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="fu">row.names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="fu">str_subset</span>(<span class="st">&quot;tidy&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;cstidy&quot;</span>         <span class="st">&quot;spotidy&quot;</span>        <span class="st">&quot;tidyAML&quot;</span>        <span class="st">&quot;tidybayes&quot;</span>     </span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;tidyBdE&quot;</span>        <span class="st">&quot;tidybins&quot;</span>       <span class="st">&quot;tidyboot&quot;</span>       <span class="st">&quot;tidycat&quot;</span>       </span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;tidyCDISC&quot;</span>      <span class="st">&quot;tidycensus&quot;</span>     <span class="st">&quot;tidycharts&quot;</span>     <span class="st">&quot;tidyclust&quot;</span>     </span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">&quot;tidycmprsk&quot;</span>     <span class="st">&quot;tidycode&quot;</span>       <span class="st">&quot;tidycomm&quot;</span>       <span class="st">&quot;tidyCpp&quot;</span>       </span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>[<span class="dv">17</span>] <span class="st">&quot;tidycwl&quot;</span>        <span class="st">&quot;tidydatatutor&quot;</span>  <span class="st">&quot;tidydice&quot;</span>       <span class="st">&quot;tidyDisasters&quot;</span> </span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>[<span class="dv">21</span>] <span class="st">&quot;tidydr&quot;</span>         <span class="st">&quot;tidyEdSurvey&quot;</span>   <span class="st">&quot;tidyEmoji&quot;</span>      <span class="st">&quot;tidyestimate&quot;</span>  </span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>[<span class="dv">25</span>] <span class="st">&quot;tidyfast&quot;</span>       <span class="st">&quot;tidyfit&quot;</span>        <span class="st">&quot;tidyformula&quot;</span>    <span class="st">&quot;tidyfst&quot;</span>       </span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>[<span class="dv">29</span>] <span class="st">&quot;tidyft&quot;</span>         <span class="st">&quot;tidygam&quot;</span>        <span class="st">&quot;tidygapminder&quot;</span>  <span class="st">&quot;tidygate&quot;</span>      </span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>[<span class="dv">33</span>] <span class="st">&quot;tidygenomics&quot;</span>   <span class="st">&quot;tidygeocoder&quot;</span>   <span class="st">&quot;tidygeoRSS&quot;</span>     <span class="st">&quot;tidygraph&quot;</span>     </span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>[<span class="dv">37</span>] <span class="st">&quot;tidyHeatmap&quot;</span>    <span class="st">&quot;tidyhydat&quot;</span>      <span class="st">&quot;tidyjson&quot;</span>       <span class="st">&quot;tidylda&quot;</span>       </span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>[<span class="dv">41</span>] <span class="st">&quot;tidylo&quot;</span>         <span class="st">&quot;tidylog&quot;</span>        <span class="st">&quot;tidyLPA&quot;</span>        <span class="st">&quot;tidymodels&quot;</span>    </span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>[<span class="dv">45</span>] <span class="st">&quot;tidymv&quot;</span>         <span class="st">&quot;tidync&quot;</span>         <span class="st">&quot;tidypaleo&quot;</span>      <span class="st">&quot;tidyplus&quot;</span>      </span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>[<span class="dv">49</span>] <span class="st">&quot;tidypmc&quot;</span>        <span class="st">&quot;tidyposterior&quot;</span>  <span class="st">&quot;tidypredict&quot;</span>    <span class="st">&quot;tidyquant&quot;</span>     </span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>[<span class="dv">53</span>] <span class="st">&quot;tidyquery&quot;</span>      <span class="st">&quot;tidyqwi&quot;</span>        <span class="st">&quot;tidyr&quot;</span>          <span class="st">&quot;tidyREDCap&quot;</span>    </span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>[<span class="dv">57</span>] <span class="st">&quot;tidyrgee&quot;</span>       <span class="st">&quot;tidyRSS&quot;</span>        <span class="st">&quot;tidyrules&quot;</span>      <span class="st">&quot;tidyselect&quot;</span>    </span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>[<span class="dv">61</span>] <span class="st">&quot;tidySEM&quot;</span>        <span class="st">&quot;tidyseurat&quot;</span>     <span class="st">&quot;tidysmd&quot;</span>        <span class="st">&quot;tidysq&quot;</span>        </span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>[<span class="dv">65</span>] <span class="st">&quot;tidystats&quot;</span>      <span class="st">&quot;tidystopwords&quot;</span>  <span class="st">&quot;tidystringdist&quot;</span> <span class="st">&quot;tidysynth&quot;</span>     </span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>[<span class="dv">69</span>] <span class="st">&quot;tidytable&quot;</span>      <span class="st">&quot;tidytags&quot;</span>       <span class="st">&quot;tidyterra&quot;</span>      <span class="st">&quot;tidytext&quot;</span>      </span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>[<span class="dv">73</span>] <span class="st">&quot;tidytidbits&quot;</span>    <span class="st">&quot;tidytlg&quot;</span>        <span class="st">&quot;tidytransit&quot;</span>    <span class="st">&quot;tidytreatment&quot;</span> </span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>[<span class="dv">77</span>] <span class="st">&quot;tidytree&quot;</span>       <span class="st">&quot;tidytuesdayR&quot;</span>   <span class="st">&quot;tidyUSDA&quot;</span>       <span class="st">&quot;tidyverse&quot;</span>     </span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>[<span class="dv">81</span>] <span class="st">&quot;tidyvpc&quot;</span>        <span class="st">&quot;tidywikidatar&quot;</span>  <span class="st">&quot;tidyxl&quot;</span>        </span></code></pre></div>
 <p>목록의 63번째 <code>tidytext</code> 패키지는 텍스트 데이터 분석을
 수행할 때, tidyverse 패키지군의 <code>dplyr</code>과
 <code>ggplot2</code>의 기능과 더불어 쉽고 효과적인 텍스트 분석을 수행할
@@ -414,174 +416,174 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </ul>
 <p>tidytext 구문에서 형태소 토크나이저인 morpho_mecab()는 다음과 같이
 사용합니다.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bitNLP)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>nho_noun_indiv <span class="ot">&lt;-</span> president_speech <span class="sc">%&gt;%</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(president <span class="sc">%in%</span> <span class="st">&quot;노무현&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(category, <span class="st">&quot;^외교&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">unnest_tokens</span>(</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">out =</span> <span class="st">&quot;speech_noun&quot;</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">input =</span> <span class="st">&quot;doc&quot;</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> morpho_mecab</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a> nho_noun_indiv </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 44,316 × 7</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  id       president category  type  title                         date  speec…¹</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                         <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>  </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> DOC_0001 노무현    외교<span class="sc">-</span>통상 치사  <span class="st">&quot;2005 한일 우정의 해 개막식 … 2005… 우정   </span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="st">2 DOC_0001 노무현    외교-통상 치사  &quot;</span><span class="dv">2005</span> 한일 우정의 해 개막식 … 2005… 해     </span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> DOC_0001 노무현    외교<span class="sc">-</span>통상 치사  <span class="st">&quot;2005 한일 우정의 해 개막식 … 2005… 개막식 </span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="st">4 DOC_0001 노무현    외교-통상 치사  &quot;</span><span class="dv">2005</span> 한일 우정의 해 개막식 … 2005… 축하   </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 44,312 more rows, and abbreviated variable name ¹​speech_noun</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(bitNLP)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>nho_noun_indiv <span class="ot">&lt;-</span> president_speech <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">filter</span>(president <span class="sc">%in%</span> <span class="st">&quot;노무현&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(category, <span class="st">&quot;^외교&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">unnest_tokens</span>(</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    <span class="at">out =</span> <span class="st">&quot;speech_noun&quot;</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>    <span class="at">input =</span> <span class="st">&quot;doc&quot;</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    <span class="at">token =</span> morpho_mecab</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  )</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  </span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a> nho_noun_indiv </span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co"># A tibble: 44,316 × 7</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  id       president category  type  title                    date   speech_noun</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      </span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="dv">1</span> DOC_0001 노무현    외교<span class="sc">-</span>통상 치사  <span class="st">&quot;2005 한일 우정의 해 개… 2005-… 우정       </span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="st">2 DOC_0001 노무현    외교-통상 치사  &quot;</span><span class="dv">2005</span> 한일 우정의 해 개… <span class="dv">2005</span><span class="sc">-</span>… 해         </span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="dv">3</span> DOC_0001 노무현    외교<span class="sc">-</span>통상 치사  <span class="st">&quot;2005 한일 우정의 해 개… 2005-… 개막식     </span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="st">4 DOC_0001 노무현    외교-통상 치사  &quot;</span><span class="dv">2005</span> 한일 우정의 해 개… <span class="dv">2005</span><span class="sc">-</span>… 축하       </span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co"># ℹ 44,312 more rows</span></span></code></pre></div>
 <p>만약 사용자 사전이 있다면 다음과 같이 user_dic 인수를 사용할 수도
 있습니다.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>president_speech <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(president <span class="sc">%in%</span> <span class="st">&quot;노무현&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(category, <span class="st">&quot;^외교&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">unnest_tokens</span>(</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">out =</span> <span class="st">&quot;speech_noun&quot;</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">input =</span> <span class="st">&quot;doc&quot;</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> morpho_mecab,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">user_dic =</span> user_dic</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>president_speech <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">filter</span>(president <span class="sc">%in%</span> <span class="st">&quot;노무현&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(category, <span class="st">&quot;^외교&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">unnest_tokens</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    <span class="at">out =</span> <span class="st">&quot;speech_noun&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="at">input =</span> <span class="st">&quot;doc&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    <span class="at">token =</span> morpho_mecab,</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="at">user_dic =</span> user_dic</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  )</span></code></pre></div>
 <p>명사 n-grams 토크나이저는 다음과 같이 사용합니다.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(president_speech<span class="sc">$</span>doc[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">1</span>] <span class="st">&quot;우정 해&quot;</span>       <span class="st">&quot;해 개막식&quot;</span>     <span class="st">&quot;개막식 축하&quot;</span>   <span class="st">&quot;축하 행사&quot;</span>    </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">5</span>] <span class="st">&quot;행사 축하&quot;</span>     <span class="st">&quot;축하 참석&quot;</span>     <span class="st">&quot;참석 모두&quot;</span>     <span class="st">&quot;모두 환영&quot;</span>    </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">9</span>] <span class="st">&quot;환영 감사&quot;</span>     <span class="st">&quot;감사 인사&quot;</span>     <span class="st">&quot;인사 전&quot;</span>       <span class="st">&quot;전 이웃&quot;</span>      </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> [<span class="dv">13</span>] <span class="st">&quot;이웃 옛날&quot;</span>     <span class="st">&quot;옛날 이웃&quot;</span>     <span class="st">&quot;이웃 이웃&quot;</span>     <span class="st">&quot;이웃 사정&quot;</span>    </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a> [<span class="dv">17</span>] <span class="st">&quot;사정 통신사&quot;</span>   <span class="st">&quot;통신사 절&quot;</span>     <span class="st">&quot;절 시절&quot;</span>       <span class="st">&quot;시절 연락선&quot;</span>  </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a> [<span class="dv">21</span>] <span class="st">&quot;연락선 시대&quot;</span>   <span class="st">&quot;시대 항공기&quot;</span>   <span class="st">&quot;항공기 하루&quot;</span>   <span class="st">&quot;하루 안&quot;</span>      </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a> [<span class="dv">25</span>] <span class="st">&quot;안 시대&quot;</span>       <span class="st">&quot;시대 교통&quot;</span>     <span class="st">&quot;교통 발달&quot;</span>     <span class="st">&quot;발달 통신&quot;</span>    </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a> [<span class="dv">29</span>] <span class="st">&quot;통신 관계&quot;</span>     <span class="st">&quot;관계 경제&quot;</span>     <span class="st">&quot;경제 교류&quot;</span>     <span class="st">&quot;교류 말&quot;</span>      </span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a> [<span class="dv">33</span>] <span class="st">&quot;말 협력&quot;</span>       <span class="st">&quot;협력 국음&quot;</span>     <span class="st">&quot;국음 마음&quot;</span>     <span class="st">&quot;마음 실행&quot;</span>    </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a> [<span class="dv">37</span>] <span class="st">&quot;실행 가공&quot;</span>     <span class="st">&quot;가공 과학&quot;</span>     <span class="st">&quot;과학 기술&quot;</span>     <span class="st">&quot;기술 옛날&quot;</span>    </span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">41</span>] <span class="st">&quot;옛날 사이&quot;</span>     <span class="st">&quot;사이 불편&quot;</span>     <span class="st">&quot;불편 문제&quot;</span>     <span class="st">&quot;문제 생각&quot;</span>    </span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a> [<span class="dv">45</span>] <span class="st">&quot;생각 상황&quot;</span>     <span class="st">&quot;상황 양국&quot;</span>     <span class="st">&quot;양국 관계&quot;</span>     <span class="st">&quot;관계 불편&quot;</span>    </span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a> [<span class="dv">49</span>] <span class="st">&quot;불편 생존&quot;</span>     <span class="st">&quot;생존 자체&quot;</span>     <span class="st">&quot;자체 위협&quot;</span>     <span class="st">&quot;위협 사이&quot;</span>    </span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a> [<span class="dv">53</span>] <span class="st">&quot;사이 유감&quot;</span>     <span class="st">&quot;유감 친구&quot;</span>     <span class="st">&quot;친구 방법&quot;</span>     <span class="st">&quot;방법 관계&quot;</span>    </span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a> [<span class="dv">57</span>] <span class="st">&quot;관계 숙명&quot;</span>     <span class="st">&quot;숙명 친구&quot;</span>     <span class="st">&quot;친구 관계&quot;</span>     <span class="st">&quot;관계 친구&quot;</span>    </span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a> [<span class="dv">61</span>] <span class="st">&quot;친구 친구&quot;</span>     <span class="st">&quot;친구 미래&quot;</span>     <span class="st">&quot;미래 적극&quot;</span>     <span class="st">&quot;적극 친구&quot;</span>    </span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a> [<span class="dv">65</span>] <span class="st">&quot;친구 손&quot;</span>       <span class="st">&quot;손 불행&quot;</span>       <span class="st">&quot;불행 평화&quot;</span>     <span class="st">&quot;평화 번영&quot;</span>    </span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a> [<span class="dv">69</span>] <span class="st">&quot;번영 미래&quot;</span>     <span class="st">&quot;미래 관계&quot;</span>     <span class="st">&quot;관계 자리&quot;</span>     <span class="st">&quot;자리 양국&quot;</span>    </span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a> [<span class="dv">73</span>] <span class="st">&quot;양국 관계&quot;</span>     <span class="st">&quot;관계 도로&quot;</span>     <span class="st">&quot;도로 표현&quot;</span>     <span class="st">&quot;표현 전&quot;</span>      </span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a> [<span class="dv">77</span>] <span class="st">&quot;전 경제&quot;</span>       <span class="st">&quot;경제 도로는&quot;</span>   <span class="st">&quot;도로는 고속도&quot;</span> <span class="st">&quot;고속도 수준&quot;</span>  </span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a> [<span class="dv">81</span>] <span class="st">&quot;수준 정치&quot;</span>     <span class="st">&quot;정치 안보&quot;</span>     <span class="st">&quot;안보 측면&quot;</span>     <span class="st">&quot;측면 협력&quot;</span>    </span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a> [<span class="dv">85</span>] <span class="st">&quot;협력 도로&quot;</span>     <span class="st">&quot;도로 개통&quot;</span>     <span class="st">&quot;개통 문화&quot;</span>     <span class="st">&quot;문화 도로&quot;</span>    </span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a> [<span class="dv">89</span>] <span class="st">&quot;도로 길&quot;</span>       <span class="st">&quot;길 길&quot;</span>         <span class="st">&quot;길 위&quot;</span>         <span class="st">&quot;위 장애물&quot;</span>    </span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a> [<span class="dv">93</span>] <span class="st">&quot;장애물 양국&quot;</span>   <span class="st">&quot;양국 협력&quot;</span>     <span class="st">&quot;협력 관계&quot;</span>     <span class="st">&quot;관계 고속&quot;</span>    </span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a> [<span class="dv">97</span>] <span class="st">&quot;고속 도로&quot;</span>     <span class="st">&quot;도로 장애물&quot;</span>   <span class="st">&quot;장애물 직시&quot;</span>   <span class="st">&quot;직시 양국&quot;</span>    </span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>[<span class="dv">101</span>] <span class="st">&quot;양국 정부&quot;</span>     <span class="st">&quot;정부 국민&quot;</span>     <span class="st">&quot;국민 적극&quot;</span>     <span class="st">&quot;적극 노력&quot;</span>    </span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>[<span class="dv">105</span>] <span class="st">&quot;노력 가슴&quot;</span>     <span class="st">&quot;가슴 우정&quot;</span>     <span class="st">&quot;우정 불&quot;</span>       <span class="st">&quot;불 자리&quot;</span>      </span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>[<span class="dv">109</span>] <span class="st">&quot;자리 우정&quot;</span>     <span class="st">&quot;우정 불&quot;</span>       <span class="st">&quot;불 양국&quot;</span>       <span class="st">&quot;양국 국민&quot;</span>    </span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>[<span class="dv">113</span>] <span class="st">&quot;국민 사이&quot;</span>     <span class="st">&quot;사이 우정&quot;</span>     <span class="st">&quot;우정 계기&quot;</span>     <span class="st">&quot;계기 이틀&quot;</span>    </span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>[<span class="dv">117</span>] <span class="st">&quot;이틀 전&quot;</span>       <span class="st">&quot;전 주최&quot;</span>       <span class="st">&quot;주최 행사&quot;</span>     <span class="st">&quot;행사 성공&quot;</span>    </span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>[<span class="dv">121</span>] <span class="st">&quot;성공 성원&quot;</span>     <span class="st">&quot;성원 참석&quot;</span>     <span class="st">&quot;참석 격려&quot;</span>     <span class="st">&quot;격려 총리&quot;</span>    </span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>[<span class="dv">125</span>] <span class="st">&quot;총리 국민&quot;</span>     <span class="st">&quot;국민 자리&quot;</span>     <span class="st">&quot;자리 감사&quot;</span>     <span class="st">&quot;감사 올해&quot;</span>    </span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>[<span class="dv">129</span>] <span class="st">&quot;올해 양국&quot;</span>     <span class="st">&quot;양국 수교&quot;</span>     <span class="st">&quot;수교 해&quot;</span>       <span class="st">&quot;해 일&quot;</span>        </span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>[<span class="dv">133</span>] <span class="st">&quot;일 양국&quot;</span>       <span class="st">&quot;양국 우정&quot;</span>     <span class="st">&quot;우정 성공&quot;</span>     <span class="st">&quot;성공 때&quot;</span>      </span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>[<span class="dv">137</span>] <span class="st">&quot;때 보람&quot;</span>       <span class="st">&quot;보람 생각&quot;</span>     <span class="st">&quot;생각 올해&quot;</span>     <span class="st">&quot;올해 이전&quot;</span>    </span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>[<span class="dv">141</span>] <span class="st">&quot;이전 양국&quot;</span>     <span class="st">&quot;양국 국민&quot;</span>     <span class="st">&quot;국민 교류&quot;</span>     <span class="st">&quot;교류 국민&quot;</span>    </span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>[<span class="dv">145</span>] <span class="st">&quot;국민 교류&quot;</span>     <span class="st">&quot;교류 해&quot;</span>       <span class="st">&quot;해 감사&quot;</span>      </span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;각하 국민&quot;</span>   <span class="st">&quot;국민 신년&quot;</span>   <span class="st">&quot;신년 인사&quot;</span>   <span class="st">&quot;인사 새해&quot;</span>   <span class="st">&quot;새해 축복&quot;</span>  </span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a> [<span class="dv">6</span>] <span class="st">&quot;축복 해&quot;</span>     <span class="st">&quot;해 기원&quot;</span>     <span class="st">&quot;기원 올해&quot;</span>   <span class="st">&quot;올해 양국&quot;</span>   <span class="st">&quot;양국 관계&quot;</span>  </span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>[<span class="dv">11</span>] <span class="st">&quot;관계 발전&quot;</span>   <span class="st">&quot;발전 전기&quot;</span>   <span class="st">&quot;전기 중&quot;</span>     <span class="st">&quot;중 교류&quot;</span>     <span class="st">&quot;교류 해&quot;</span>    </span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>[<span class="dv">16</span>] <span class="st">&quot;해 경제&quot;</span>     <span class="st">&quot;경제 학술&quot;</span>   <span class="st">&quot;학술 문화&quot;</span>   <span class="st">&quot;문화 체육&quot;</span>   <span class="st">&quot;체육 청소년&quot;</span></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>[<span class="dv">21</span>] <span class="st">&quot;청소년 분야&quot;</span> <span class="st">&quot;분야 행사&quot;</span>   <span class="st">&quot;행사 본격&quot;</span>   <span class="st">&quot;본격 국민&quot;</span>   <span class="st">&quot;국민 교류&quot;</span>  </span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>[<span class="dv">26</span>] <span class="st">&quot;교류 협력&quot;</span>   <span class="st">&quot;협력 시대&quot;</span>   <span class="st">&quot;시대 나라&quot;</span>   <span class="st">&quot;나라 교역&quot;</span>   <span class="st">&quot;교역 상대국&quot;</span></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>[<span class="dv">31</span>] <span class="st">&quot;상대국 투자&quot;</span> <span class="st">&quot;투자 대상&quot;</span>   <span class="st">&quot;대상 국&quot;</span>     <span class="st">&quot;국 한국인&quot;</span>   <span class="st">&quot;한국인 방문&quot;</span></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>[<span class="dv">36</span>] <span class="st">&quot;방문 서로&quot;</span>   <span class="st">&quot;서로 문화&quot;</span>   <span class="st">&quot;문화 이웃&quot;</span>   <span class="st">&quot;이웃 양국&quot;</span>   <span class="st">&quot;양국 우호&quot;</span>  </span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>[<span class="dv">41</span>] <span class="st">&quot;우호 협력&quot;</span>   <span class="st">&quot;협력 올해&quot;</span>   <span class="st">&quot;올해 교류&quot;</span>   <span class="st">&quot;교류 행사&quot;</span>   <span class="st">&quot;행사 강화&quot;</span>  </span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>[<span class="dv">46</span>] <span class="st">&quot;강화 각하&quot;</span>   <span class="st">&quot;각하 합의&quot;</span>   <span class="st">&quot;합의 전면&quot;</span>   <span class="st">&quot;전면 협력&quot;</span>   <span class="st">&quot;협력 동반자&quot;</span></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>[<span class="dv">51</span>] <span class="st">&quot;동반자 관계&quot;</span> <span class="st">&quot;관계 심화&quot;</span>   <span class="st">&quot;심화 평화&quot;</span>   <span class="st">&quot;평화 공동&quot;</span>   <span class="st">&quot;공동 번영&quot;</span>  </span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>[<span class="dv">56</span>] <span class="st">&quot;번영 미래&quot;</span>   <span class="st">&quot;미래 기대&quot;</span>   <span class="st">&quot;기대 각하&quot;</span>   <span class="st">&quot;각하 건강&quot;</span>   <span class="st">&quot;건강 무궁&quot;</span>  </span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>[<span class="dv">61</span>] <span class="st">&quot;무궁 발전&quot;</span>   <span class="st">&quot;발전 기원&quot;</span>  </span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="co"># simplify = TRUE</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(president_speech<span class="sc">$</span>doc[<span class="dv">1</span>], <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">1</span>] <span class="st">&quot;우정 해&quot;</span>       <span class="st">&quot;해 개막식&quot;</span>     <span class="st">&quot;개막식 축하&quot;</span>   <span class="st">&quot;축하 행사&quot;</span>    </span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">5</span>] <span class="st">&quot;행사 축하&quot;</span>     <span class="st">&quot;축하 참석&quot;</span>     <span class="st">&quot;참석 모두&quot;</span>     <span class="st">&quot;모두 환영&quot;</span>    </span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">9</span>] <span class="st">&quot;환영 감사&quot;</span>     <span class="st">&quot;감사 인사&quot;</span>     <span class="st">&quot;인사 전&quot;</span>       <span class="st">&quot;전 이웃&quot;</span>      </span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a> [<span class="dv">13</span>] <span class="st">&quot;이웃 옛날&quot;</span>     <span class="st">&quot;옛날 이웃&quot;</span>     <span class="st">&quot;이웃 이웃&quot;</span>     <span class="st">&quot;이웃 사정&quot;</span>    </span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a> [<span class="dv">17</span>] <span class="st">&quot;사정 통신사&quot;</span>   <span class="st">&quot;통신사 절&quot;</span>     <span class="st">&quot;절 시절&quot;</span>       <span class="st">&quot;시절 연락선&quot;</span>  </span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a> [<span class="dv">21</span>] <span class="st">&quot;연락선 시대&quot;</span>   <span class="st">&quot;시대 항공기&quot;</span>   <span class="st">&quot;항공기 하루&quot;</span>   <span class="st">&quot;하루 안&quot;</span>      </span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a> [<span class="dv">25</span>] <span class="st">&quot;안 시대&quot;</span>       <span class="st">&quot;시대 교통&quot;</span>     <span class="st">&quot;교통 발달&quot;</span>     <span class="st">&quot;발달 통신&quot;</span>    </span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a> [<span class="dv">29</span>] <span class="st">&quot;통신 관계&quot;</span>     <span class="st">&quot;관계 경제&quot;</span>     <span class="st">&quot;경제 교류&quot;</span>     <span class="st">&quot;교류 말&quot;</span>      </span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a> [<span class="dv">33</span>] <span class="st">&quot;말 협력&quot;</span>       <span class="st">&quot;협력 국음&quot;</span>     <span class="st">&quot;국음 마음&quot;</span>     <span class="st">&quot;마음 실행&quot;</span>    </span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a> [<span class="dv">37</span>] <span class="st">&quot;실행 가공&quot;</span>     <span class="st">&quot;가공 과학&quot;</span>     <span class="st">&quot;과학 기술&quot;</span>     <span class="st">&quot;기술 옛날&quot;</span>    </span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a> [<span class="dv">41</span>] <span class="st">&quot;옛날 사이&quot;</span>     <span class="st">&quot;사이 불편&quot;</span>     <span class="st">&quot;불편 문제&quot;</span>     <span class="st">&quot;문제 생각&quot;</span>    </span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a> [<span class="dv">45</span>] <span class="st">&quot;생각 상황&quot;</span>     <span class="st">&quot;상황 양국&quot;</span>     <span class="st">&quot;양국 관계&quot;</span>     <span class="st">&quot;관계 불편&quot;</span>    </span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a> [<span class="dv">49</span>] <span class="st">&quot;불편 생존&quot;</span>     <span class="st">&quot;생존 자체&quot;</span>     <span class="st">&quot;자체 위협&quot;</span>     <span class="st">&quot;위협 사이&quot;</span>    </span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a> [<span class="dv">53</span>] <span class="st">&quot;사이 유감&quot;</span>     <span class="st">&quot;유감 친구&quot;</span>     <span class="st">&quot;친구 방법&quot;</span>     <span class="st">&quot;방법 관계&quot;</span>    </span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a> [<span class="dv">57</span>] <span class="st">&quot;관계 숙명&quot;</span>     <span class="st">&quot;숙명 친구&quot;</span>     <span class="st">&quot;친구 관계&quot;</span>     <span class="st">&quot;관계 친구&quot;</span>    </span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a> [<span class="dv">61</span>] <span class="st">&quot;친구 친구&quot;</span>     <span class="st">&quot;친구 미래&quot;</span>     <span class="st">&quot;미래 적극&quot;</span>     <span class="st">&quot;적극 친구&quot;</span>    </span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a> [<span class="dv">65</span>] <span class="st">&quot;친구 손&quot;</span>       <span class="st">&quot;손 불행&quot;</span>       <span class="st">&quot;불행 평화&quot;</span>     <span class="st">&quot;평화 번영&quot;</span>    </span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a> [<span class="dv">69</span>] <span class="st">&quot;번영 미래&quot;</span>     <span class="st">&quot;미래 관계&quot;</span>     <span class="st">&quot;관계 자리&quot;</span>     <span class="st">&quot;자리 양국&quot;</span>    </span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a> [<span class="dv">73</span>] <span class="st">&quot;양국 관계&quot;</span>     <span class="st">&quot;관계 도로&quot;</span>     <span class="st">&quot;도로 표현&quot;</span>     <span class="st">&quot;표현 전&quot;</span>      </span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a> [<span class="dv">77</span>] <span class="st">&quot;전 경제&quot;</span>       <span class="st">&quot;경제 도로는&quot;</span>   <span class="st">&quot;도로는 고속도&quot;</span> <span class="st">&quot;고속도 수준&quot;</span>  </span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a> [<span class="dv">81</span>] <span class="st">&quot;수준 정치&quot;</span>     <span class="st">&quot;정치 안보&quot;</span>     <span class="st">&quot;안보 측면&quot;</span>     <span class="st">&quot;측면 협력&quot;</span>    </span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a> [<span class="dv">85</span>] <span class="st">&quot;협력 도로&quot;</span>     <span class="st">&quot;도로 개통&quot;</span>     <span class="st">&quot;개통 문화&quot;</span>     <span class="st">&quot;문화 도로&quot;</span>    </span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a> [<span class="dv">89</span>] <span class="st">&quot;도로 길&quot;</span>       <span class="st">&quot;길 길&quot;</span>         <span class="st">&quot;길 위&quot;</span>         <span class="st">&quot;위 장애물&quot;</span>    </span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a> [<span class="dv">93</span>] <span class="st">&quot;장애물 양국&quot;</span>   <span class="st">&quot;양국 협력&quot;</span>     <span class="st">&quot;협력 관계&quot;</span>     <span class="st">&quot;관계 고속&quot;</span>    </span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a> [<span class="dv">97</span>] <span class="st">&quot;고속 도로&quot;</span>     <span class="st">&quot;도로 장애물&quot;</span>   <span class="st">&quot;장애물 직시&quot;</span>   <span class="st">&quot;직시 양국&quot;</span>    </span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>[<span class="dv">101</span>] <span class="st">&quot;양국 정부&quot;</span>     <span class="st">&quot;정부 국민&quot;</span>     <span class="st">&quot;국민 적극&quot;</span>     <span class="st">&quot;적극 노력&quot;</span>    </span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>[<span class="dv">105</span>] <span class="st">&quot;노력 가슴&quot;</span>     <span class="st">&quot;가슴 우정&quot;</span>     <span class="st">&quot;우정 불&quot;</span>       <span class="st">&quot;불 자리&quot;</span>      </span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>[<span class="dv">109</span>] <span class="st">&quot;자리 우정&quot;</span>     <span class="st">&quot;우정 불&quot;</span>       <span class="st">&quot;불 양국&quot;</span>       <span class="st">&quot;양국 국민&quot;</span>    </span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>[<span class="dv">113</span>] <span class="st">&quot;국민 사이&quot;</span>     <span class="st">&quot;사이 우정&quot;</span>     <span class="st">&quot;우정 계기&quot;</span>     <span class="st">&quot;계기 이틀&quot;</span>    </span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>[<span class="dv">117</span>] <span class="st">&quot;이틀 전&quot;</span>       <span class="st">&quot;전 주최&quot;</span>       <span class="st">&quot;주최 행사&quot;</span>     <span class="st">&quot;행사 성공&quot;</span>    </span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>[<span class="dv">121</span>] <span class="st">&quot;성공 성원&quot;</span>     <span class="st">&quot;성원 참석&quot;</span>     <span class="st">&quot;참석 격려&quot;</span>     <span class="st">&quot;격려 총리&quot;</span>    </span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>[<span class="dv">125</span>] <span class="st">&quot;총리 국민&quot;</span>     <span class="st">&quot;국민 자리&quot;</span>     <span class="st">&quot;자리 감사&quot;</span>     <span class="st">&quot;감사 올해&quot;</span>    </span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>[<span class="dv">129</span>] <span class="st">&quot;올해 양국&quot;</span>     <span class="st">&quot;양국 수교&quot;</span>     <span class="st">&quot;수교 해&quot;</span>       <span class="st">&quot;해 일&quot;</span>        </span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>[<span class="dv">133</span>] <span class="st">&quot;일 양국&quot;</span>       <span class="st">&quot;양국 우정&quot;</span>     <span class="st">&quot;우정 성공&quot;</span>     <span class="st">&quot;성공 때&quot;</span>      </span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>[<span class="dv">137</span>] <span class="st">&quot;때 보람&quot;</span>       <span class="st">&quot;보람 생각&quot;</span>     <span class="st">&quot;생각 올해&quot;</span>     <span class="st">&quot;올해 이전&quot;</span>    </span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>[<span class="dv">141</span>] <span class="st">&quot;이전 양국&quot;</span>     <span class="st">&quot;양국 국민&quot;</span>     <span class="st">&quot;국민 교류&quot;</span>     <span class="st">&quot;교류 국민&quot;</span>    </span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>[<span class="dv">145</span>] <span class="st">&quot;국민 교류&quot;</span>     <span class="st">&quot;교류 해&quot;</span>       <span class="st">&quot;해 감사&quot;</span>      </span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&quot;신혼부부나 주말부부는 놀이공원 자유이용권을 즐겨 구매합니다.&quot;</span></span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str)</span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;신혼 부부&quot;</span> <span class="st">&quot;부부 주말&quot;</span> <span class="st">&quot;주말 부부&quot;</span> <span class="st">&quot;부부 놀이&quot;</span> <span class="st">&quot;놀이 공원&quot;</span> <span class="st">&quot;공원 자유&quot;</span></span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>[<span class="dv">7</span>] <span class="st">&quot;자유 이용&quot;</span> <span class="st">&quot;이용 구매&quot;</span></span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a><span class="co"># 불용어 처리</span></span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str, <span class="at">stopwords =</span> <span class="st">&quot;구매&quot;</span>)</span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;신혼 부부&quot;</span> <span class="st">&quot;부부 주말&quot;</span> <span class="st">&quot;주말 부부&quot;</span> <span class="st">&quot;부부 놀이&quot;</span> <span class="st">&quot;놀이 공원&quot;</span> <span class="st">&quot;공원 자유&quot;</span></span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>[<span class="dv">7</span>] <span class="st">&quot;자유 이용&quot;</span></span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="co"># 사용자 정의 사전 사용</span></span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>dic_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;dic&quot;</span>, <span class="at">package =</span> <span class="st">&quot;bitNLP&quot;</span>)</span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>dic_file <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;{dic_path}/buzz_dic.dic&quot;</span>)</span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str, <span class="at">simplify =</span> <span class="cn">TRUE</span>, <span class="at">user_dic =</span> dic_file)</span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;신혼부부 주말부부&quot;</span> <span class="st">&quot;주말부부 놀이&quot;</span>     <span class="st">&quot;놀이 공원&quot;</span>        </span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4</span>] <span class="st">&quot;공원 자유이용권&quot;</span>   <span class="st">&quot;자유이용권 구매&quot;</span>  </span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a><span class="co"># n_min</span></span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str, <span class="at">n_min =</span> <span class="dv">1</span>, <span class="at">user_dic =</span> dic_file)</span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;신혼부부&quot;</span>          <span class="st">&quot;신혼부부 주말부부&quot;</span> <span class="st">&quot;주말부부&quot;</span>         </span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a> [<span class="dv">4</span>] <span class="st">&quot;주말부부 놀이&quot;</span>     <span class="st">&quot;놀이&quot;</span>              <span class="st">&quot;놀이 공원&quot;</span>        </span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">&quot;공원&quot;</span>              <span class="st">&quot;공원 자유이용권&quot;</span>   <span class="st">&quot;자유이용권&quot;</span>       </span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>] <span class="st">&quot;자유이용권 구매&quot;</span>   <span class="st">&quot;구매&quot;</span>             </span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="co"># ngram_delim</span></span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str, <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span>, <span class="at">user_dic =</span> dic_file)</span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;신혼부부:주말부부&quot;</span> <span class="st">&quot;주말부부:놀이&quot;</span>     <span class="st">&quot;놀이:공원&quot;</span>        </span>
-<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4</span>] <span class="st">&quot;공원:자유이용권&quot;</span>   <span class="st">&quot;자유이용권:구매&quot;</span>  </span>
-<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="co"># bi-grams</span></span>
-<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str, <span class="at">n =</span> <span class="dv">2</span>, <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span>, <span class="at">user_dic =</span> dic_file)</span>
-<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;신혼부부:주말부부&quot;</span> <span class="st">&quot;주말부부:놀이&quot;</span>     <span class="st">&quot;놀이:공원&quot;</span>        </span>
-<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4</span>] <span class="st">&quot;공원:자유이용권&quot;</span>   <span class="st">&quot;자유이용권:구매&quot;</span>  </span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(president_speech<span class="sc">$</span>doc[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  [<span class="dv">1</span>] <span class="st">&quot;우정 해&quot;</span>       <span class="st">&quot;해 개막식&quot;</span>     <span class="st">&quot;개막식 축하&quot;</span>   <span class="st">&quot;축하 행사&quot;</span>    </span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  [<span class="dv">5</span>] <span class="st">&quot;행사 축하&quot;</span>     <span class="st">&quot;축하 참석&quot;</span>     <span class="st">&quot;참석 모두&quot;</span>     <span class="st">&quot;모두 환영&quot;</span>    </span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  [<span class="dv">9</span>] <span class="st">&quot;환영 감사&quot;</span>     <span class="st">&quot;감사 인사&quot;</span>     <span class="st">&quot;인사 전&quot;</span>       <span class="st">&quot;전 이웃&quot;</span>      </span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a> [<span class="dv">13</span>] <span class="st">&quot;이웃 옛날&quot;</span>     <span class="st">&quot;옛날 이웃&quot;</span>     <span class="st">&quot;이웃 이웃&quot;</span>     <span class="st">&quot;이웃 사정&quot;</span>    </span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a> [<span class="dv">17</span>] <span class="st">&quot;사정 통신사&quot;</span>   <span class="st">&quot;통신사 절&quot;</span>     <span class="st">&quot;절 시절&quot;</span>       <span class="st">&quot;시절 연락선&quot;</span>  </span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a> [<span class="dv">21</span>] <span class="st">&quot;연락선 시대&quot;</span>   <span class="st">&quot;시대 항공기&quot;</span>   <span class="st">&quot;항공기 하루&quot;</span>   <span class="st">&quot;하루 안&quot;</span>      </span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a> [<span class="dv">25</span>] <span class="st">&quot;안 시대&quot;</span>       <span class="st">&quot;시대 교통&quot;</span>     <span class="st">&quot;교통 발달&quot;</span>     <span class="st">&quot;발달 통신&quot;</span>    </span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a> [<span class="dv">29</span>] <span class="st">&quot;통신 관계&quot;</span>     <span class="st">&quot;관계 경제&quot;</span>     <span class="st">&quot;경제 교류&quot;</span>     <span class="st">&quot;교류 말&quot;</span>      </span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a> [<span class="dv">33</span>] <span class="st">&quot;말 협력&quot;</span>       <span class="st">&quot;협력 국음&quot;</span>     <span class="st">&quot;국음 마음&quot;</span>     <span class="st">&quot;마음 실행&quot;</span>    </span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a> [<span class="dv">37</span>] <span class="st">&quot;실행 가공&quot;</span>     <span class="st">&quot;가공 과학&quot;</span>     <span class="st">&quot;과학 기술&quot;</span>     <span class="st">&quot;기술 옛날&quot;</span>    </span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a> [<span class="dv">41</span>] <span class="st">&quot;옛날 사이&quot;</span>     <span class="st">&quot;사이 불편&quot;</span>     <span class="st">&quot;불편 문제&quot;</span>     <span class="st">&quot;문제 생각&quot;</span>    </span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a> [<span class="dv">45</span>] <span class="st">&quot;생각 상황&quot;</span>     <span class="st">&quot;상황 양국&quot;</span>     <span class="st">&quot;양국 관계&quot;</span>     <span class="st">&quot;관계 불편&quot;</span>    </span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a> [<span class="dv">49</span>] <span class="st">&quot;불편 생존&quot;</span>     <span class="st">&quot;생존 자체&quot;</span>     <span class="st">&quot;자체 위협&quot;</span>     <span class="st">&quot;위협 사이&quot;</span>    </span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a> [<span class="dv">53</span>] <span class="st">&quot;사이 유감&quot;</span>     <span class="st">&quot;유감 친구&quot;</span>     <span class="st">&quot;친구 방법&quot;</span>     <span class="st">&quot;방법 관계&quot;</span>    </span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a> [<span class="dv">57</span>] <span class="st">&quot;관계 숙명&quot;</span>     <span class="st">&quot;숙명 친구&quot;</span>     <span class="st">&quot;친구 관계&quot;</span>     <span class="st">&quot;관계 친구&quot;</span>    </span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a> [<span class="dv">61</span>] <span class="st">&quot;친구 친구&quot;</span>     <span class="st">&quot;친구 미래&quot;</span>     <span class="st">&quot;미래 적극&quot;</span>     <span class="st">&quot;적극 친구&quot;</span>    </span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a> [<span class="dv">65</span>] <span class="st">&quot;친구 손&quot;</span>       <span class="st">&quot;손 불행&quot;</span>       <span class="st">&quot;불행 평화&quot;</span>     <span class="st">&quot;평화 번영&quot;</span>    </span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a> [<span class="dv">69</span>] <span class="st">&quot;번영 미래&quot;</span>     <span class="st">&quot;미래 관계&quot;</span>     <span class="st">&quot;관계 자리&quot;</span>     <span class="st">&quot;자리 양국&quot;</span>    </span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a> [<span class="dv">73</span>] <span class="st">&quot;양국 관계&quot;</span>     <span class="st">&quot;관계 도로&quot;</span>     <span class="st">&quot;도로 표현&quot;</span>     <span class="st">&quot;표현 전&quot;</span>      </span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a> [<span class="dv">77</span>] <span class="st">&quot;전 경제&quot;</span>       <span class="st">&quot;경제 도로는&quot;</span>   <span class="st">&quot;도로는 고속도&quot;</span> <span class="st">&quot;고속도 수준&quot;</span>  </span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a> [<span class="dv">81</span>] <span class="st">&quot;수준 정치&quot;</span>     <span class="st">&quot;정치 안보&quot;</span>     <span class="st">&quot;안보 측면&quot;</span>     <span class="st">&quot;측면 협력&quot;</span>    </span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a> [<span class="dv">85</span>] <span class="st">&quot;협력 도로&quot;</span>     <span class="st">&quot;도로 개통&quot;</span>     <span class="st">&quot;개통 문화&quot;</span>     <span class="st">&quot;문화 도로&quot;</span>    </span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a> [<span class="dv">89</span>] <span class="st">&quot;도로 길&quot;</span>       <span class="st">&quot;길 길&quot;</span>         <span class="st">&quot;길 위&quot;</span>         <span class="st">&quot;위 장애물&quot;</span>    </span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a> [<span class="dv">93</span>] <span class="st">&quot;장애물 양국&quot;</span>   <span class="st">&quot;양국 협력&quot;</span>     <span class="st">&quot;협력 관계&quot;</span>     <span class="st">&quot;관계 고속&quot;</span>    </span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a> [<span class="dv">97</span>] <span class="st">&quot;고속 도로&quot;</span>     <span class="st">&quot;도로 장애물&quot;</span>   <span class="st">&quot;장애물 직시&quot;</span>   <span class="st">&quot;직시 양국&quot;</span>    </span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>[<span class="dv">101</span>] <span class="st">&quot;양국 정부&quot;</span>     <span class="st">&quot;정부 국민&quot;</span>     <span class="st">&quot;국민 적극&quot;</span>     <span class="st">&quot;적극 노력&quot;</span>    </span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a>[<span class="dv">105</span>] <span class="st">&quot;노력 가슴&quot;</span>     <span class="st">&quot;가슴 우정&quot;</span>     <span class="st">&quot;우정 불&quot;</span>       <span class="st">&quot;불 자리&quot;</span>      </span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a>[<span class="dv">109</span>] <span class="st">&quot;자리 우정&quot;</span>     <span class="st">&quot;우정 불&quot;</span>       <span class="st">&quot;불 양국&quot;</span>       <span class="st">&quot;양국 국민&quot;</span>    </span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a>[<span class="dv">113</span>] <span class="st">&quot;국민 사이&quot;</span>     <span class="st">&quot;사이 우정&quot;</span>     <span class="st">&quot;우정 계기&quot;</span>     <span class="st">&quot;계기 이틀&quot;</span>    </span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>[<span class="dv">117</span>] <span class="st">&quot;이틀 전&quot;</span>       <span class="st">&quot;전 주최&quot;</span>       <span class="st">&quot;주최 행사&quot;</span>     <span class="st">&quot;행사 성공&quot;</span>    </span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>[<span class="dv">121</span>] <span class="st">&quot;성공 성원&quot;</span>     <span class="st">&quot;성원 참석&quot;</span>     <span class="st">&quot;참석 격려&quot;</span>     <span class="st">&quot;격려 총리&quot;</span>    </span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a>[<span class="dv">125</span>] <span class="st">&quot;총리 국민&quot;</span>     <span class="st">&quot;국민 자리&quot;</span>     <span class="st">&quot;자리 감사&quot;</span>     <span class="st">&quot;감사 올해&quot;</span>    </span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a>[<span class="dv">129</span>] <span class="st">&quot;올해 양국&quot;</span>     <span class="st">&quot;양국 수교&quot;</span>     <span class="st">&quot;수교 해&quot;</span>       <span class="st">&quot;해 일&quot;</span>        </span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a>[<span class="dv">133</span>] <span class="st">&quot;일 양국&quot;</span>       <span class="st">&quot;양국 우정&quot;</span>     <span class="st">&quot;우정 성공&quot;</span>     <span class="st">&quot;성공 때&quot;</span>      </span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>[<span class="dv">137</span>] <span class="st">&quot;때 보람&quot;</span>       <span class="st">&quot;보람 생각&quot;</span>     <span class="st">&quot;생각 올해&quot;</span>     <span class="st">&quot;올해 이전&quot;</span>    </span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>[<span class="dv">141</span>] <span class="st">&quot;이전 양국&quot;</span>     <span class="st">&quot;양국 국민&quot;</span>     <span class="st">&quot;국민 교류&quot;</span>     <span class="st">&quot;교류 국민&quot;</span>    </span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a>[<span class="dv">145</span>] <span class="st">&quot;국민 교류&quot;</span>     <span class="st">&quot;교류 해&quot;</span>       <span class="st">&quot;해 감사&quot;</span>      </span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;각하 국민&quot;</span>   <span class="st">&quot;국민 신년&quot;</span>   <span class="st">&quot;신년 인사&quot;</span>   <span class="st">&quot;인사 새해&quot;</span>   <span class="st">&quot;새해 축복&quot;</span>  </span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a> [<span class="dv">6</span>] <span class="st">&quot;축복 해&quot;</span>     <span class="st">&quot;해 기원&quot;</span>     <span class="st">&quot;기원 올해&quot;</span>   <span class="st">&quot;올해 양국&quot;</span>   <span class="st">&quot;양국 관계&quot;</span>  </span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a>[<span class="dv">11</span>] <span class="st">&quot;관계 발전&quot;</span>   <span class="st">&quot;발전 전기&quot;</span>   <span class="st">&quot;전기 중&quot;</span>     <span class="st">&quot;중 교류&quot;</span>     <span class="st">&quot;교류 해&quot;</span>    </span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a>[<span class="dv">16</span>] <span class="st">&quot;해 경제&quot;</span>     <span class="st">&quot;경제 학술&quot;</span>   <span class="st">&quot;학술 문화&quot;</span>   <span class="st">&quot;문화 체육&quot;</span>   <span class="st">&quot;체육 청소년&quot;</span></span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a>[<span class="dv">21</span>] <span class="st">&quot;청소년 분야&quot;</span> <span class="st">&quot;분야 행사&quot;</span>   <span class="st">&quot;행사 본격&quot;</span>   <span class="st">&quot;본격 국민&quot;</span>   <span class="st">&quot;국민 교류&quot;</span>  </span>
+<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a>[<span class="dv">26</span>] <span class="st">&quot;교류 협력&quot;</span>   <span class="st">&quot;협력 시대&quot;</span>   <span class="st">&quot;시대 나라&quot;</span>   <span class="st">&quot;나라 교역&quot;</span>   <span class="st">&quot;교역 상대국&quot;</span></span>
+<span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a>[<span class="dv">31</span>] <span class="st">&quot;상대국 투자&quot;</span> <span class="st">&quot;투자 대상&quot;</span>   <span class="st">&quot;대상 국&quot;</span>     <span class="st">&quot;국 한국인&quot;</span>   <span class="st">&quot;한국인 방문&quot;</span></span>
+<span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a>[<span class="dv">36</span>] <span class="st">&quot;방문 서로&quot;</span>   <span class="st">&quot;서로 문화&quot;</span>   <span class="st">&quot;문화 이웃&quot;</span>   <span class="st">&quot;이웃 양국&quot;</span>   <span class="st">&quot;양국 우호&quot;</span>  </span>
+<span id="cb4-50"><a href="#cb4-50" tabindex="-1"></a>[<span class="dv">41</span>] <span class="st">&quot;우호 협력&quot;</span>   <span class="st">&quot;협력 올해&quot;</span>   <span class="st">&quot;올해 교류&quot;</span>   <span class="st">&quot;교류 행사&quot;</span>   <span class="st">&quot;행사 강화&quot;</span>  </span>
+<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a>[<span class="dv">46</span>] <span class="st">&quot;강화 각하&quot;</span>   <span class="st">&quot;각하 합의&quot;</span>   <span class="st">&quot;합의 전면&quot;</span>   <span class="st">&quot;전면 협력&quot;</span>   <span class="st">&quot;협력 동반자&quot;</span></span>
+<span id="cb4-52"><a href="#cb4-52" tabindex="-1"></a>[<span class="dv">51</span>] <span class="st">&quot;동반자 관계&quot;</span> <span class="st">&quot;관계 심화&quot;</span>   <span class="st">&quot;심화 평화&quot;</span>   <span class="st">&quot;평화 공동&quot;</span>   <span class="st">&quot;공동 번영&quot;</span>  </span>
+<span id="cb4-53"><a href="#cb4-53" tabindex="-1"></a>[<span class="dv">56</span>] <span class="st">&quot;번영 미래&quot;</span>   <span class="st">&quot;미래 기대&quot;</span>   <span class="st">&quot;기대 각하&quot;</span>   <span class="st">&quot;각하 건강&quot;</span>   <span class="st">&quot;건강 무궁&quot;</span>  </span>
+<span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a>[<span class="dv">61</span>] <span class="st">&quot;무궁 발전&quot;</span>   <span class="st">&quot;발전 기원&quot;</span>  </span>
+<span id="cb4-55"><a href="#cb4-55" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" tabindex="-1"></a><span class="co"># simplify = TRUE</span></span>
+<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(president_speech<span class="sc">$</span>doc[<span class="dv">1</span>], <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a>  [<span class="dv">1</span>] <span class="st">&quot;우정 해&quot;</span>       <span class="st">&quot;해 개막식&quot;</span>     <span class="st">&quot;개막식 축하&quot;</span>   <span class="st">&quot;축하 행사&quot;</span>    </span>
+<span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a>  [<span class="dv">5</span>] <span class="st">&quot;행사 축하&quot;</span>     <span class="st">&quot;축하 참석&quot;</span>     <span class="st">&quot;참석 모두&quot;</span>     <span class="st">&quot;모두 환영&quot;</span>    </span>
+<span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a>  [<span class="dv">9</span>] <span class="st">&quot;환영 감사&quot;</span>     <span class="st">&quot;감사 인사&quot;</span>     <span class="st">&quot;인사 전&quot;</span>       <span class="st">&quot;전 이웃&quot;</span>      </span>
+<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a> [<span class="dv">13</span>] <span class="st">&quot;이웃 옛날&quot;</span>     <span class="st">&quot;옛날 이웃&quot;</span>     <span class="st">&quot;이웃 이웃&quot;</span>     <span class="st">&quot;이웃 사정&quot;</span>    </span>
+<span id="cb4-62"><a href="#cb4-62" tabindex="-1"></a> [<span class="dv">17</span>] <span class="st">&quot;사정 통신사&quot;</span>   <span class="st">&quot;통신사 절&quot;</span>     <span class="st">&quot;절 시절&quot;</span>       <span class="st">&quot;시절 연락선&quot;</span>  </span>
+<span id="cb4-63"><a href="#cb4-63" tabindex="-1"></a> [<span class="dv">21</span>] <span class="st">&quot;연락선 시대&quot;</span>   <span class="st">&quot;시대 항공기&quot;</span>   <span class="st">&quot;항공기 하루&quot;</span>   <span class="st">&quot;하루 안&quot;</span>      </span>
+<span id="cb4-64"><a href="#cb4-64" tabindex="-1"></a> [<span class="dv">25</span>] <span class="st">&quot;안 시대&quot;</span>       <span class="st">&quot;시대 교통&quot;</span>     <span class="st">&quot;교통 발달&quot;</span>     <span class="st">&quot;발달 통신&quot;</span>    </span>
+<span id="cb4-65"><a href="#cb4-65" tabindex="-1"></a> [<span class="dv">29</span>] <span class="st">&quot;통신 관계&quot;</span>     <span class="st">&quot;관계 경제&quot;</span>     <span class="st">&quot;경제 교류&quot;</span>     <span class="st">&quot;교류 말&quot;</span>      </span>
+<span id="cb4-66"><a href="#cb4-66" tabindex="-1"></a> [<span class="dv">33</span>] <span class="st">&quot;말 협력&quot;</span>       <span class="st">&quot;협력 국음&quot;</span>     <span class="st">&quot;국음 마음&quot;</span>     <span class="st">&quot;마음 실행&quot;</span>    </span>
+<span id="cb4-67"><a href="#cb4-67" tabindex="-1"></a> [<span class="dv">37</span>] <span class="st">&quot;실행 가공&quot;</span>     <span class="st">&quot;가공 과학&quot;</span>     <span class="st">&quot;과학 기술&quot;</span>     <span class="st">&quot;기술 옛날&quot;</span>    </span>
+<span id="cb4-68"><a href="#cb4-68" tabindex="-1"></a> [<span class="dv">41</span>] <span class="st">&quot;옛날 사이&quot;</span>     <span class="st">&quot;사이 불편&quot;</span>     <span class="st">&quot;불편 문제&quot;</span>     <span class="st">&quot;문제 생각&quot;</span>    </span>
+<span id="cb4-69"><a href="#cb4-69" tabindex="-1"></a> [<span class="dv">45</span>] <span class="st">&quot;생각 상황&quot;</span>     <span class="st">&quot;상황 양국&quot;</span>     <span class="st">&quot;양국 관계&quot;</span>     <span class="st">&quot;관계 불편&quot;</span>    </span>
+<span id="cb4-70"><a href="#cb4-70" tabindex="-1"></a> [<span class="dv">49</span>] <span class="st">&quot;불편 생존&quot;</span>     <span class="st">&quot;생존 자체&quot;</span>     <span class="st">&quot;자체 위협&quot;</span>     <span class="st">&quot;위협 사이&quot;</span>    </span>
+<span id="cb4-71"><a href="#cb4-71" tabindex="-1"></a> [<span class="dv">53</span>] <span class="st">&quot;사이 유감&quot;</span>     <span class="st">&quot;유감 친구&quot;</span>     <span class="st">&quot;친구 방법&quot;</span>     <span class="st">&quot;방법 관계&quot;</span>    </span>
+<span id="cb4-72"><a href="#cb4-72" tabindex="-1"></a> [<span class="dv">57</span>] <span class="st">&quot;관계 숙명&quot;</span>     <span class="st">&quot;숙명 친구&quot;</span>     <span class="st">&quot;친구 관계&quot;</span>     <span class="st">&quot;관계 친구&quot;</span>    </span>
+<span id="cb4-73"><a href="#cb4-73" tabindex="-1"></a> [<span class="dv">61</span>] <span class="st">&quot;친구 친구&quot;</span>     <span class="st">&quot;친구 미래&quot;</span>     <span class="st">&quot;미래 적극&quot;</span>     <span class="st">&quot;적극 친구&quot;</span>    </span>
+<span id="cb4-74"><a href="#cb4-74" tabindex="-1"></a> [<span class="dv">65</span>] <span class="st">&quot;친구 손&quot;</span>       <span class="st">&quot;손 불행&quot;</span>       <span class="st">&quot;불행 평화&quot;</span>     <span class="st">&quot;평화 번영&quot;</span>    </span>
+<span id="cb4-75"><a href="#cb4-75" tabindex="-1"></a> [<span class="dv">69</span>] <span class="st">&quot;번영 미래&quot;</span>     <span class="st">&quot;미래 관계&quot;</span>     <span class="st">&quot;관계 자리&quot;</span>     <span class="st">&quot;자리 양국&quot;</span>    </span>
+<span id="cb4-76"><a href="#cb4-76" tabindex="-1"></a> [<span class="dv">73</span>] <span class="st">&quot;양국 관계&quot;</span>     <span class="st">&quot;관계 도로&quot;</span>     <span class="st">&quot;도로 표현&quot;</span>     <span class="st">&quot;표현 전&quot;</span>      </span>
+<span id="cb4-77"><a href="#cb4-77" tabindex="-1"></a> [<span class="dv">77</span>] <span class="st">&quot;전 경제&quot;</span>       <span class="st">&quot;경제 도로는&quot;</span>   <span class="st">&quot;도로는 고속도&quot;</span> <span class="st">&quot;고속도 수준&quot;</span>  </span>
+<span id="cb4-78"><a href="#cb4-78" tabindex="-1"></a> [<span class="dv">81</span>] <span class="st">&quot;수준 정치&quot;</span>     <span class="st">&quot;정치 안보&quot;</span>     <span class="st">&quot;안보 측면&quot;</span>     <span class="st">&quot;측면 협력&quot;</span>    </span>
+<span id="cb4-79"><a href="#cb4-79" tabindex="-1"></a> [<span class="dv">85</span>] <span class="st">&quot;협력 도로&quot;</span>     <span class="st">&quot;도로 개통&quot;</span>     <span class="st">&quot;개통 문화&quot;</span>     <span class="st">&quot;문화 도로&quot;</span>    </span>
+<span id="cb4-80"><a href="#cb4-80" tabindex="-1"></a> [<span class="dv">89</span>] <span class="st">&quot;도로 길&quot;</span>       <span class="st">&quot;길 길&quot;</span>         <span class="st">&quot;길 위&quot;</span>         <span class="st">&quot;위 장애물&quot;</span>    </span>
+<span id="cb4-81"><a href="#cb4-81" tabindex="-1"></a> [<span class="dv">93</span>] <span class="st">&quot;장애물 양국&quot;</span>   <span class="st">&quot;양국 협력&quot;</span>     <span class="st">&quot;협력 관계&quot;</span>     <span class="st">&quot;관계 고속&quot;</span>    </span>
+<span id="cb4-82"><a href="#cb4-82" tabindex="-1"></a> [<span class="dv">97</span>] <span class="st">&quot;고속 도로&quot;</span>     <span class="st">&quot;도로 장애물&quot;</span>   <span class="st">&quot;장애물 직시&quot;</span>   <span class="st">&quot;직시 양국&quot;</span>    </span>
+<span id="cb4-83"><a href="#cb4-83" tabindex="-1"></a>[<span class="dv">101</span>] <span class="st">&quot;양국 정부&quot;</span>     <span class="st">&quot;정부 국민&quot;</span>     <span class="st">&quot;국민 적극&quot;</span>     <span class="st">&quot;적극 노력&quot;</span>    </span>
+<span id="cb4-84"><a href="#cb4-84" tabindex="-1"></a>[<span class="dv">105</span>] <span class="st">&quot;노력 가슴&quot;</span>     <span class="st">&quot;가슴 우정&quot;</span>     <span class="st">&quot;우정 불&quot;</span>       <span class="st">&quot;불 자리&quot;</span>      </span>
+<span id="cb4-85"><a href="#cb4-85" tabindex="-1"></a>[<span class="dv">109</span>] <span class="st">&quot;자리 우정&quot;</span>     <span class="st">&quot;우정 불&quot;</span>       <span class="st">&quot;불 양국&quot;</span>       <span class="st">&quot;양국 국민&quot;</span>    </span>
+<span id="cb4-86"><a href="#cb4-86" tabindex="-1"></a>[<span class="dv">113</span>] <span class="st">&quot;국민 사이&quot;</span>     <span class="st">&quot;사이 우정&quot;</span>     <span class="st">&quot;우정 계기&quot;</span>     <span class="st">&quot;계기 이틀&quot;</span>    </span>
+<span id="cb4-87"><a href="#cb4-87" tabindex="-1"></a>[<span class="dv">117</span>] <span class="st">&quot;이틀 전&quot;</span>       <span class="st">&quot;전 주최&quot;</span>       <span class="st">&quot;주최 행사&quot;</span>     <span class="st">&quot;행사 성공&quot;</span>    </span>
+<span id="cb4-88"><a href="#cb4-88" tabindex="-1"></a>[<span class="dv">121</span>] <span class="st">&quot;성공 성원&quot;</span>     <span class="st">&quot;성원 참석&quot;</span>     <span class="st">&quot;참석 격려&quot;</span>     <span class="st">&quot;격려 총리&quot;</span>    </span>
+<span id="cb4-89"><a href="#cb4-89" tabindex="-1"></a>[<span class="dv">125</span>] <span class="st">&quot;총리 국민&quot;</span>     <span class="st">&quot;국민 자리&quot;</span>     <span class="st">&quot;자리 감사&quot;</span>     <span class="st">&quot;감사 올해&quot;</span>    </span>
+<span id="cb4-90"><a href="#cb4-90" tabindex="-1"></a>[<span class="dv">129</span>] <span class="st">&quot;올해 양국&quot;</span>     <span class="st">&quot;양국 수교&quot;</span>     <span class="st">&quot;수교 해&quot;</span>       <span class="st">&quot;해 일&quot;</span>        </span>
+<span id="cb4-91"><a href="#cb4-91" tabindex="-1"></a>[<span class="dv">133</span>] <span class="st">&quot;일 양국&quot;</span>       <span class="st">&quot;양국 우정&quot;</span>     <span class="st">&quot;우정 성공&quot;</span>     <span class="st">&quot;성공 때&quot;</span>      </span>
+<span id="cb4-92"><a href="#cb4-92" tabindex="-1"></a>[<span class="dv">137</span>] <span class="st">&quot;때 보람&quot;</span>       <span class="st">&quot;보람 생각&quot;</span>     <span class="st">&quot;생각 올해&quot;</span>     <span class="st">&quot;올해 이전&quot;</span>    </span>
+<span id="cb4-93"><a href="#cb4-93" tabindex="-1"></a>[<span class="dv">141</span>] <span class="st">&quot;이전 양국&quot;</span>     <span class="st">&quot;양국 국민&quot;</span>     <span class="st">&quot;국민 교류&quot;</span>     <span class="st">&quot;교류 국민&quot;</span>    </span>
+<span id="cb4-94"><a href="#cb4-94" tabindex="-1"></a>[<span class="dv">145</span>] <span class="st">&quot;국민 교류&quot;</span>     <span class="st">&quot;교류 해&quot;</span>       <span class="st">&quot;해 감사&quot;</span>      </span>
+<span id="cb4-95"><a href="#cb4-95" tabindex="-1"></a></span>
+<span id="cb4-96"><a href="#cb4-96" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&quot;신혼부부나 주말부부는 놀이공원 자유이용권을 즐겨 구매합니다.&quot;</span></span>
+<span id="cb4-97"><a href="#cb4-97" tabindex="-1"></a></span>
+<span id="cb4-98"><a href="#cb4-98" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str)</span>
+<span id="cb4-99"><a href="#cb4-99" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb4-100"><a href="#cb4-100" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;신혼 부부&quot;</span> <span class="st">&quot;부부 주말&quot;</span> <span class="st">&quot;주말 부부&quot;</span> <span class="st">&quot;부부 놀이&quot;</span> <span class="st">&quot;놀이 공원&quot;</span> <span class="st">&quot;공원 자유&quot;</span></span>
+<span id="cb4-101"><a href="#cb4-101" tabindex="-1"></a>[<span class="dv">7</span>] <span class="st">&quot;자유 이용&quot;</span> <span class="st">&quot;이용 구매&quot;</span></span>
+<span id="cb4-102"><a href="#cb4-102" tabindex="-1"></a></span>
+<span id="cb4-103"><a href="#cb4-103" tabindex="-1"></a><span class="co"># 불용어 처리</span></span>
+<span id="cb4-104"><a href="#cb4-104" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str, <span class="at">stopwords =</span> <span class="st">&quot;구매&quot;</span>)</span>
+<span id="cb4-105"><a href="#cb4-105" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb4-106"><a href="#cb4-106" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;신혼 부부&quot;</span> <span class="st">&quot;부부 주말&quot;</span> <span class="st">&quot;주말 부부&quot;</span> <span class="st">&quot;부부 놀이&quot;</span> <span class="st">&quot;놀이 공원&quot;</span> <span class="st">&quot;공원 자유&quot;</span></span>
+<span id="cb4-107"><a href="#cb4-107" tabindex="-1"></a>[<span class="dv">7</span>] <span class="st">&quot;자유 이용&quot;</span></span>
+<span id="cb4-108"><a href="#cb4-108" tabindex="-1"></a> </span>
+<span id="cb4-109"><a href="#cb4-109" tabindex="-1"></a><span class="co"># 사용자 정의 사전 사용</span></span>
+<span id="cb4-110"><a href="#cb4-110" tabindex="-1"></a>dic_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;dic&quot;</span>, <span class="at">package =</span> <span class="st">&quot;bitNLP&quot;</span>)</span>
+<span id="cb4-111"><a href="#cb4-111" tabindex="-1"></a>dic_file <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;{dic_path}/buzz_dic.dic&quot;</span>)</span>
+<span id="cb4-112"><a href="#cb4-112" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str, <span class="at">simplify =</span> <span class="cn">TRUE</span>, <span class="at">user_dic =</span> dic_file)</span>
+<span id="cb4-113"><a href="#cb4-113" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;신혼부부 주말부부&quot;</span> <span class="st">&quot;주말부부 놀이&quot;</span>     <span class="st">&quot;놀이 공원&quot;</span>        </span>
+<span id="cb4-114"><a href="#cb4-114" tabindex="-1"></a>[<span class="dv">4</span>] <span class="st">&quot;공원 자유이용권&quot;</span>   <span class="st">&quot;자유이용권 구매&quot;</span>  </span>
+<span id="cb4-115"><a href="#cb4-115" tabindex="-1"></a></span>
+<span id="cb4-116"><a href="#cb4-116" tabindex="-1"></a><span class="co"># n_min</span></span>
+<span id="cb4-117"><a href="#cb4-117" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str, <span class="at">n_min =</span> <span class="dv">1</span>, <span class="at">user_dic =</span> dic_file)</span>
+<span id="cb4-118"><a href="#cb4-118" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb4-119"><a href="#cb4-119" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;신혼부부&quot;</span>          <span class="st">&quot;신혼부부 주말부부&quot;</span> <span class="st">&quot;주말부부&quot;</span>         </span>
+<span id="cb4-120"><a href="#cb4-120" tabindex="-1"></a> [<span class="dv">4</span>] <span class="st">&quot;주말부부 놀이&quot;</span>     <span class="st">&quot;놀이&quot;</span>              <span class="st">&quot;놀이 공원&quot;</span>        </span>
+<span id="cb4-121"><a href="#cb4-121" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">&quot;공원&quot;</span>              <span class="st">&quot;공원 자유이용권&quot;</span>   <span class="st">&quot;자유이용권&quot;</span>       </span>
+<span id="cb4-122"><a href="#cb4-122" tabindex="-1"></a>[<span class="dv">10</span>] <span class="st">&quot;자유이용권 구매&quot;</span>   <span class="st">&quot;구매&quot;</span>             </span>
+<span id="cb4-123"><a href="#cb4-123" tabindex="-1"></a></span>
+<span id="cb4-124"><a href="#cb4-124" tabindex="-1"></a><span class="co"># ngram_delim</span></span>
+<span id="cb4-125"><a href="#cb4-125" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str, <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span>, <span class="at">user_dic =</span> dic_file)</span>
+<span id="cb4-126"><a href="#cb4-126" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb4-127"><a href="#cb4-127" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;신혼부부:주말부부&quot;</span> <span class="st">&quot;주말부부:놀이&quot;</span>     <span class="st">&quot;놀이:공원&quot;</span>        </span>
+<span id="cb4-128"><a href="#cb4-128" tabindex="-1"></a>[<span class="dv">4</span>] <span class="st">&quot;공원:자유이용권&quot;</span>   <span class="st">&quot;자유이용권:구매&quot;</span>  </span>
+<span id="cb4-129"><a href="#cb4-129" tabindex="-1"></a></span>
+<span id="cb4-130"><a href="#cb4-130" tabindex="-1"></a><span class="co"># bi-grams</span></span>
+<span id="cb4-131"><a href="#cb4-131" tabindex="-1"></a><span class="fu">tokenize_noun_ngrams</span>(str, <span class="at">n =</span> <span class="dv">2</span>, <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span>, <span class="at">user_dic =</span> dic_file)</span>
+<span id="cb4-132"><a href="#cb4-132" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb4-133"><a href="#cb4-133" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;신혼부부:주말부부&quot;</span> <span class="st">&quot;주말부부:놀이&quot;</span>     <span class="st">&quot;놀이:공원&quot;</span>        </span>
+<span id="cb4-134"><a href="#cb4-134" tabindex="-1"></a>[<span class="dv">4</span>] <span class="st">&quot;공원:자유이용권&quot;</span>   <span class="st">&quot;자유이용권:구매&quot;</span>  </span></code></pre></div>
 </div>
 <div id="한글-unnest_tokens" class="section level3">
 <h3>한글 unnest_tokens</h3>
@@ -604,32 +606,32 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <code>unnest</code>입니다.</p>
 <p>다음의 한용운님의 <code>님의 침묵</code> 시에서 첫번째와 두번째 줄을
 <code>tibble</code> 객체로 만든 것입니다.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>docs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;님은 갔습니다. 아아, 사랑하는 나의 님은 갔습니다.&quot;</span>,</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;푸른 산빛을 깨치고 단풍나무 숲을 향하여 난 작은 길을 걸어서, 차마 떨치고 갔습니다.&quot;</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>poem <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  연 <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  행 <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  내용 <span class="ot">=</span> docs</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>poem</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 2 × 3</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>     연    행 내용                                                              </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                                                             </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">1</span> 님은 갔습니다. 아아, 사랑하는 나의 님은 갔습니다.                 </span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">1</span>     <span class="dv">2</span> 푸른 산빛을 깨치고 단풍나무 숲을 향하여 난 작은 길을 걸어서, 차마…</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>docs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;님은 갔습니다. 아아, 사랑하는 나의 님은 갔습니다.&quot;</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>          <span class="st">&quot;푸른 산빛을 깨치고 단풍나무 숲을 향하여 난 작은 길을 걸어서, 차마 떨치고 갔습니다.&quot;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>poem <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  연 <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  행 <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  내용 <span class="ot">=</span> docs</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>)</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>poem</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co"># A tibble: 2 × 3</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>     연    행 내용                                                              </span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                                                             </span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">1</span> 님은 갔습니다. 아아, 사랑하는 나의 님은 갔습니다.                 </span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">1</span>     <span class="dv">2</span> 푸른 산빛을 깨치고 단풍나무 숲을 향하여 난 작은 길을 걸어서, 차마…</span></code></pre></div>
 <p>우리는 시의 내용에서 다음처럼 일반명사만 추출했습니다. 명사를 추출한
 변수 <code>명사</code>에는 첫 행에는 3개의 명사(정보)가, 둘째 행에는
 5개의 명사(정보)가 들어있습니다.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>poem <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(명사 <span class="ot">=</span> <span class="fu">collapse_noun</span>(내용)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>내용)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 2 × 3</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>     연    행 명사                </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>               </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">1</span> 님 사랑 님          </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">1</span>     <span class="dv">2</span> 산 빛 단풍나무 숲 길</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>poem <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">mutate</span>(명사 <span class="ot">=</span> <span class="fu">collapse_noun</span>(내용)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>내용)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co"># A tibble: 2 × 3</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>     연    행 명사                </span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>               </span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">1</span> 님 사랑 님          </span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">1</span>     <span class="dv">2</span> 산 빛 단풍나무 숲 길</span></code></pre></div>
 <p>그런데 <strong>텍스트 분석에서는 문장 레벨의 분석보다는 토큰(한글
 텍스트 데이터에서는 명사) 레벨로 분석</strong>합니다. 이것은 개별
 행에서의 분석의 대상이 되는 컬럼에는 단일 토큰을 넣어야 한다는
@@ -640,20 +642,20 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <code>unnest_tokens()</code> 함수에 토크나이저로 <code>bitNLP</code>의
 <code>morpho_mecab()</code>를 사용합니다. 원하는 모습의
 <code>tidy</code> 데이터가 만들어진 것입니닫.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>poem <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    명사,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    내용,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> morpho_mecab</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 8 × 3</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>     연    행 명사 </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">1</span> 님   </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">1</span>     <span class="dv">1</span> 사랑 </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">1</span>     <span class="dv">1</span> 님   </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">1</span>     <span class="dv">2</span> 산   </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 4 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>poem <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>    명사,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>    내용,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>    <span class="at">token =</span> morpho_mecab</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  )</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co"># A tibble: 8 × 3</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>     연    행 명사 </span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">1</span> 님   </span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">1</span>     <span class="dv">1</span> 사랑 </span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">1</span>     <span class="dv">1</span> 님   </span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">1</span>     <span class="dv">2</span> 산   </span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co"># ℹ 4 more rows</span></span></code></pre></div>
 <p><code>unnest</code> 작업은 다음처럼 얻는 것과 잃는 것이 있습니다.</p>
 <ul>
 <li>얻는 것
@@ -672,99 +674,99 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 n-grams 명사 토큰들을 tibble의 컬럼에 하나씩 붙여줍니다.</p>
 <p>다음은 대통령 연설문의 명사 <code>bi-grams</code>를 추출하여,
 <code>noun_bigram</code> 변수에 개별 토큰을 넣습니다.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>president_speech <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, doc) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_noun_ngrams</span>(</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    noun_bigram,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    doc,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">2</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span>,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;noun2&quot;</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 264 × 2</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  title                              noun_bigram</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> 일<span class="sc">:</span>우정    </span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> 우정<span class="sc">:</span>해    </span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> 해<span class="sc">:</span>개막식  </span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> 개막식<span class="sc">:</span>축하</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 260 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>president_speech <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">select</span>(title, doc) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="fu">unnest_noun_ngrams</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    noun_bigram,</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>    doc,</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">2</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>    <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;noun2&quot;</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  )</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co"># A tibble: 264 × 2</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>  title                              noun_bigram</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      </span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="dv">1</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> 일<span class="sc">:</span>우정    </span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="dv">2</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> 우정<span class="sc">:</span>해    </span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="dv">3</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> 해<span class="sc">:</span>개막식  </span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="dv">4</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> 개막식<span class="sc">:</span>축하</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co"># ℹ 260 more rows</span></span></code></pre></div>
 <p>noun_bigram 변수에, <code>ngram_delim = &quot;:&quot;</code>로 토큰의 개별
 단어들을 묶어주는 문자에 기본값인 공백이 아닌 콜론(:)을 지정합니다.
 그리고 <code>drop = FALSE</code>는 토큰화하려는 변수인
 <code>doc</code>를 보존합니다.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>president_speech <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, doc) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_noun_ngrams</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    noun_bigram,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    doc,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">2</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop =</span> <span class="cn">FALSE</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  )   </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 209 × 3</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  title                              doc                                noun_b…¹</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   </span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> <span class="st">&quot;  먼저 한,일 우정의 해 개막식을 … 우정:해 </span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="st">2 &quot;</span><span class="dv">2005</span> 한일 우정의 해 개막식 축사 <span class="st">&quot; &quot;</span>  먼저 한,일 우정의 해 개막식을 … 해<span class="sc">:</span>개막…</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> <span class="st">&quot;  먼저 한,일 우정의 해 개막식을 … 개막식:…</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="st">4 &quot;</span><span class="dv">2005</span> 한일 우정의 해 개막식 축사 <span class="st">&quot; &quot;</span>  먼저 한,일 우정의 해 개막식을 … 축하<span class="sc">:</span>행…</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 205 more rows, and abbreviated variable name ¹​noun_bigram</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>president_speech <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">select</span>(title, doc) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">unnest_noun_ngrams</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>    noun_bigram,</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>    doc,</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">2</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>    <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>    <span class="at">drop =</span> <span class="cn">FALSE</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  )   </span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co"># A tibble: 209 × 3</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>  title                              doc                             noun_bigram</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                           <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      </span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="dv">1</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> <span class="st">&quot;  먼저 한,일 우정의 해 개막식… 우정:해    </span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="st">2 &quot;</span><span class="dv">2005</span> 한일 우정의 해 개막식 축사 <span class="st">&quot; &quot;</span>  먼저 한,일 우정의 해 개막식… 해<span class="sc">:</span>개막식  </span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="dv">3</span> <span class="st">&quot;2005 한일 우정의 해 개막식 축사 &quot;</span> <span class="st">&quot;  먼저 한,일 우정의 해 개막식… 개막식:축하</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="st">4 &quot;</span><span class="dv">2005</span> 한일 우정의 해 개막식 축사 <span class="st">&quot; &quot;</span>  먼저 한,일 우정의 해 개막식… 축하<span class="sc">:</span>행사  </span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co"># ℹ 205 more rows</span></span></code></pre></div>
 <p><code>unnest_noun_ngrams()</code> 함수는 <code>group_by()</code> 함수
 함께 사용할 수 있습니다.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grouping using group_by() function</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>president_speech <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">speech_year =</span> <span class="fu">substr</span>(date, <span class="dv">1</span>, <span class="dv">4</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(speech_year, title, doc) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(speech_year) <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_noun_ngrams</span>(</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    noun_bigram,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    doc,</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">2</span>,</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1,759 × 2</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Groups:   speech_year [2]</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  speech_year noun_bigram</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      </span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2005</span>        우정<span class="sc">:</span>해    </span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">2005</span>        해<span class="sc">:</span>개막식  </span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">2005</span>        개막식<span class="sc">:</span>축하</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">2005</span>        축하<span class="sc">:</span>행사  </span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 1,755 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># grouping using group_by() function</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>president_speech <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">speech_year =</span> <span class="fu">substr</span>(date, <span class="dv">1</span>, <span class="dv">4</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="fu">select</span>(speech_year, title, doc) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="fu">group_by</span>(speech_year) <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="fu">unnest_noun_ngrams</span>(</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>    noun_bigram,</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>    doc,</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">2</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>    <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>  )</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co"># A tibble: 1,759 × 2</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co"># Groups:   speech_year [2]</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  speech_year noun_bigram</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      </span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2005</span>        우정<span class="sc">:</span>해    </span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="dv">2</span> <span class="dv">2005</span>        해<span class="sc">:</span>개막식  </span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="dv">3</span> <span class="dv">2005</span>        개막식<span class="sc">:</span>축하</span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="dv">4</span> <span class="dv">2005</span>        축하<span class="sc">:</span>행사  </span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co"># ℹ 1,755 more rows</span></span></code></pre></div>
 <p><code>group_by()</code> 함수를 사용하지 않고도 동일한 작업을 수행할
 수 있습니다. <code>collapse</code> 인수를 사용하면 됩니다.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grouping using collapse argument</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>president_speech <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">speech_year =</span> <span class="fu">substr</span>(date, <span class="dv">1</span>, <span class="dv">4</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(speech_year, title, doc) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_noun_ngrams</span>(</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    noun_bigram,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    doc,</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">2</span>,</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span>,</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">collapse =</span> <span class="st">&quot;speech_year&quot;</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1,759 × 2</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  speech_year noun_bigram</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      </span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2005</span>        우정<span class="sc">:</span>해    </span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">2005</span>        해<span class="sc">:</span>개막식  </span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">2005</span>        개막식<span class="sc">:</span>축하</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">2005</span>        축하<span class="sc">:</span>행사  </span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 1,755 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># grouping using collapse argument</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>president_speech <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">speech_year =</span> <span class="fu">substr</span>(date, <span class="dv">1</span>, <span class="dv">4</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="fu">select</span>(speech_year, title, doc) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="fu">unnest_noun_ngrams</span>(</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>    noun_bigram,</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>    doc,</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">2</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>    <span class="at">ngram_delim =</span> <span class="st">&quot;:&quot;</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>    <span class="at">collapse =</span> <span class="st">&quot;speech_year&quot;</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>  )</span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co"># A tibble: 1,759 × 2</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>  speech_year noun_bigram</span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      </span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2005</span>        우정<span class="sc">:</span>해    </span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="dv">2</span> <span class="dv">2005</span>        해<span class="sc">:</span>개막식  </span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="dv">3</span> <span class="dv">2005</span>        개막식<span class="sc">:</span>축하</span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="dv">4</span> <span class="dv">2005</span>        축하<span class="sc">:</span>행사  </span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co"># ℹ 1,755 more rows</span></span></code></pre></div>
 <p><code>unnest_noun_ngrams()</code>는 … 인수를 지원해서
 <code>tokenize_noun_ngrams()</code>에서 사용할 수 있는 인수도
 사용가능합니다. 즉, 사용자 정의 사전으로 명사를 추출할 수도 있습니다.
 그리고 이런 일련의 작업들이 병렬로 처리됩니다.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(unnest_noun_ngrams)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (tbl, output, input, <span class="at">n =</span> 2L, <span class="at">n_min =</span> n, <span class="at">ngram_delim =</span> <span class="st">&quot; &quot;</span>, </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop =</span> <span class="cn">TRUE</span>, <span class="at">collapse =</span> <span class="cn">NULL</span>, ...) </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">args</span>(unnest_noun_ngrams)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="cf">function</span> (tbl, output, input, <span class="at">n =</span> 2L, <span class="at">n_min =</span> n, <span class="at">ngram_delim =</span> <span class="st">&quot; &quot;</span>, </span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>    <span class="at">drop =</span> <span class="cn">TRUE</span>, <span class="at">collapse =</span> <span class="cn">NULL</span>, ...) </span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
 </div>
 </div>
 </div>

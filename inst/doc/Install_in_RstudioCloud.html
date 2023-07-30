@@ -359,58 +359,58 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>다음의 스크립트는 <strong>표준 R 서버를 위한 Docker 이미지</strong>인
 <a href="https://github.com/choonghyunryu/docker_rserver" target="_blank">docker_rserver</a>의 mecab-ko 설치 스크립트를 RStudio
 Cloud 환경에 맞게 수정한 스크립트입니다.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>set <span class="sc">-</span>e</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 설치 리소스를 저장할 디렉토리 </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>INSTALLD<span class="ot">=</span><span class="st">&#39;/cloud/project/install_resources&#39;</span> </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------------------------------------</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 은전한닙 형태소분석기 설치</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------------------------------------</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>mkdir <span class="sc">-</span>p <span class="sc">$</span>{INSTALLD}</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>cd <span class="sc">$</span>{INSTALLD}</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>wget https<span class="sc">:</span><span class="er">//</span>bitbucket.org<span class="sc">/</span>eunjeon<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">/</span>downloads<span class="sc">/</span>mecab<span class="fl">-0.996</span><span class="sc">-</span>ko<span class="dv">-0</span>.<span class="dv">9</span>.<span class="fl">2.</span>tar.gz </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>tar xzvf mecab<span class="fl">-0.996</span><span class="sc">-</span>ko<span class="dv">-0</span>.<span class="dv">9</span>.<span class="fl">2.</span>tar.gz </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>cd <span class="sc">$</span>{INSTALLD}<span class="sc">/</span>mecab<span class="fl">-0.996</span><span class="sc">-</span>ko<span class="dv">-0</span>.<span class="fl">9.2</span> </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>.<span class="sc">/</span>configure <span class="sc">--</span>prefix<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>make </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>make install </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>ldconfig </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 설치파일 삭제</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>rm <span class="sc">-</span>rf <span class="sc">$</span>INSTALLD<span class="sc">/</span>mecab<span class="fl">-0.996</span><span class="sc">-</span>ko<span class="dv">-0</span>.<span class="fl">9.2</span> </span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>rm <span class="sc">-</span>rf <span class="sc">$</span>INSTALLD<span class="sc">/</span>mecab<span class="fl">-0.996</span><span class="sc">-</span>ko<span class="dv">-0</span>.<span class="dv">9</span>.<span class="fl">2.</span>tar.gz</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>PATH<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib<span class="sc">/</span>bin<span class="sc">:</span><span class="er">$</span>PATH</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------------------------------------</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 은전한닙 형태소분석기 사전 설치</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------------------------------------</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>cd <span class="sc">$</span>{INSTALLD}</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>wget https<span class="sc">:</span><span class="er">//</span>bitbucket.org<span class="sc">/</span>eunjeon<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="sc">/</span>downloads<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="dv">-2</span>.<span class="fl">1.1-20180720.</span>tar.gz </span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>tar xvfz mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="dv">-2</span>.<span class="fl">1.1-20180720.</span>tar.gz </span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>cd <span class="sc">$</span>{INSTALLD}<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="dv">-2</span>.<span class="fl">1.1</span><span class="dv">-20180720</span> </span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>autoreconf </span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>.<span class="sc">/</span>configure <span class="sc">--</span>prefix<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>make</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>make install</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 설치파일 삭제    </span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>rm <span class="sc">-</span>rf <span class="sc">$</span>INSTALLD<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="dv">-2</span>.<span class="fl">1.1-20180720.</span>tar.gz</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>set <span class="sc">-</span>e</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># 설치 리소스를 저장할 디렉토리 </span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>INSTALLD<span class="ot">=</span><span class="st">&#39;/cloud/project/install_resources&#39;</span> </span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#---------------------------------------------</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># 은전한닙 형태소분석기 설치</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#---------------------------------------------</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>mkdir <span class="sc">-</span>p <span class="sc">$</span>{INSTALLD}</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>cd <span class="sc">$</span>{INSTALLD}</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>wget https<span class="sc">:</span><span class="er">//</span>bitbucket.org<span class="sc">/</span>eunjeon<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">/</span>downloads<span class="sc">/</span>mecab<span class="fl">-0.996</span><span class="sc">-</span>ko<span class="dv">-0</span>.<span class="dv">9</span>.<span class="fl">2.</span>tar.gz </span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>tar xzvf mecab<span class="fl">-0.996</span><span class="sc">-</span>ko<span class="dv">-0</span>.<span class="dv">9</span>.<span class="fl">2.</span>tar.gz </span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>cd <span class="sc">$</span>{INSTALLD}<span class="sc">/</span>mecab<span class="fl">-0.996</span><span class="sc">-</span>ko<span class="dv">-0</span>.<span class="fl">9.2</span> </span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>.<span class="sc">/</span>configure <span class="sc">--</span>prefix<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>make </span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>make install </span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>ldconfig </span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co"># 설치파일 삭제</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>rm <span class="sc">-</span>rf <span class="sc">$</span>INSTALLD<span class="sc">/</span>mecab<span class="fl">-0.996</span><span class="sc">-</span>ko<span class="dv">-0</span>.<span class="fl">9.2</span> </span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>rm <span class="sc">-</span>rf <span class="sc">$</span>INSTALLD<span class="sc">/</span>mecab<span class="fl">-0.996</span><span class="sc">-</span>ko<span class="dv">-0</span>.<span class="dv">9</span>.<span class="fl">2.</span>tar.gz</span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>PATH<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib<span class="sc">/</span>bin<span class="sc">:</span><span class="er">$</span>PATH</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#---------------------------------------------</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co"># 은전한닙 형태소분석기 사전 설치</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#---------------------------------------------</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>cd <span class="sc">$</span>{INSTALLD}</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>wget https<span class="sc">:</span><span class="er">//</span>bitbucket.org<span class="sc">/</span>eunjeon<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="sc">/</span>downloads<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="dv">-2</span>.<span class="fl">1.1-20180720.</span>tar.gz </span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>tar xvfz mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="dv">-2</span>.<span class="fl">1.1-20180720.</span>tar.gz </span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>cd <span class="sc">$</span>{INSTALLD}<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="dv">-2</span>.<span class="fl">1.1</span><span class="dv">-20180720</span> </span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>autoreconf </span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>.<span class="sc">/</span>configure <span class="sc">--</span>prefix<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib</span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>make</span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>make install</span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="co"># 설치파일 삭제    </span></span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>rm <span class="sc">-</span>rf <span class="sc">$</span>INSTALLD<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="dv">-2</span>.<span class="fl">1.1-20180720.</span>tar.gz</span></code></pre></div>
 <div id="test-mecab-ko" class="section level3">
 <h3>Test mecab-ko</h3>
 <p>Shell 환경에서 mecab-ko의 설치 여부를 테스트하기 위해서 다음 명령어를
 수행합니다.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;아버지가 방에 들어가신다.&quot;</span> <span class="kw">|</span> <span class="ex">mecab</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">아버지</span> NNG,<span class="pp">*</span>,F,아버지,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">가</span>   JKS,<span class="pp">*</span>,F,가,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">방</span>   NNG,장소,T,방,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">에</span>   JKB,<span class="pp">*</span>,F,에,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">들어가</span> VV,<span class="pp">*</span>,F,들어가,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">신다</span>  EP+EF,<span class="pp">*</span>,F,신다,Inflect,EP,EF,시/EP/<span class="pp">*</span>+ᆫ다/EF/<span class="pp">*</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span>   SF,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">EOS</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;아버지가 방에 들어가신다.&quot;</span> <span class="kw">|</span> <span class="ex">mecab</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">아버지</span> NNG,<span class="pp">*</span>,F,아버지,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">가</span>   JKS,<span class="pp">*</span>,F,가,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="ex">방</span>   NNG,장소,T,방,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="ex">에</span>   JKB,<span class="pp">*</span>,F,에,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="ex">들어가</span> VV,<span class="pp">*</span>,F,들어가,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="ex">신다</span>  EP+EF,<span class="pp">*</span>,F,신다,Inflect,EP,EF,시/EP/<span class="pp">*</span>+ᆫ다/EF/<span class="pp">*</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="bu">.</span>   SF,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span>,<span class="pp">*</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="ex">EOS</span></span></code></pre></div>
 </div>
 </div>
 <div id="install-rcppmecab" class="section level2">
@@ -422,31 +422,31 @@ Cloud 환경에 맞게 수정한 스크립트입니다.</p>
 있도록 설정해야 합니다.</p>
 <p>RStduo Server는 /etc/rstudio/rserver.conf 파일에 다음처럼
 동적라이브러리의 경로를 설정합니다.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rsession<span class="sc">-</span>ld<span class="sc">-</span>library<span class="sc">-</span>path<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib<span class="sc">/</span>lib</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>rsession<span class="sc">-</span>ld<span class="sc">-</span>library<span class="sc">-</span>path<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib<span class="sc">/</span>lib</span></code></pre></div>
 <p>그러나 RStudio Cloud에서는 해당 파일을 수정할 수 있는 권한이 없기
 때문에, dyn.load()로 동적 라이브러리를 로드해야 합니다.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for binary</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PATH=</span><span class="fu">paste</span>(<span class="st">&quot;/cloud/lib/bin&quot;</span>, <span class="fu">Sys.getenv</span>(<span class="st">&quot;PATH&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;:&quot;</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># for ld library</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dyn.load</span>(<span class="st">&quot;/cloud/lib/lib/libmecab.so.2&quot;</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;RcppMeCab&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># for binary</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PATH=</span><span class="fu">paste</span>(<span class="st">&quot;/cloud/lib/bin&quot;</span>, <span class="fu">Sys.getenv</span>(<span class="st">&quot;PATH&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;:&quot;</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># for ld library</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="fu">dyn.load</span>(<span class="st">&quot;/cloud/lib/lib/libmecab.so.2&quot;</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;RcppMeCab&#39;</span>)</span></code></pre></div>
 </div>
 <div id="install-bitnlp" class="section level2">
 <h2>Install bitNLP</h2>
 <p>현재 bitNLP는 CRAN에 등록되어 있지 않습니다. 그래서 다음과 같이
 Github의 개발버전을 설치합니다.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;bit2r/bitNLP&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;bit2r/bitNLP&#39;</span>)</span></code></pre></div>
 <div id="test-bitnlp" class="section level3">
 <h3>Test bitNLP</h3>
 <p>bitNLP의 설치를 확인하기 위해서다음과 같이 명사의 토큰을 추출해
 봅니다. 라이브러리를 로드한 후에 동적 라이브러리인
 <code>libmecab.so.2</code>를 로드해야됩니다.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;bitNLP&quot;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dyn.load</span>(<span class="st">&quot;/cloud/lib/lib/libmecab.so.2&quot;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">morpho_mecab</span>(<span class="st">&quot;아버지가 방에 들어가신다.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;bitNLP&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">dyn.load</span>(<span class="st">&quot;/cloud/lib/lib/libmecab.so.2&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">morpho_mecab</span>(<span class="st">&quot;아버지가 방에 들어가신다.&quot;</span>)</span></code></pre></div>
 <p>`<code>NNG      NNG  &quot;아버지&quot;     &quot;방&quot;</code></p>
 </div>
 </div>
@@ -461,14 +461,14 @@ bitNLP를 RStudio Cloud에서 사용하기 위해서는 몇 가지 설정이
 추가합니다. 아쉽게도 LD_LIBRARY_PATH 환경변수는 RStudio Cloud 환경에서
 적용되지 않았습니다. 그래서 .Rprofile 파일을 이용해서 설정해야
 합니다.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>PATH<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib<span class="sc">/</span>bin<span class="sc">:</span><span class="er">$</span>{PATH}</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>LD_LIBRARY_PATH<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib<span class="sc">/</span>lib<span class="sc">:</span><span class="er">$</span>{LD_LIBRARY_PATH}</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>PATH<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib<span class="sc">/</span>bin<span class="sc">:</span><span class="er">$</span>{PATH}</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>LD_LIBRARY_PATH<span class="ot">=</span><span class="er">/</span>cloud<span class="sc">/</span>lib<span class="sc">/</span>lib<span class="sc">:</span><span class="er">$</span>{LD_LIBRARY_PATH}</span></code></pre></div>
 </div>
 <div id="set-ld_path_path" class="section level3">
 <h3>Set LD_PATH_PATH</h3>
 <p>.Rprofile 파일에 다음과 같이 libmecab.so.2를 로드하는 스크립트를
 기술합니다.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dyn.load</span>(<span class="st">&quot;/cloud/lib/lib/libmecab.so.2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">dyn.load</span>(<span class="st">&quot;/cloud/lib/lib/libmecab.so.2&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div class="footnotes footnotes-end-of-document">

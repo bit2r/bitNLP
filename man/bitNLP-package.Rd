@@ -4,7 +4,7 @@
 \name{bitNLP-package}
 \alias{bitNLP}
 \alias{bitNLP-package}
-\title{3rd party package of Bit2R with TA function}
+\title{3rd party package of Bit2R with Text Analytics function}
 \description{
 자연어 처리(Natural Language Processing), 텍스트 분석 모델 및
 텍스트 분석을 위한 시각화와 도구 모음.
@@ -13,9 +13,9 @@
 \tabular{ll}{
 Package: \tab bitNLP\cr
 Type: \tab Package\cr
-Version: \tab 1.1.0\cr
-Date: \tab 2022-05-17\cr
-License: \tab Apache License (== 2.0)\cr
+Version: \tab 1.3.7\cr
+Date: \tab 2023-07-23\cr
+License: \tab GPL-2 | file LICENSE\cr
 }
 }
 \author{

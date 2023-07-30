@@ -1,17 +1,21 @@
 #' Query the user-defined person dictionary file.
-#' @description 사용자 사전 중에서 고유명사 사전의 내용을 조회한다.
-#' @param type character. 인명사전과 지명사전에서 조회할 사용자 정의 고유명사 사전 선택.
-#' @param userdic_path character. 사용자 정의 고유명사 파일이 존재하는 경로.
+#' @description 사용자 사전 중에서 명사 사전의 내용을 조회한다.
+#' @param noun_type character. 인명사전, 지명사전, 고유명사 사전, 일반명사 사전에서 
+#' 조회할 사용자 정의 명사 사전 선택. 기본값은 "person"로 인명사전을 지정함.
+#' @param userdic_path character. 사용자 정의 명사 사전 파일이 존재하는 경로.
 #' 지정하지 않으면 사전이 설치된 기본 경로에서 파일을 읽어온다.
 #' @details 사용자 사전정의 디렉토리의 사전파일 읽어, 정의된 내용을 tibble 객체로 반환한다. 
-#' 이 기능을 통해서 사용자 고유명사 사전의 등록(정의) 여부를 파악할 수 있다.:
+#' 이 기능을 통해서 사용자 명사 사전의 등록(정의) 여부를 파악할 수 있다.
+#' 다음과 같은 명사 사용자 정의 사전 파일을 참조한다.
 #' \itemize{
 #' \item 인명사전 : person.csv
 #' \item 지명사전 : place.csv
 #' \item 고유명사사전 : nnp.csv
+#' \item 일반명사사전 : nng.csv
 #' }
-#' 고유명사 사전의 경우에는 타입, 첫번째 품사, 마지막 품사, 원형, 인텍스표현의 정보는 의미가 없어 모두 *로 표현함.
-#' @return spec_tbl_df. 고유명사 사전 정의를 담은 tibble 객체.
+#' 인명, 지명, 고유명사, 일반명사 사전의 경우에는 타입, 첫번째 품사, 마지막 품사,
+#' 인텍스표현의 정보는 의미가 없어 모두 *로 표현함.
+#' @return spec_tbl_df. 명사 사전 정의를 담은 tibble 객체.
 #' tibble 객체에서 변수는 다음과 같다.:
 #' \itemize{
 #' \item "표층형" : 단어명.
@@ -25,18 +29,24 @@
 #' \item "타입" : inflected, compound, Preanalysis, *.
 #' \item "첫번째 품사" : 기분석으로 나눠지는 토큰에 대한 각 품사 입력.
 #' \item "마지막 품사" : 기분석으로 나눠지는 토큰에 대한 각 품사 입력.
-#' \item "원형" : 단어가 토큰들로 나눠질 경우의 원형을 +로 묶어 입력
-#' \item "인텍스표현" :  단어가 토큰들로 나눠질 경우의 원형을 +로 묶어 입력
+#' \item "표현" : 단어가 토큰들로 나눠질 경우의 원형을 +로 묶어 입력
+#' \item "인텍스표현" : 사용하지 않는 컬럼, *로 표현
+#' }
+#' @references {
+#' mecab-ko-dic 품사 태그 설명. 
+#' <https://docs.google.com/spreadsheets/d/1-9blXKjtjeKZqsf4NzHeYJCrr49-nXeRF6D80udfcwY/edit#gid=1718487366>
 #' }
 #' @examples
 #' \dontrun{
-#' get_userdic_nnp("person")
+#' get_userdic_noun("person")
 #' }
 #' @importFrom glue glue
 #' @importFrom readr read_csv
+#' @importFrom cli cli_alert_warning
 #' @export
-get_userdic_nnp <- function(type = c("person", "place", "nnp"), userdic_path = NULL) {
-  type <- match.arg(type)
+get_userdic_noun <- function(noun_type = c("person", "place", "nnp", "nng"), 
+                             userdic_path = NULL) {
+  noun_type <- match.arg(noun_type)
   
   if (is_windows()) {
     installd <- "c:/mecab"
@@ -47,59 +57,137 @@ get_userdic_nnp <- function(type = c("person", "place", "nnp"), userdic_path = N
   }
   
   if (is.null(userdic_path)) {
-    fname <- glue::glue("{installd}/{dic_path}/{type}.csv")
+    fname <- glue::glue("{installd}/{dic_path}/{noun_type}.csv")
   } else {
-    fname <- glue::glue("{userdic_path}/{type}.csv")
+    fname <- glue::glue("{userdic_path}/{noun_type}.csv")
   }
   
+  if (!file.exists(fname)) {
+    cli::cli_alert_warning(glue::glue("사용자 사전 정의 파일 {fname}가 존재하지 않습니다."))
+    return(NULL)
+  }
+    
   meta <- readr::read_csv(fname, col_names = FALSE, show_col_types = FALSE)
   names(meta) <- c("표층형", "미지정1", "미지정2", "미지정3", "품사태그", 
                    "의미부류", "종성유무", "읽기", "타입", "첫번째품사", 
-                   "마지막품사", "원형", "인텍스표현")
+                   "마지막품사", "표현", "인텍스표현")
   meta
 }
 
 
 #' Write to the user-defined person dictionary file.
-#' @description 사용자 사전 중 고유명사 사전에 등록하기 위해 인명/지명을 인명/지명/고유명사 사전 파일에 추가
-#' @param x character. 고유명사 사전에 등록할 이름들.
-#' @param type character. 인명사전과 지명사전, 고유명사 사전에서 등록할 사용자 정의 고유명사 사전 선택.
-#' @param userdic_path character. 사용자 정의 고유명사 사전 파일이 존재하는 경로.
+#' @description 사용자 명사 사전에 등록하기 위해 인명/지명을 인명/지명/고유명사/일반명사 사전 파일에 추가
+#' @param x character. mecab-ko 사전에 등록할 이름들.
+#' mecab-ko-dic 품사 태그 설명에서 '표층형', '읽기'에 적용됨
+#' @param type character. mecab-ko 사전에 등록할 타입들.
+#' mecab-ko-dic 품사 태그 설명에서 '타입'에 적용됨. 
+#' @param prototype character. mecab-ko 사전에 등록할 원형들.
+#' mecab-ko-dic 품사 태그 설명에서 '표현'에 적용됨. 
+#' @param noun_type character. 인명사전과 지명사전, 고유명사, 일반명사 사전에서 
+#' 등록할 사용자 정의 명사 사전 선택.
+#' @param userdic_path character. 사용자 정의 명사 사전 파일이 존재하는 경로.
 #' 지정하지 않으면 사전이 설치된 기본 경로에서 파일을 읽어온다.
-#' @details 사용자 사전정의 디렉토리의 person.csv/place.csv/nnp.csv 파일에 등록할 인명/지명/고유명사를 추가한다. 
+#' @details 사용자 사전정의 디렉토리의 person.csv/place.csv/nnp.csv/nng.csv 파일에 
+#' 등록할 인명/지명/고유명사/일반명사를 추가한다. 
+#' mecab-ko-dic 품사 태그 설명에서 '타입'은 두 개 이상의 토큰으로 구성된 복합명사일 때만 사용하며, 
+#' 'Compound', 'Preanalysis', 'Inflected' 중에 하나를 기술하는데 의미는 다음과 같음.:
+#' \itemize{
+#' \item Compound : 가장 흔한 사례의 복합명사로 개별 토큰의 의미가 합쳐져서도 의미가 유지되는 사례
+#'   \itemize{
+#'     \item 예) 주말부부: 주말/NNG + 부부/NNG
+#'   }
+#' \item Preanalysis : 개별 토큰의 의미가 합쳐지면서 의미가 상실되는 사례
+#'   \itemize{
+#'     \item 예) 인터파크: 인터/NNG + 파크/NNG
+#'   }
+#' \item Inflected : 토큰이 합쳐질 때, 개별 토큰에 변형이 일어나는 경우로 복합명사에서는 거의 발생하지 않음
+#' }
+#' @references {
+#' mecab-ko-dic 품사 태그 설명. 
+#' <https://docs.google.com/spreadsheets/d/1-9blXKjtjeKZqsf4NzHeYJCrr49-nXeRF6D80udfcwY/edit#gid=1718487366>
+#' }
 #' @examples
 #' \dontrun{
 #' # 인명 사전
-#' get_userdic_nnp()
-#' append_userdic_nnp(c("변학도"))
+#' get_userdic_noun()
+#' append_userdic_noun(c("변학도"))
 #' 
 #' # 지명 사전
-#' get_userdic_nnp("place")
-#' append_userdic_nnp(c("영귀미면"), "place")
-#' get_userdic_nnp("place")
+#' get_userdic_noun("place")
+#' append_userdic_noun(c("영귀미면"), noun_type = "place")
+#' get_userdic_noun("place")
 #' 
-#' # 기타 고유명사 사전  
-#' get_userdic_nnp("nnp")
-#' append_userdic_nnp(c("릴리움"), "nnp")
-#' get_userdic_nnp("nnp")
+#' # 고유명사 사전  
+#' get_userdic_noun("nnp")
+#' append_userdic_noun(c("릴리움", "인터파크"), c("*", "Preanalysis"), 
+#'                     c("*", "인터/NNG/*+파크/NNG/*"), noun_type = "nnp")
+#' get_userdic_noun("nnp")
+#' 
+#' # 일반명사 사전  
+#' get_userdic_noun("nng")
+#' append_userdic_noun(c("주말부부", "쿼토"), c("Compound", "*"), 
+#'                     c("주말/NNG/*+부부/NNG/*", "*"), noun_type = "nng")
+#' get_userdic_noun("nng")
 #' }
 #' @import dplyr
 #' @importFrom glue glue
 #' @importFrom readr write_csv
-#' @importFrom purrr map_lgl
+#' @importFrom purrr map_lgl map_df
 #' @importFrom rstudioapi askForPassword
 #' @importFrom cli cli_rule cli_alert_success cli_alert_warning
+#' @importFrom stringr str_extract
 #' @export
-append_userdic_nnp <- function(x, type = c("person", "place", "nnp"), userdic_path = NULL) {
-  type <- match.arg(type)
+append_userdic_noun <- function(x, type = NULL, prototype = NULL, 
+                                noun_type = c("person", "place", "nnp", "nng"), 
+                                userdic_path = NULL) {
+  noun_type <- match.arg(noun_type)
   
   type_name <- case_when(
-    type %in% "person" ~ "인명",
-    type %in% "place"  ~ "지명",
-    type %in% "nnp"    ~ "*",    
-    TRUE ~               "인명"
+    noun_type %in% "person" ~ "인명",
+    noun_type %in% "place"  ~ "지명",
+    noun_type %in% "nnp"    ~ "*", 
+    noun_type %in% "nng"    ~ "*", 
+    TRUE                    ~ "인명"
   )
   
+  type_name2 <- case_when(
+    noun_type %in% "nnp" ~ "고유명사",
+    noun_type %in% "nng" ~ "일반명사",
+    TRUE                 ~ type_name
+  )  
+  
+  tags <- case_when(
+    noun_type %in% "nng" ~ "NNG",
+    TRUE                 ~ "NNP"
+  )    
+  
+  idx_preanal <- which(type %in% "Preanalysis")
+  
+  if (length(idx_preanal) == 0) {
+    first_tag <- "*"
+    last_tag <- "*"
+  } else {
+    tab <- length(prototype) |> 
+      seq() |> 
+      purrr::map_df(
+        function(x) {
+          if (x %in% idx_preanal) {
+            first <- stringr::str_extract(prototype[x], "[A-Z]+")
+            last <- stringr::str_extract(prototype[x], "[A-Z]+\\/\\*") %>% 
+              stringr::str_extract(., "[A-Z]+")
+          } else {
+            first <- "*"
+            last <- "*"
+          }
+          
+          data.frame(first = first, last = last)
+        }
+      )
+    
+    first_tag <- tab$first
+    last_tag <- tab$last
+  }
+    
   if (is_windows()) {
     installd <- "c:/mecab"
     dic_path <- "user-dic" 
@@ -113,7 +201,15 @@ append_userdic_nnp <- function(x, type = c("person", "place", "nnp"), userdic_pa
       dir.create(userdic_path)
     }
     
-    fname <- glue::glue("{userdic_path}/{type}.csv")
+    fname <- glue::glue("{userdic_path}/{noun_type}.csv")
+    
+    if (!file.exists(fname)) {
+      dic_file <- file.path(system.file(package = "bitNLP"), "dic", 
+                            glue::glue("{noun_type}.csv"))
+      
+      file.copy(from = dic_file, to = fname)
+    }
+    
   } else {
     installd <- '/usr/local/install_resources' 
     dic_path <- "mecab-ko-dic-2.1.1-20180720/user-dic"   
@@ -126,8 +222,22 @@ append_userdic_nnp <- function(x, type = c("person", "place", "nnp"), userdic_pa
       dir.create(userdic_path)
     }
     
-    fname <- glue::glue("{userdic_path}/{type}.csv")
-
+    fname <- glue::glue("{userdic_path}/{noun_type}.csv")
+    
+    if (!file.exists(fname)) {
+      if (.Platform$GUI %in% "RStudio") {
+        input <- rstudioapi::askForPassword("sudo password")
+      } else {
+        input <- readline("Enter your password: ")
+      }
+      
+      dic_file <- file.path(system.file(package = "bitNLP"), "dic", 
+                            glue::glue("{noun_type}.csv"))
+      
+      system(glue::glue("sudo -kS cp {dic_file} {fname}"), input = input)
+      system(glue::glue("sudo -kS chmod 766 {fname}"), input = input)
+    }
+    
     if (file.access(fname, 2) == -1) {
       if (.Platform$GUI %in% "RStudio") {
         input <- rstudioapi::askForPassword("sudo password")
@@ -139,48 +249,54 @@ append_userdic_nnp <- function(x, type = c("person", "place", "nnp"), userdic_pa
     } 
   }
   
-  meta <- get_userdic_nnp(type, userdic_path)
-  nnps <- setdiff(x, meta$표층형)
+  meta <- get_userdic_noun(noun_type, userdic_path)
+  nouns <- setdiff(x, meta$표층형)
   
-  type_name2 <- ifelse(type_name %in% "*", "고유명사", type_name)
-  
-  if (length(nnps) == 0) {
+  if (length(nouns) == 0) {
     cli::cli_alert_warning(glue::glue("등록할 {type_name2}(이/가) 없거나 이미 모두 등록되어 있을 수도 있습니다."))
     return(NULL)
   }
   
-  final_consonants <- nnps %>% 
+  final_consonants <- nouns %>% 
     purrr::map_lgl(
       has_final_consonant, last = TRUE
     )
   
-  df_nnps <- meta %>% 
+  if (is.null(type)) {
+    type <- "*"
+  }
+  
+  if (is.null(prototype)) {
+    prototype <- "*"
+  }
+  
+  df_nouns <- meta %>% 
     bind_rows(
       data.frame(
-        표층형 = nnps,
+        표층형 = nouns,
         미지정1 = NA,
         미지정2 = NA,
         미지정3 = NA,
-        품사태그 = "NNP",
+        품사태그 = tags,
         의미부류 = type_name,
         종성유무 =  final_consonants,
-        읽기 = nnps,
-        타입 = "*",  
-        첫번째품사 = "*",
-        마지막품사 = "*", 
-        원형 = "*", 
+        읽기 = nouns,
+        타입 = type,  
+        첫번째품사 = first_tag,
+        마지막품사 = last_tag, 
+        표현 = prototype, 
         인텍스표현 = "*"
       )
     )
   
-  df_nnps$종성유무 <- substr(as.character(df_nnps$종성유무), 1, 1)
-  readr::write_csv(df_nnps, file = fname, na = "", col_names = FALSE)  
+  df_nouns$종성유무 <- substr(as.character(df_nouns$종성유무), 1, 1)
+  readr::write_csv(df_nouns, file = fname, na = "", col_names = FALSE)  
   
-  n_add_nnps <- length(nnps)  
+  n_add_nouns <- length(nouns)  
   
   cli::cli_rule(glue::glue("사전 파일에 {type_name2} 추가하기"))
-  cli::cli_alert_success(c("신규 추가 건수: {n_add_nnps}"))
-  cli::cli_alert_success(c("최종 {type_name2} 건수: {NROW(df_nnps)}"))  
+  cli::cli_alert_success(c("신규 추가 건수: {n_add_nouns}"))
+  cli::cli_alert_success(c("최종 {type_name2} 건수: {NROW(df_nouns)}"))  
 }
 
 

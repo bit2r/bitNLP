@@ -354,19 +354,19 @@ Analysis)하는 것처럼 텍스트 데이터 분석 역시 데이터의 탐색�
 <p>bitNLP에는 <code>buzz</code>라는 데이터를 제공하는데 다음과 같은
 변수를 가지고 있습니다. 변수 <code>CONTENT</code>를 대상으로 데이터를
 탐색해야 합니다.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(bitNLP<span class="sc">::</span>buzz)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;KEYWORD&quot;</span>        <span class="st">&quot;SRC&quot;</span>            <span class="st">&quot;SECTION&quot;</span>        <span class="st">&quot;CRAWL_DT&quot;</span>      </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;PUBLISH_DT&quot;</span>     <span class="st">&quot;URL&quot;</span>            <span class="st">&quot;TITLE&quot;</span>          <span class="st">&quot;CONTENT&quot;</span>       </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;DOC_KEY&quot;</span>        <span class="st">&quot;PUBLISH_ID&quot;</span>     <span class="st">&quot;CLICK_CNT&quot;</span>      <span class="st">&quot;LIKE_CNT&quot;</span>      </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">&quot;SEARCH_KEYWORD&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">names</span>(bitNLP<span class="sc">::</span>buzz)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;KEYWORD&quot;</span>        <span class="st">&quot;SRC&quot;</span>            <span class="st">&quot;SECTION&quot;</span>        <span class="st">&quot;CRAWL_DT&quot;</span>      </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;PUBLISH_DT&quot;</span>     <span class="st">&quot;URL&quot;</span>            <span class="st">&quot;TITLE&quot;</span>          <span class="st">&quot;CONTENT&quot;</span>       </span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;DOC_KEY&quot;</span>        <span class="st">&quot;PUBLISH_ID&quot;</span>     <span class="st">&quot;CLICK_CNT&quot;</span>      <span class="st">&quot;LIKE_CNT&quot;</span>      </span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">&quot;SEARCH_KEYWORD&quot;</span></span></code></pre></div>
 <p>bitNLP는 텍스트 데이터를 탐색할 수 있는
 <code>Text Data Explorer</code>를 제공합니다.
 <code>Text Data Explorer</code>는 Shiny 앱으로
 <code>explore_docs()</code> 함수로 호출합니다.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bitNLP)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(buzz)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">explore_docs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(bitNLP)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">data</span>(buzz)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">explore_docs</span>()</span></code></pre></div>
 </div>
 <div id="text-data-explorer-기능" class="section level2">
 <h2>Text Data Explorer 기능</h2>
