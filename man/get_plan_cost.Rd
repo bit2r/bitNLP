@@ -4,10 +4,13 @@
 \alias{get_plan_cost}
 \title{Search for tokenizer plans based on word cost}
 \usage{
-get_plan_cost(x)
+get_plan_cost(x, topn = 3)
 }
 \arguments{
-\item{x}{character. 플랜을 조회한 단어나 문장.}
+\item{x}{character. 플랜을 조회할 단어나 문장.}
+
+\item{topn}{integer. 플랜을 조회한 후 표시할 상위 저비용 플랜 개수.
+기본값은 3임.}
 }
 \value{
 tbl_df. 플랜을 담은 tibble 객체.
@@ -16,10 +19,9 @@ tbl_df. 플랜을 담은 tibble 객체.
 낱말비용 기반의 토크나이저 플랜을 조회한다.
 }
 \details{
-mecab-ko가 주어진 단어나 문장을 토크화(tokenization)하는 플랜을 조회한다. 
+mecab-ko가 주어진 단어나 문장을 토크화(tokenization)하는 플랜을 조회한다.
 이 기능을 통해서 사전에서의 단어 비용 조정과 신규 사용자 단어의 추가를 의사결정 할 수 있다.
 우선 순위에 따른 10개의 플랜을 조회하며, 실제로 형태소분석기는 우선 순위가 1인 것으로 토큰화한다.
-현재 이 함수는 Windows 운영체제를 지원하지 않는다.
 플랜 정보에서 변수는 다음과 같다.:
 \itemize{
 \item "우선순위" : 토큰화 우선 순위.
