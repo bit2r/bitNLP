@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bitNLP</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.5.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.8.9000</span>
       </span>
     </div>
 
@@ -72,13 +72,18 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_plan_cost</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_plan_cost</span><span class="op">(</span><span class="va">x</span>, topn <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p>character. 플랜을 조회한 단어나 문장.</p></dd>
+<dd><p>character. 플랜을 조회할 단어나 문장.</p></dd>
+
+
+<dt>topn</dt>
+<dd><p>integer. 플랜을 조회한 후 표시할 상위 저비용 플랜 개수.
+기본값은 3임.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -89,10 +94,9 @@
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>mecab-ko가 주어진 단어나 문장을 토크화(tokenization)하는 플랜을 조회한다. 
+    <p>mecab-ko가 주어진 단어나 문장을 토크화(tokenization)하는 플랜을 조회한다.
 이 기능을 통해서 사전에서의 단어 비용 조정과 신규 사용자 단어의 추가를 의사결정 할 수 있다.
 우선 순위에 따른 10개의 플랜을 조회하며, 실제로 형태소분석기는 우선 순위가 1인 것으로 토큰화한다.
-현재 이 함수는 Windows 운영체제를 지원하지 않는다.
 플랜 정보에서 변수는 다음과 같다.:</p><ul><li><p>"우선순위" : 토큰화 우선 순위.</p></li>
 <li><p>"표층형" : 토큰화되는 토큰</p></li>
 <li><p>"품사태그" : 토큰의 품사.</p></li>
