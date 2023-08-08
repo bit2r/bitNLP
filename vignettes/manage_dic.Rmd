@@ -1,0 +1,365 @@
+---
+title: "Manage Dictionary"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Manage Dictionary}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r environment, echo = FALSE, message = FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "", out.width = "600px", dpi = 70,
+                      echo = TRUE, message = FALSE, warning = FALSE)
+options(tibble.print_min = 4L, tibble.print_max = 4L)
+```
+
+## 형태소 사전 관리
+
+`bitNLP`는 은전한닢 형태소분석기를 이용하여 형태소 분석을 수행합니다. 이 과정에서 품사 태깅(토크나이징) 결과가 분석가가 의도하는대로 이뤄지지 않을 수 있습니다. 여기서는 형태소 사전 관리를 통해서 사용자가 의도하는대로 분석이 수행되는 것을 유도하는 방법을 다룹니다. 
+
+
+## 낱말비용 기반의 토크나이저 플랜 조회
+
+형태소 분석기가 문장을 품사로 토크나이징할 때에는 낱말비용의 크기로 코크나이징합니다. 만약에 문장이 의도하지 않는 결과로 토크나이징된다면 낱말비용 기반의 토크나이저 플랜을 조회합니다. 
+
+### 형태소 분석
+
+"윤희근은 경찰청장이다."라는 문장에 대해서, morpho_mecab() 함수를 이용해서 형태소 단위로 토큰화합니다.
+
+```{r, eval=FALSE}
+> doc <- "윤희근은 경찰청장이다."
+> morpho_mecab(doc, type = "morphe")
+   NNP    NNG     JX    NNG    NNG     VCP     EF     SF 
+"윤희"   "근"    "은"  "경찰" "청장"   "이"   "다"    "." 
+```
+
+### get_plan_cost() 
+
+get_plan_cost()는 낱말비용 기반의 토크나이저 플랜을 조회합니다.  
+
+```{r}
+#| eval: false
+get_plan_cost(x, topn = 3, dic_path = NULL)
+```
+
+다음과 같은 인수를 사용합니다.
+
+- x: 플랜을 조회할 단어나 문장.
+- topn: 플랜을 조회한 후 표시할 상위 저비용 플랜 개수. 
+    - 기본값은 3임.
+    - 플랜의 개수가 topn보다 작다면, topn 만큼 반복 출력됨
+- dic_path: mecab-ko-dic 사전이 설치된 경로.
+    - 지정하지 않으면, bitNLP가 설치한 사전 경로를 사용
+
+"윤희근은 경찰청장이다."라는 문장에 대해서 낱말비용 기반의 토크나이저 플랜 상위 2개를 조회합니다.
+
+```{r, eval=FALSE}
+> get_plan_cost(doc, topn = 2)
+# A tibble: 16 × 9
+   우선순위 표층형 품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용
+      <int> <chr>  <chr>    <chr>       <int>    <int>    <int>    <int>    <int>
+ 1        1 윤희   NNP      "인명"       1788     3549     5483    -2347     3136
+ 2        1 근     NNG      ""           1780     3534     4535      -17     7654
+ 3        1 은     JX       ""            682     2377      349    -2614     5389
+ 4        1 경찰   NNG      ""           1780     3534     2371      826     8586
+ 5        1 청장   NNG      ""           1780     3534     2084      269    10939
+ 6        1 이     VCP      ""           2239     3575     1201    -1615    10525
+ 7        1 다     EF       ""              3        5     2700    -3228     9997
+ 8        1 .      SF       ""           1794     3560     3518    -1948    11567
+ 9        2 윤희   NNP      "인명"       1788     3549     5483    -2347     3136
+10        2 근     NNG      ""           1780     3534     4535      -17     7654
+11        2 은     JX       ""            682     2377      349    -2614     5389
+12        2 경찰청 NNG      ""           1780     3534     1896      826     8111
+13        2 장     NNG      ""           1780     3534     3899      269    12279
+14        2 이     VCP      ""           2239     3575     1201    -2955    10525
+15        2 다     EF       ""              3        5     2700    -3228     9997
+16        2 .      SF       ""           1794     3560     3518    -1948    11567
+```
+
+토크나이저 플랜이 2개 중에서 상위 1번째 플랜은 다음과 같습니다. 이 결과는 morpho_mecab()의 결과와 동일합니다.
+
+- 윤희\\NNP+근\\NNG+은\\JX+경찰\\NNG+청장\\NNG+이\\VCP+다\\EF+.\\SF
+
+그런데 우리가 기대한 플랜은 다음과 같습니다.
+
+- 윤희근\\NNP+은\\JX+경찰청장\\NNG+이\\VCP+다\\EF+.\\SF
+
+
+## 명사 사용자 사전 정의
+
+사용자 정의 사전에 추가할 낱말들은 대부분 NNG(일반명사), NNP(고유명사)일 것이다. 일반명사는 대부분 복합명사일 것이고 고유명사는 인명, 지명 등이 대부분일 것입니다.
+
+bitNLP는 mecab-ko-dic 사전에 명사를 추가하는 기능을 제공합니다.
+
+"윤희근은 경찰청장이다."라는 문장을 "윤희근\\NNP+은\\JX+경찰청장\\NNG+이\\VCP+다\\EF+.\\SF"로 토큰화하기 위해서 우리는 다음의 사전을 추가해야 합니다.
+
+- 인명으로서의 고유명사
+    - 윤희근
+- 복합명사로서의 일반명사
+    - 경찰청장
+    
+
+### get_userdic_noun()
+
+get_userdic_noun()는 사용자 사전정의 디렉토리의 사전파일 읽어, 정의된 내용을 tibble 객체로 반환한다. 이 기능을 통해서 사용자 명사 사전의 등록(정의) 여부를 파악할 수 있다. 다음과 같은 명사 사용자 정의 사전 파일을 참조합니다.
+
+- 인명사전 : person.csv
+- 지명사전 : place.csv
+- 고유명사사전 : nnp.csv
+- 일반명사사전 : nng.csv
+
+```{r}
+#| eval: false
+get_userdic_noun(
+  noun_type = c("person", "place", "nnp", "nng"),
+  userdic_path = NULL
+)
+```
+
+다음과 같은 인수를 사용합니다.
+
+- noun_type: 인명사전, 지명사전, 고유명사 사전, 일반명사 사전에서 조회할 사용자 정의 명사 사전 선택하며 
+    - 기본값은 "person"로 인명사전을 지정합니다.
+- userdic_path: 사용자 정의 명사 사전 파일이 존재하는 경로입니다. 
+    - 지정하지 않으면 사전이 설치된 기본 경로에서 파일을 읽어옵니다.
+
+인명과 일반명사를 등록해야하기 때문에 두 사전 파일에 기술된 정보를 조회합니다. 사용자의 사전 정의 파일의 내용에 따라 다른 결과가 나올 수 있습니다. 
+
+인명 사전 정의 파일의 내용은 다음과 같이 조회됩니다.
+
+```{r}
+#| eval: false
+> get_userdic_noun("person")
+# A tibble: 2 × 13                                                                                                                  
+  표층형 미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기   타입  첫번째품사 마지막품사
+  <chr>  <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr>  <chr> <chr>      <chr>     
+1 까비   NA      NA      NA      NNP      인명     FALSE    까비   *     *          *         
+2 변학도 NA      NA      NA      NNP      인명     FALSE    변학도 *     *          *         
+# ℹ 2 more variables: 표현 <chr>, 인텍스표현 <chr>
+```
+
+일반명사 사전 정의 파일의 내용은 다음과 같이 조회됩니다.
+
+```{r}
+#| eval: false
+> get_userdic_noun("nng")
+# A tibble: 4 × 13                                                                                                                                                                    
+  표층형     미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기       타입     첫번째품사 마지막품사 표현                    인텍스표현
+  <chr>      <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr>      <chr>    <chr>      <chr>      <chr>                   <chr>     
+1 재직증명서 NA      NA      NA      NNG      *        FALSE    재직증명서 Compound *          *          재직/NNG/*+증명서/NNG/* *         
+2 육아휴직   NA      NA      NA      NNG      *        TRUE     육아휴직   Compound *          *          육아/NNG/*+휴직/NNG/*   *         
+3 신혼부부   NA      NA      NA      NNG      *        FALSE    신혼부부   Compound *          *          신혼/NNG/*+부부/NNG/*   *         
+4 타이디버스 NA      NA      NA      NNG      *        FALSE    타이디버스 *        *          *          *                       *         
+```
+
+조회된 tibble 객체에서 변수는 다음과 같습니다.:
+
+- 표층형: 단어명.
+- 미지정1: 사용하지 않는 컬럼.
+- 미지정2: 사용하지 않는 컬럼.
+- 미지정3: 사용하지 않는 컬럼.
+- 품사태그: 인명의 품사. NNP를 사용함.
+- 의미부류: 인명, 혹은 지명과 같은 의미 부류.
+- 종성유무: 단어의 마지막 음절의 종성 여부. T, F 입력.
+- 읽기: 읽어서 소리나는 말.
+- 타입: inflected, compound, Preanalysis, *.
+- 첫번째 품사: 기분석으로 나눠지는 토큰에 대한 각 품사 입력.
+- 마지막 품사: 기분석으로 나눠지는 토큰에 대한 각 품사 입력.
+- 표현: 단어가 토큰들로 나눠질 경우의 원형을 +로 묶어 입력
+- 인텍스표현: 사용하지 않는 컬럼, *로 표현
+
+### append_userdic_noun()
+
+사전 파일을 조회해서 등록하려하는 단어가 없는 것을 확인했으면, 사전 파일에 등록할 단어를 추가해야 합니다.
+
+append_userdic_noun()는 사전에 등록하기 위해 인명/지명/고유명사/일반명사를 mecab-ko-dic의 사용자 사전 디렉토리에 사용자 정의 사전 파일에 추가합니다.
+
+```{r}
+#| eval: false
+append_userdic_noun(
+  x,
+  type = NULL,
+  prototype = NULL,
+  noun_type = c("person", "place", "nnp", "nng"),
+  userdic_path = NULL
+)
+```
+
+다음과 같은 인수를 사용합니다.
+
+- x: mecab-ko 사전에 등록할 이름들. 
+    - mecab-ko-dic 품사 태그 설명에서 '표층형', '읽기'에 적용됨
+- type: mecab-ko 사전에 등록할 타입들.
+    - mecab-ko-dic 품사 태그 설명에서 '타입'에 적용됨
+- prototype: mecab-ko 사전에 등록할 원형들. 
+    - mecab-ko-dic 품사 태그 설명에서 '표현'에 적용됨
+- noun_type: 인명사전과 지명사전, 고유명사, 일반명사 사전에서 등록할 사용자 정의 명사 사전 선택.
+    - 인명과 지명도 고유명사이지만 별도로 구분하여 등록함
+- userdic_path: 사용자 정의 명사 사전 파일이 존재하는 경로. 
+    - 지정하지 않으면 사전이 설치된 기본 경로에서 파일을 읽어온다
+
+인명사전에 "윤희근"이라는 고유명사를 추가합니다.
+
+```{r}
+#| eval: false
+> append_userdic_noun(c("윤희근"), noun_type = "person")
+── 사전 파일에 인명 추가하기 ─────────────────────────────────────────────────────                                              
+✔ 신규 추가 건수: 1
+✔ 최종 인명 건수: 3
+> get_userdic_noun("person")
+# A tibble: 3 × 13                                                                                                   
+  표층형 미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기  타입  첫번째품사
+  <chr>  <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr> <chr> <chr>     
+1 까비   NA      NA      NA      NNP      인명     FALSE    까비  *     *         
+2 변학도 NA      NA      NA      NNP      인명     FALSE    변학… *     *         
+3 윤희근 NA      NA      NA      NNP      인명     TRUE     윤희… *     *         
+# ℹ 3 more variables: 마지막품사 <chr>, 표현 <chr>, 인텍스표현 <chr>
+```
+
+마찬가지로 "경찰청장"이라는 복합명사도 추가합니다.
+
+```{r}
+#| eval: false
+> append_userdic_noun(c("경찰청장"), c("Compound"), c("경찰/NNG/*+청장/NNG/*"), 
++                     noun_type = "nng")
+── 사전 파일에 일반명사 추가하기 ───────────────────────────────────────────────                                             
+✔ 신규 추가 건수: 1
+✔ 최종 일반명사 건수: 5
+```
+
+### add_userdic()
+
+add_userdic() 함수는 사용자가 정의한 사용자 정의 사전 파일을 mecab-ko-dic 사전에 추가합니다. 이 작업이 수행되야 비로소 형태소분석에 사용자가 추가한 사전이 반영됩니다.
+
+이 함수는 인수가 없습니다.
+
+```{r}
+#| eval: false
+add_userdic()
+```
+
+인명과 복합명사를 사전에 적용합니다. 사전 파일을 사전에 적용하기 위해서는 시스템 관리자 권한이 필요합니다. MacOS나 Linux의 RStudio에서는 다음과 같은 sudo 패스워드를 묻는 다이얼로그가 나타나며, 패스워드를 입력해야 작업이 수행됩니다.
+
+```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+knitr::include_graphics("images/password.png")
+```
+
+패스워드 입력을 정상적으로 마치면 사전을 추가합니다. 
+
+```{r}
+#| eval: false
+> add_userdic()
+Password:generating userdic...
+nng.csv
+/usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/tools/../model.def is not a binary model. reopen it as text mode...
+reading /usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/tools/../user-dic/nng.csv ... 
+done!
+nnp.csv
+/usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/tools/../model.def is not a binary model. reopen it as text mode...
+reading /usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/tools/../user-dic/nnp.csv ... 
+done!
+person.csv
+/usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/tools/../model.def is not a binary model. reopen it as text mode...
+reading /usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/tools/../user-dic/person.csv ... 
+done!
+place.csv
+/usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/tools/../model.def is not a binary model. reopen it as text mode...
+reading /usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/tools/../user-dic/place.csv ... 
+done!
+test -z "model.bin matrix.bin char.bin sys.dic unk.dic" || rm -f model.bin matrix.bin char.bin sys.dic unk.dic
+/usr/local/libexec/mecab/mecab-dict-index -d . -o . -f UTF-8 -t UTF-8
+reading ./unk.def ... 13
+emitting double-array: 100% |###########################################| 
+reading ./Foreign.csv ... 11690
+reading ./NNB.csv ... 140
+reading ./Symbol.csv ... 16
+reading ./MM.csv ... 453
+reading ./user-person.csv ... 3
+reading ./Preanalysis.csv ... 5
+reading ./NorthKorea.csv ... 3
+reading ./XPN.csv ... 83
+reading ./NR.csv ... 482
+reading ./NP.csv ... 342
+reading ./VA.csv ... 2360
+reading ./VV.csv ... 7331
+reading ./XSV.csv ... 23
+reading ./XSA.csv ... 19
+reading ./user-nng.csv ... 5
+reading ./NNG.csv ... 208524
+reading ./NNP.csv ... 2371
+reading ./user-nnp.csv ... 4
+reading ./EF.csv ... 1820
+reading ./EP.csv ... 51
+reading ./user-place.csv ... 3
+reading ./VCP.csv ... 9
+reading ./IC.csv ... 1305
+reading ./MAJ.csv ... 240
+reading ./Place-address.csv ... 19301
+reading ./EC.csv ... 2547
+reading ./NNBC.csv ... 677
+reading ./ETM.csv ... 133
+reading ./Person-actor.csv ... 99230
+reading ./MAG.csv ... 14242
+reading ./VCN.csv ... 7
+reading ./Wikipedia.csv ... 36762
+reading ./ETN.csv ... 14
+reading ./Person.csv ... 196459
+reading ./Hanja.csv ... 125750
+reading ./Place-station.csv ... 1145
+reading ./Place.csv ... 30303
+reading ./Inflect.csv ... 44820
+reading ./J.csv ... 416
+reading ./XR.csv ... 3637
+reading ./XSN.csv ... 124
+reading ./VX.csv ... 125
+reading ./CoinedWord.csv ... 148
+reading ./Group.csv ... 3176
+emitting double-array: 100% |###########################################| 
+reading ./matrix.def ... 3822x2693
+emitting matrix      : 100% |###########################################| 
+
+done!
+echo To enable dictionary, rewrite /usr/local/etc/mecabrc as \"dicdir = /usr/local/lib/mecab/dic/mecab-ko-dic\"
+To enable dictionary, rewrite /usr/local/etc/mecabrc as "dicdir = /usr/local/lib/mecab/dic/mecab-ko-dic"
+make[1]: Nothing to be done for `install-exec-am'.
+ ./install-sh -c -d '/usr/local/lib/mecab/dic/mecab-ko-dic'
+ /usr/bin/install -c -m 644 model.bin matrix.bin char.bin sys.dic unk.dic left-id.def right-id.def rewrite.def pos-id.def dicrc '/usr/local/lib/mecab/dic/mecab-ko-dic'
+> 
+```
+
+### 사전 등록 결과 확인
+
+사용자가 정의한 사전이 정상적으로 등록되었으니 결과를 확인합니다.
+
+먼저 낱말비용 기반의 토크나이저 플랜을 조회합니다. 원하는 플랜이 우선순위 1로 나타났습니다.
+
+```{r}
+#| eval: false
+> get_plan_cost(doc, topn = 2)
+# A tibble: 13 × 9
+   우선순위 표층형   품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용
+      <int> <chr>    <chr>    <chr>       <int>    <int>    <int>    <int>    <int>
+ 1        1 윤희근   NNP      "인명"       1788     3550     5472    -2347     3125
+ 2        1 은       JX       ""            682     2377      349    -2579      895
+ 3        1 경찰청장 NNG      ""           1780     3534     2639      826     4360
+ 4        1 이       VCP      ""           2239     3575     1201    -1615     3946
+ 5        1 다       EF       ""              3        5     2700    -3228     3418
+ 6        1 .        SF       ""           1794     3560     3518    -1948     4988
+ 7        2 윤희근   NNP      "인명"       1788     3550     5472    -2347     3125
+ 8        2 은       JX       ""            682     2377      349    -2579      895
+ 9        2 경찰     NNG      ""           1780     3534     2371      826     4092
+10        2 청장     NNG      ""           1780     3534     2084      269     6445
+11        2 이       VCP      ""           2239     3575     1201    -3700     3946
+12        2 다       EF       ""              3        5     2700    -3228     3418
+13        2 .        SF       ""           1794     3560     3518    -1948     4988
+```
+
+당연히 형태소 토큰화 결과도 플랜이 우선순위 1번의 것과 동일합니다.
+
+```{r}
+#| eval: false
+> morpho_mecab(doc, type = "morphe")
+       NNP         JX        NNG        VCP         EF         SF 
+  "윤희근"       "은" "경찰청장"       "이"       "다"        "." 
+```
+

@@ -4,13 +4,15 @@
 \alias{get_plan_cost}
 \title{Search for tokenizer plans based on word cost}
 \usage{
-get_plan_cost(x, topn = 3)
+get_plan_cost(x, topn = 3, dic_path = NULL)
 }
 \arguments{
 \item{x}{character. 플랜을 조회할 단어나 문장.}
 
-\item{topn}{integer. 플랜을 조회한 후 표시할 상위 저비용 플랜 개수.
-기본값은 3임.}
+\item{topn}{integer. 플랜을 조회한 후 표시할 상위 저비용 플랜 개수. 기본값은 3임.}
+
+\item{dic_path}{character. mecab-ko-dic 사전이 설치된 경로. 
+지정하지 않으면, bitNLP가 설치한 사전 경로를 사용한다.}
 }
 \value{
 tbl_df. 플랜을 담은 tibble 객체.
