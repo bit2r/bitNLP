@@ -17,6 +17,7 @@ target="_blank">Introduce bitNLP</a>에 소개되어 있습니다.
 - 텍스트 데이터 탐색 기능
 - 형태소분석 기능
 - 감성분석 기능
+- 형태소 사전 관리 기능
 
 ## bitNLP 설치
 
@@ -173,7 +174,14 @@ target="_blank">Explore Documents</a>에 설명되어 있습니다.
 - Text Data Explorer 기능 중에서 탐색 및 치환 기능 화면에 대한 예시는
   다음과 같습니다.:
 
-<img src="man/figures/replace.jpg" alt="탐색 및 치환 기능 화면" width="80%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="man/figures/replace.jpg" alt="탐색 및 치환 기능 화면" width="80%" />
+<p class="caption">
+탐색 및 치환 기능 화면
+</p>
+
+</div>
 
 ### tidytext와의 협업
 
@@ -280,7 +288,7 @@ president_speech %>%
 #>  8 "2005 한일 우정의 해 개막식 축사 " 참석:여러분
 #>  9 "2005 한일 우정의 해 개막식 축사 " 여러분:모두
 #> 10 "2005 한일 우정의 해 개막식 축사 " 모두:환영  
-#> # … with 254 more rows
+#> # ℹ 254 more rows
 ```
 
 ### 텍스트 데이터 정제
@@ -425,7 +433,7 @@ buzz %>%
 #>  8 맞벌이  20대 수다방      "못가지니까 기분이 안좋아요 다른것도아니고 여유가 … 
 #>  9 맞벌이  20대 수다방      "남편이랑 저랑 동갑에 둘 다 맞벌이에요. 저는 현재 … 
 #> 10 맞벌이  20대 수다방      "요즘 퇴근하고 남편이 데리러 오는데요 살빼려고 하는…
-#> # … with 975 more rows
+#> # ℹ 975 more rows
 ```
 
 ## 고마운 분들
