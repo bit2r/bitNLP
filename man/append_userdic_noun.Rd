@@ -5,15 +5,16 @@
 \title{Write to the user-defined person dictionary file.}
 \usage{
 append_userdic_noun(
-  x,
+  term,
   type = NULL,
   prototype = NULL,
   noun_type = c("person", "place", "nnp", "nng"),
+  dic_type = c("sysdic", "userdic"),
   userdic_path = NULL
 )
 }
 \arguments{
-\item{x}{character. mecab-ko 사전에 등록할 이름들.
+\item{term}{character. mecab-ko 사전에 등록할 이름들.
 mecab-ko-dic 품사 태그 설명에서 '표층형', '읽기'에 적용됨}
 
 \item{type}{character. mecab-ko 사전에 등록할 타입들.
@@ -24,6 +25,9 @@ mecab-ko-dic 품사 태그 설명에서 '표현'에 적용됨.}
 
 \item{noun_type}{character. 인명사전과 지명사전, 고유명사, 일반명사 사전에서 
 등록할 사용자 정의 명사 사전 선택.}
+
+\item{dic_type}{character. 생성할 사용자 정의 사전을 시스템사전에 빌드할 지, 
+사용자 사전으로 빌드할 지의 선택. 기본값은 "sysdic"으로 시스템사전에 빌드할 목적으로 작업함.}
 
 \item{userdic_path}{character. 사용자 정의 명사 사전 파일이 존재하는 경로.
 지정하지 않으면 사전이 설치된 기본 경로에서 파일을 읽어온다.}
@@ -65,10 +69,12 @@ append_userdic_noun(c("릴리움", "인터파크"), c("*", "Preanalysis"),
                     c("*", "인터/NNG/*+파크/NNG/*"), noun_type = "nnp")
 get_userdic_noun("nnp")
 
-# 일반명사 사전  
-get_userdic_noun("nng")
+# 일반명사 사전을 사용자 사전에 빌드할 목적으로 등록함  
+get_userdic_noun("nng", dic_type = "userdic")
 append_userdic_noun(c("주말부부", "쿼토"), c("Compound", "*"), 
-                    c("주말/NNG/*+부부/NNG/*", "*"), noun_type = "nng")
+                    c("주말/NNG/*+부부/NNG/*", "*"), 
+                    noun_type = "nng",
+                    dic_type = "userdic")
 get_userdic_noun("nng")
 }
 }

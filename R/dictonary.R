@@ -77,7 +77,7 @@ get_userdic_noun <- function(noun_type = c("person", "place", "nnp", "nng"),
 
 #' Write to the user-defined person dictionary file.
 #' @description 사용자 명사 사전에 등록하기 위해 인명/지명을 인명/지명/고유명사/일반명사 사전 파일에 추가
-#' @param x character. mecab-ko 사전에 등록할 이름들.
+#' @param term character. mecab-ko 사전에 등록할 이름들.
 #' mecab-ko-dic 품사 태그 설명에서 '표층형', '읽기'에 적용됨
 #' @param type character. mecab-ko 사전에 등록할 타입들.
 #' mecab-ko-dic 품사 태그 설명에서 '타입'에 적용됨. 
@@ -85,6 +85,8 @@ get_userdic_noun <- function(noun_type = c("person", "place", "nnp", "nng"),
 #' mecab-ko-dic 품사 태그 설명에서 '표현'에 적용됨. 
 #' @param noun_type character. 인명사전과 지명사전, 고유명사, 일반명사 사전에서 
 #' 등록할 사용자 정의 명사 사전 선택.
+#' @param dic_type character. 생성할 사용자 정의 사전을 시스템사전에 빌드할 지, 
+#' 사용자 사전으로 빌드할 지의 선택. 기본값은 "sysdic"으로 시스템사전에 빌드할 목적으로 작업함.
 #' @param userdic_path character. 사용자 정의 명사 사전 파일이 존재하는 경로.
 #' 지정하지 않으면 사전이 설치된 기본 경로에서 파일을 읽어온다.
 #' @details 사용자 사전정의 디렉토리의 person.csv/place.csv/nnp.csv/nng.csv 파일에 
@@ -123,10 +125,12 @@ get_userdic_noun <- function(noun_type = c("person", "place", "nnp", "nng"),
 #'                     c("*", "인터/NNG/*+파크/NNG/*"), noun_type = "nnp")
 #' get_userdic_noun("nnp")
 #' 
-#' # 일반명사 사전  
-#' get_userdic_noun("nng")
+#' # 일반명사 사전을 사용자 사전에 빌드할 목적으로 등록함  
+#' get_userdic_noun("nng", dic_type = "userdic")
 #' append_userdic_noun(c("주말부부", "쿼토"), c("Compound", "*"), 
-#'                     c("주말/NNG/*+부부/NNG/*", "*"), noun_type = "nng")
+#'                     c("주말/NNG/*+부부/NNG/*", "*"), 
+#'                     noun_type = "nng",
+#'                     dic_type = "userdic")
 #' get_userdic_noun("nng")
 #' }
 #' @import dplyr
@@ -137,10 +141,12 @@ get_userdic_noun <- function(noun_type = c("person", "place", "nnp", "nng"),
 #' @importFrom cli cli_rule cli_alert_success cli_alert_warning
 #' @importFrom stringr str_extract
 #' @export
-append_userdic_noun <- function(x, type = NULL, prototype = NULL, 
+append_userdic_noun <- function(term, type = NULL, prototype = NULL, 
                                 noun_type = c("person", "place", "nnp", "nng"), 
+                                dic_type = c("sysdic", "userdic"),
                                 userdic_path = NULL) {
   noun_type <- match.arg(noun_type)
+  dic_type  <- match.arg(dic_type)
   
   type_name <- case_when(
     noun_type %in% "person" ~ "인명",
@@ -191,10 +197,13 @@ append_userdic_noun <- function(x, type = NULL, prototype = NULL,
   if (is_windows()) {
     installd <- "c:/mecab"
     dic_path <- "user-dic" 
-    userdic_path <- glue::glue("{installd}/{dic_path}")    
     
     if (is.null(userdic_path)) {
-      userdic_path <- glue::glue("{installd}/{dic_path}")
+      if (dic_type %in% "sysdic") {
+        userdic_path <- glue::glue("{installd}/{dic_path}") 
+      } else {
+        userdic_path <- "./user_dic"
+      }
     } 
     
     if (!dir.exists(userdic_path)) {
@@ -211,46 +220,45 @@ append_userdic_noun <- function(x, type = NULL, prototype = NULL,
     }
     
   } else {
-    installd <- '/usr/local/install_resources' 
-    dic_path <- "mecab-ko-dic-2.1.1-20180720/user-dic"   
-
     if (is.null(userdic_path)) {
-      userdic_path <- glue::glue("{installd}/{dic_path}")
+      if (dic_type %in% "sysdic") {
+        installd <- '/usr/local/install_resources' 
+        dic_path <- "mecab-ko-dic-2.1.1-20180720/user-dic"   
+        
+        userdic_path <- glue::glue("{installd}/{dic_path}") 
+      } else {
+        userdic_path <- "./user_dic"
+        
+        if (!dir.exists(userdic_path)) {
+          dir.create(userdic_path)
+        }
+      }
     } 
-    
-    if (!dir.exists(userdic_path)) {
-      dir.create(userdic_path)
-    }
     
     fname <- glue::glue("{userdic_path}/{noun_type}.csv")
     
-    if (!file.exists(fname)) {
-      if (.Platform$GUI %in% "RStudio") {
-        input <- rstudioapi::askForPassword("sudo password")
+    if (!file.exists(fname) | !dir.exists(userdic_path)) {
+      cmd <- file.path(system.file(package = "bitNLP"), "script", 
+                       "append_userdic.sh")    
+      source_path <- file.path(system.file(package = "bitNLP"), "dic")
+      file_nm <- glue::glue("{noun_type}.csv")
+      
+      if (file.access(userdic_path, 2) == -1) {
+        if (.Platform$GUI %in% "RStudio") {
+          input <- rstudioapi::askForPassword("sudo password")
+        } else {
+          input <- readline("Enter your password: ")
+        }
+        
+        system(glue::glue("sudo -kS /bin/bash {cmd} {source_path} {noun_type}.csv {userdic_path}"), input = input)
       } else {
-        input <- readline("Enter your password: ")
-      }
-      
-      dic_file <- file.path(system.file(package = "bitNLP"), "dic", 
-                            glue::glue("{noun_type}.csv"))
-      
-      system(glue::glue("sudo -kS cp {dic_file} {fname}"), input = input)
-      system(glue::glue("sudo -kS chmod 766 {fname}"), input = input)
+        system(glue::glue("/bin/bash {cmd} {source_path} {noun_type}.csv {userdic_path}"))
+      }  
     }
-    
-    if (file.access(fname, 2) == -1) {
-      if (.Platform$GUI %in% "RStudio") {
-        input <- rstudioapi::askForPassword("sudo password")
-      } else {
-        input <- readline("Enter your password: ")
-      }
-      
-      system(glue::glue("sudo -kS chmod 766 {fname}"), input = input)
-    } 
   }
   
   meta <- get_userdic_noun(noun_type, userdic_path)
-  nouns <- setdiff(x, meta$표층형)
+  nouns <- setdiff(term, meta$표층형)
   
   if (length(nouns) == 0) {
     cli::cli_alert_warning(glue::glue("등록할 {type_name2}(이/가) 없거나 이미 모두 등록되어 있을 수도 있습니다."))
@@ -300,17 +308,17 @@ append_userdic_noun <- function(x, type = NULL, prototype = NULL,
 }
 
 
-#' Add user-defined dictionary files to user dictionary.
-#' @description 사용자가 정의한 사용자 정의 사전 파일을 사용자 사전에 추가
-#' @details 사용자 사전정의 디렉토리에 있는 모든 사용자정의 사전 파일을 사용자 사전에 추가한다.
+#' Add user-defined dictionary files to system dictionary.
+#' @description 사용자가 정의한 사용자 정의 사전 파일을 시스템 사전에 추가
+#' @details 사용자 사전정의 디렉토리에 있는 모든 사용자정의 사전 파일을 시스템 사전에 추가한다.
 #' @examples
 #' \dontrun{
-#' add_userdic()
+#' add_sysdic()
 #' }
 #' @importFrom glue glue
 #' @importFrom rstudioapi askForPassword
 #' @export
-add_userdic <- function() {
+add_sysdic <- function() {
   if (is_windows()) {
     installd <- "c:/mecab"
     dic_path <- "mecab-ko-dic" 
@@ -319,7 +327,7 @@ add_userdic <- function() {
     system(glue::glue("{cmd}"))
   } else {
     script_path <- system.file("script", package = "bitNLP")
-    add_script <- glue::glue("/bin/sh {script_path}/add_userdic.sh")
+    add_script <- glue::glue("/bin/bash {script_path}/add_sysdic.sh")
     
     if (.Platform$GUI %in% "RStudio") {
       input <- rstudioapi::askForPassword("sudo password")
@@ -330,4 +338,44 @@ add_userdic <- function() {
     system(glue::glue("sudo -kS {add_script}"), input = input)
   }
 }
+
+
+#' create user dictionary with user-defined dictionary files.
+#' @description 사용자가 정의한 사용자 정의 사전 파일을 사용자 사전으로 생성
+#' @details 사용자 사전정의 디렉토리에 있는 모든 사용자정의 사전 파일을 엮어 사용자 사전에 추가한다.
+#' @examples
+#' \dontrun{
+#' create_userdic()
+#' }
+#' @importFrom glue glue
+#' @importFrom rstudioapi askForPassword
+#' @export
+create_userdic <- function(userdic_path = "./user_dic", dic_file = "user-dic.dic", 
+                           installd = NULL, dic_path = NULL) {
+  if (is_windows()) {
+    script_path <- system.file("script", package = "bitNLP")
+    script <- glue::glue("{script_path}\\create_userdic_win.ps1")
+    
+    cmd <- glue::glue('powershell -File "{script}" {userdic_path} {dic_file}')
+    system(glue::glue("{cmd}"))
+  } else {
+    script_path <- system.file("script", package = "bitNLP")
+    create_script <- glue::glue("/bin/bash {script_path}/create_userdic.sh")
+    
+    cmd <- glue::glue("{create_script} {userdic_path} {dic_file}")
+    
+    if (file.access(userdic_path, 2) == -1) {
+      if (.Platform$GUI %in% "RStudio") {
+        input <- rstudioapi::askForPassword("sudo password")
+      } else {
+        input <- readline("Enter your password: ")
+      }
+      
+      system(cmd, input = input)
+    } else {
+      system(cmd)
+    }  
+  }
+}
+
 

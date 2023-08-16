@@ -347,12 +347,106 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 의도하는대로 이뤄지지 않을 수 있습니다. 여기서는 형태소 사전 관리를
 통해서 사용자가 의도하는대로 분석이 수행되는 것을 유도하는 방법을
 다룹니다.</p>
+<div id="bitnlp의-형태소-관리-기능" class="section level3">
+<h3>bitNLP의 형태소 관리 기능</h3>
+<p>형태소 사전 관리는 일반적으로 다음 표의 프로세스 순으로
+진행합니다.</p>
+<table style="width:99%;">
+<colgroup>
+<col width="14%" />
+<col width="19%" />
+<col width="13%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">프로세스</th>
+<th align="left">기능</th>
+<th align="left">지원 함수</th>
+<th align="left">시스템 사전</th>
+<th align="left">사용자 사전</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">토크나이저 플랜 조회</td>
+<td align="left">낱말비용 기반의 토크나이저 플랜 조회</td>
+<td align="left"><ul>
+<li>get_plan_cost()</li>
+</ul></td>
+<td align="left">공통</td>
+<td align="left">공통</td>
+</tr>
+<tr class="even">
+<td align="left">기 정의 사전조회</td>
+<td align="left">사전 정의 파일의 내용을 조회</td>
+<td align="left"><ul>
+<li>get_userdic_noun()</li>
+</ul></td>
+<td align="left">userdic_path 인수에 시스템 사전정의 파일 경로 지정</td>
+<td align="left">userdic_path 인수에 사용자 사전정의 파일 경로 지정</td>
+</tr>
+<tr class="odd">
+<td align="left">사전 정의 파일에 낱말 추가</td>
+<td align="left">사전 정의 파일에 등록할 낱말 추가</td>
+<td align="left"><ul>
+<li>append_userdic_noun()</li>
+</ul></td>
+<td align="left">userdic_path 인수에 시스템 사전정의 파일 경로 지정</td>
+<td align="left">userdic_path 인수에 사용자 사전정의 파일 경로 지정</td>
+</tr>
+<tr class="even">
+<td align="left">사전 컴파일</td>
+<td align="left">사전 정의 파일 정보에 인텍스 정보 삽입</td>
+<td align="left"><ul>
+<li><p>add_sysdic()</p></li>
+<li><p>create_userdic()</p></li>
+</ul></td>
+<td align="left">add_sysdic() 사용</td>
+<td align="left">create_userdic() 사용</td>
+</tr>
+<tr class="odd">
+<td align="left">사전 설치</td>
+<td align="left">사전 정의 파일로 사전 생성</td>
+<td align="left"><ul>
+<li><p>add_userdic()</p></li>
+<li><p>create_userdic()</p></li>
+</ul></td>
+<td align="left">add_sysdic() 사용</td>
+<td align="left">create_userdic() 사용</td>
+</tr>
+<tr class="even">
+<td align="left">사전 활용(형태소분석)</td>
+<td align="left">사전을 이용한 형태소 토크나이징</td>
+<td align="left"><ul>
+<li>morpho_mecab()</li>
+</ul></td>
+<td align="left">기본설정</td>
+<td align="left">user_dic 인수 사용</td>
+</tr>
+<tr class="odd">
+<td align="left">낱말비용 수정</td>
+<td align="left">사전 정의 파일의 낱말비용 수정</td>
+<td align="left"><ul>
+<li>edit_index_dic()</li>
+</ul></td>
+<td align="left">미지원</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="낱말비용-기반의-토크나이저-플랜-조회" class="section level2">
 <h2>낱말비용 기반의 토크나이저 플랜 조회</h2>
 <p>형태소 분석기가 문장을 품사로 토크나이징할 때에는 낱말비용의 크기로
 코크나이징합니다. 만약에 문장이 의도하지 않는 결과로 토크나이징된다면
 낱말비용 기반의 토크나이저 플랜을 조회합니다.</p>
+<p>토크나이저 플랜을 조회하는 이유는 이미 해당 토큰(낱말)이 사전에
+등록되어 있으나, 비용이 커서 의도하지 않는 결과가 나타날 수 있기
+때문입니다. 이 경우에는 사전에 등록하는 것보다는 낱말비용을 수정하는
+방법으로 원하는 결과의 도출을 유도해야 합니다.</p>
 <div id="형태소-분석" class="section level3">
 <h3>형태소 분석</h3>
 <p>“윤희근은 경찰청장이다.”라는 문장에 대해서, morpho_mecab() 함수를
