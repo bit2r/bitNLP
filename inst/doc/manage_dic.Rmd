@@ -40,7 +40,7 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 +----------------------------+----------------------------------------+---------------------------+----------------------------------------------------+----------------------------------------------------+
 | 사전 활용(형태소분석)      | 사전을 이용한 형태소 토크나이징        | -   morpho_mecab()        | 기본설정                                           | user_dic 인수 사용                                 |
 +----------------------------+----------------------------------------+---------------------------+----------------------------------------------------+----------------------------------------------------+
-| 낱말비용 수정              | 사전 정의 파일의 낱말비용 수정         | -   edit_index_dic()      | 미지원                                             |                                                    |
+| 낱말비용 수정              | 사전 정의 파일의 낱말비용 수정         | -   edit_index_dic()      | -   edit_index_dic()                               |                                                    |
 +----------------------------+----------------------------------------+---------------------------+----------------------------------------------------+----------------------------------------------------+
 
 
@@ -50,9 +50,9 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 
 토크나이저 플랜을 조회하는 이유는 이미 해당 토큰(낱말)이 사전에 등록되어 있으나, 비용이 커서 의도하지 않는 결과가 나타날 수 있기 때문입니다. 이 경우에는 사전에 등록하는 것보다는 낱말비용을 수정하는 방법으로 원하는 결과의 도출을 유도해야 합니다.
 
-### 형태소 분석
+## 형태소 분석
 
-"윤희근은 경찰청장이다."라는 문장에 대해서, morpho_mecab() 함수를 이용해서 형태소 단위로 토큰화합니다.
+"윤희근은 경찰청장이다."라는 문장에 대해서, `morpho_mecab()` 함수를 이용해서 형태소 단위로 토큰화합니다.
 
 ```{r, eval=FALSE}
 > doc <- "윤희근은 경찰청장이다."
@@ -61,9 +61,11 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 "윤희"   "근"    "은"  "경찰" "청장"   "이"   "다"    "." 
 ```
 
+`윤희근`이라는 인명과 `경찰청장`이라는 일반명사가 토큰화되지 못했습니다. 이제 우리는 잘못된 토큰화를 바로잡는 과정을 진행할 것입니다.
+
 ### get_plan_cost() 
 
-get_plan_cost()는 낱말비용 기반의 토크나이저 플랜을 조회합니다.  
+`get_plan_cost()`는 낱말비용 기반의 토크나이저 플랜을 조회합니다.  
 
 ```{r}
 #| eval: false
@@ -72,14 +74,14 @@ get_plan_cost(x, topn = 3, dic_path = NULL)
 
 다음과 같은 인수를 사용합니다.
 
-- x: 플랜을 조회할 단어나 문장.
+- x: 플랜을 조회할 낱말이나 문장.
 - topn: 플랜을 조회한 후 표시할 상위 저비용 플랜 개수. 
     - 기본값은 3임.
     - 플랜의 개수가 topn보다 작다면, topn 만큼 반복 출력됨
 - dic_path: mecab-ko-dic 사전이 설치된 경로.
     - 지정하지 않으면, bitNLP가 설치한 사전 경로를 사용
 
-"윤희근은 경찰청장이다."라는 문장에 대해서 낱말비용 기반의 토크나이저 플랜 상위 2개를 조회합니다.
+"윤희근은 경찰청장이다."라는 문장에 대해서 낱말비용 기반의 토크나이저 플랜 상위 2개를 조회합니다. 결과를 보면 `윤희근`이라는 인명과 `경찰청장`이라는 일반명사가 어떤 순위로 토큰화되는 지 알 수 있습니다.
 
 ```{r, eval=FALSE}
 > get_plan_cost(doc, topn = 2)
@@ -113,11 +115,11 @@ get_plan_cost(x, topn = 3, dic_path = NULL)
 - 윤희근\\NNP+은\\JX+경찰청장\\NNG+이\\VCP+다\\EF+.\\SF
 
 
-## 명사 사용자 사전 정의
+## 사용자 사전 정보 생성
 
-사용자 정의 사전에 추가할 낱말들은 대부분 NNG(일반명사), NNP(고유명사)일 것이다. 일반명사는 대부분 복합명사일 것이고 고유명사는 인명, 지명 등이 대부분일 것입니다.
+사용자 정의 사전에 추가할 낱말들은 대부분 NNG(일반명사), NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것이고 고유명사는 인명, 지명 등이 대부분일 것입니다.
 
-bitNLP는 mecab-ko-dic 사전에 명사를 추가하는 기능을 제공합니다.
+`bitNLP`는 `mecab-ko-dic` 사전에 명사를 추가하는 기능을 제공합니다.
 
 "윤희근은 경찰청장이다."라는 문장을 "윤희근\\NNP+은\\JX+경찰청장\\NNG+이\\VCP+다\\EF+.\\SF"로 토큰화하기 위해서 우리는 다음의 사전을 추가해야 합니다.
 
@@ -129,7 +131,7 @@ bitNLP는 mecab-ko-dic 사전에 명사를 추가하는 기능을 제공합니�
 
 ### get_userdic_noun()
 
-get_userdic_noun()는 사용자 사전정의 디렉토리의 사전파일 읽어, 정의된 내용을 tibble 객체로 반환한다. 이 기능을 통해서 사용자 명사 사전의 등록(정의) 여부를 파악할 수 있다. 다음과 같은 명사 사용자 정의 사전 파일을 참조합니다.
+`get_userdic_noun()`는 사용자 사전정의 디렉토리의 사전파일 읽어, 정의된 내용을 `tibble` 객체로 반환합니다. 이 기능을 통해서 사용자 명사 사전의 등록(정의) 여부를 파악할 수 있습니다. 다음과 같은 명사 사용자 정의 사전 파일을 참조합니다.
 
 - 인명사전 : person.csv
 - 지명사전 : place.csv
@@ -180,27 +182,27 @@ get_userdic_noun(
 4 타이디버스 NA      NA      NA      NNG      *        FALSE    타이디버스 *        *          *          *                       *         
 ```
 
-조회된 tibble 객체에서 변수는 다음과 같습니다.:
+조회된 `tibble` 객체에서 변수는 다음과 같습니다.:
 
-- 표층형: 단어명.
+- 표층형: 낱말명.
 - 미지정1: 사용하지 않는 컬럼.
 - 미지정2: 사용하지 않는 컬럼.
 - 미지정3: 사용하지 않는 컬럼.
 - 품사태그: 인명의 품사. NNP를 사용함.
 - 의미부류: 인명, 혹은 지명과 같은 의미 부류.
-- 종성유무: 단어의 마지막 음절의 종성 여부. T, F 입력.
+- 종성유무: 낱말의 마지막 음절의 종성 여부. T, F 입력.
 - 읽기: 읽어서 소리나는 말.
 - 타입: inflected, compound, Preanalysis, *.
 - 첫번째 품사: 기분석으로 나눠지는 토큰에 대한 각 품사 입력.
 - 마지막 품사: 기분석으로 나눠지는 토큰에 대한 각 품사 입력.
-- 표현: 단어가 토큰들로 나눠질 경우의 원형을 +로 묶어 입력
+- 표현: 낱말이 토큰들로 나눠질 경우의 원형을 +로 묶어 입력
 - 인텍스표현: 사용하지 않는 컬럼, *로 표현
 
 ### append_userdic_noun()
 
-사전 파일을 조회해서 등록하려하는 단어가 없는 것을 확인했으면, 사전 파일에 등록할 단어를 추가해야 합니다.
+사전 파일을 조회해서 등록하려하는 낱말이 없는 것을 확인했으면, 사전 파일에 등록할 낱말을 추가해야 합니다.
 
-append_userdic_noun()는 사전에 등록하기 위해 인명/지명/고유명사/일반명사를 mecab-ko-dic의 사용자 사전 디렉토리에 사용자 정의 사전 파일에 추가합니다.
+`append_userdic_noun()`는 사전에 등록하기 위해 인명/지명/고유명사/일반명사를 `mecab-ko-dic`의 사용자 사전 디렉토리에 사용자 정의 사전 파일에 추가합니다.
 
 ```{r}
 #| eval: false
@@ -255,15 +257,30 @@ append_userdic_noun(
 ✔ 최종 일반명사 건수: 5
 ```
 
-### add_userdic()
+## 사용자 사전 생성
 
-add_userdic() 함수는 사용자가 정의한 사용자 정의 사전 파일을 mecab-ko-dic 사전에 추가합니다. 이 작업이 수행되야 비로소 형태소분석에 사용자가 추가한 사전이 반영됩니다.
+생성한 사용자 사전 정보로 사전을 생성하는 방법에는 다음과 같은 두가지가 있습니다.
+
+- 시스템 사전에 추가
+    - 관리자 권한으로 `mecab-ko-dic` 시스템 사전에 추가
+    - 명확하고 변하지 않는 여러 낱말을 일괄적으로 적용할 때 유리
+    - `add_sysdic()` 함수 이용
+- 사용자 사전 생성
+    - 별도의 `mecab-ko-dic` 사전 생성
+    - 특정 도메인인 국한된 낱말이거나 일시적인 작업에만 사용할 때 유리
+    - `create_userdic()` 함수 이용
+
+### 시스템 사전 추가
+
+#### add_sysdic()
+
+`add_sysdic()` 함수는 사용자가 정의한 사용자 정의 사전 파일을 `mecab-ko-dic` 사전에 추가합니다. 이 작업이 수행되야 비로소 형태소분석에 사용자가 추가한 사전이 반영됩니다.
 
 이 함수는 인수가 없습니다.
 
 ```{r}
 #| eval: false
-add_userdic()
+add_sysdic()
 ```
 
 인명과 복합명사를 사전에 적용합니다. 사전 파일을 사전에 적용하기 위해서는 시스템 관리자 권한이 필요합니다. MacOS나 Linux의 RStudio에서는 다음과 같은 sudo 패스워드를 묻는 다이얼로그가 나타나며, 패스워드를 입력해야 작업이 수행됩니다.
@@ -276,7 +293,7 @@ knitr::include_graphics("images/password.png")
 
 ```{r}
 #| eval: false
-> add_userdic()
+> add_sysdic()
 Password:generating userdic...
 nng.csv
 /usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/tools/../model.def is not a binary model. reopen it as text mode...
@@ -355,7 +372,7 @@ make[1]: Nothing to be done for `install-exec-am'.
 > 
 ```
 
-### 사전 등록 결과 확인
+#### 사전 등록 결과 확인
 
 사용자가 정의한 사전이 정상적으로 등록되었으니 결과를 확인합니다.
 
@@ -390,4 +407,125 @@ make[1]: Nothing to be done for `install-exec-am'.
        NNP         JX        NNG        VCP         EF         SF 
   "윤희근"       "은" "경찰청장"       "이"       "다"        "." 
 ```
+
+### 사용자 사전 생성
+
+앞의 두 낱말이 시스템 사전에 추가되었으므로, 이제는 다른 낱말로 사용자 사전을 생성해 봅니다.
+
+```{r}
+#| eval: false
+> doc <- "대장내시경 검사에서 대장용종을 제거했다."
+> morpho_mecab(doc, type = "morpheme")
+     NNG      NNG      NNG      JKB      NNG      NNG      JKO      NNG   XSV+EP       EF       SF 
+  "대장" "내시경"   "검사"   "에서"   "대장"   "용종"     "을"   "제거"     "했"     "다"      "." 
+```
+
+`대장내시경`과 `대장용종`이라는 두 일반명사를 사전 정보 파일에 추가합니다. `dic_type` 인수값에 "userdic"를 지정하면 사용자 사전에 등록할 정보 파일이 `./user-dic`이라는 경로에 생성됩니다. 물론 생성 경로를 사용자가 지정할 수도 있습니다.
+
+```{r}
+#| eval: false
+> append_userdic_noun(
++     c("대장내시경", "대장용종"),
++     type = c("Compound", "Compound"),
++     prototype = c("대장/NNG/*+내시경/NNG/*", "대장/NNG/*+용종/NNG/*"),
++     noun_type = "nng", 
++     dic_type = "userdic"
++ )
+── 사전 파일에 일반명사 추가하기 ───────────────────────────────────────────────           
+✔ 신규 추가 건수: 2
+✔ 최종 일반명사 건수: 6
+```
+
+`get_userdic_noun()` 함수의 `userdic_path` 인수에 사전 정의 파일이 생성된 경로를 지정하여 그 내용을 조회할 수 있습니다.
+
+```{r}
+#| eval: false
+> get_userdic_noun(noun_type = "nng", userdic_path = "./user_dic")
+# A tibble: 6 × 13                                                                                                                                                                                    
+  표층형     미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기       타입     첫번째품사 마지막품사 표현                    인텍스표현
+  <chr>      <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr>      <chr>    <chr>      <chr>      <chr>                   <chr>     
+1 재직증명서 NA      NA      NA      NNG      *        FALSE    재직증명서 Compound *          *          재직/NNG/*+증명서/NNG/* *         
+2 육아휴직   NA      NA      NA      NNG      *        TRUE     육아휴직   Compound *          *          육아/NNG/*+휴직/NNG/*   *         
+3 신혼부부   NA      NA      NA      NNG      *        FALSE    신혼부부   Compound *          *          신혼/NNG/*+부부/NNG/*   *         
+4 타이디버스 NA      NA      NA      NNG      *        FALSE    타이디버스 *        *          *          *                       *         
+5 대장내시경 NA      NA      NA      NNG      *        TRUE     대장내시경 Compound *          *          대장/NNG/*+내시경/NNG/* *         
+6 대장용종   NA      NA      NA      NNG      *        TRUE     대장용종   Compound *          *          대장/NNG/*+용종/NNG/*   *     
+```
+
+
+#### create_userdic()
+
+`create_userdic()` 함수는 지정한 디렉토리에 있는 모든 사용자 정의 사전 파일을 엮어 사용자 사전을 생성합니다.
+
+```{r}
+#| eval: false
+create_userdic(
+  userdic_path = "./user_dic",
+  dic_file = "user-dic.dic"
+)
+```
+
+다음과 같은 인수를 사용합니다.
+
+- userdic_path: 사용자 정의 명사 사전 파일이 존재하는 경로. 
+    - 지정하지 않으면 `./user_dic`라는 이름의 경로를 사용함.
+- dic_file: 성할 사용자 사전 파일 이름. 
+    - 지정하지 않으면 `user-dic.dic`라는 이름으로 생성함.
+
+```{r}
+#| eval: false
+> create_userdic()
+generating userdic...
+nng.csv
+/usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/model.def is not a binary model. reopen it as text mode...
+reading ./user_dic/nng.csv ... 
+done!
+reading ./user_dic/indexed/merged.csv ... 6
+emitting double-array: 100% |###########################################| 
+
+done!
+```
+
+이 작업이 끝나면 `./user_dic`에 `user-dic.dic`라는 이름은 사용자 사전이 생성됩니다. 
+
+```{r}
+#| eval: false
+> system("tree ./user_dic")
+./user_dic
+├── indexed
+│   ├── merged.csv
+│   └── nosys-nng.csv
+├── nng.csv
+└── user-dic.dic
+
+2 directories, 4 files
+```
+
+`./user_dic/indexed` 경로에 있는 파일들은 삭제하지 말고 보관하는 것이 좋습니다. 형태소 분석의 결과에 따라서 낱말비용을 수정해야하는 것이 필요할 수 있기 때문입니다.
+
+
+#### 형태소 분석
+
+`morpho_mecab()` 함수로 형태소 단위로 토큰화해도 결과는 바뀌지 않습니다. 그 이유는 `morpho_mecab()` 함수는 기본적으로 시스템 사전만 사용하기 때문입니다.
+
+```{r}
+#| eval: false
+> morpho_mecab(doc, type = "morpheme")
+     NNG      NNG      NNG      JKB      NNG      NNG      JKO      NNG   XSV+EP       EF       SF 
+  "대장" "내시경"   "검사"   "에서"   "대장"   "용종"     "을"   "제거"     "했"     "다"      "." 
+```
+
+그러나, `user_dic` 인수로 사용자 사전을 지정한 `morpho_mecab()` 함수 호출로 원하는 결과를 얻을 수 있습니다.  
+
+```{r}
+#| eval: false
+> morpho_mecab(doc, type = "morpheme", user_dic = "./user_dic/user-dic.dic")
+         NNG          NNG          JKB          NNG          JKO          NNG       XSV+EP           EF           SF 
+"대장내시경"       "검사"       "에서"   "대장용종"         "을"       "제거"         "했"         "다"          "." 
+```
+
+
+## 낱말비용 수정
+
+- TBD
 

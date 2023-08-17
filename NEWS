@@ -1,4 +1,4 @@
-CHANGES IN R VERSION 1.3.4.9000:
+CHANGES IN R VERSION 1.4.0.9000:
   NEW FEATURES:
     * 명사 사용자 정의사전 관리 기능 (#14)
         - create_userdic()

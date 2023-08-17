@@ -90,13 +90,13 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 #  ✔ 최종 일반명사 건수: 5
 
 ## -----------------------------------------------------------------------------
-#  add_userdic()
+#  add_sysdic()
 
 ## ---- echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"-----------
 knitr::include_graphics("images/password.png")
 
 ## -----------------------------------------------------------------------------
-#  > add_userdic()
+#  > add_sysdic()
 #  Password:generating userdic...
 #  nng.csv
 #  /usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/tools/../model.def is not a binary model. reopen it as text mode...
@@ -197,4 +197,73 @@ knitr::include_graphics("images/password.png")
 #  > morpho_mecab(doc, type = "morphe")
 #         NNP         JX        NNG        VCP         EF         SF
 #    "윤희근"       "은" "경찰청장"       "이"       "다"        "."
+
+## -----------------------------------------------------------------------------
+#  > doc <- "대장내시경 검사에서 대장용종을 제거했다."
+#  > morpho_mecab(doc, type = "morpheme")
+#       NNG      NNG      NNG      JKB      NNG      NNG      JKO      NNG   XSV+EP       EF       SF
+#    "대장" "내시경"   "검사"   "에서"   "대장"   "용종"     "을"   "제거"     "했"     "다"      "."
+
+## -----------------------------------------------------------------------------
+#  > append_userdic_noun(
+#  +     c("대장내시경", "대장용종"),
+#  +     type = c("Compound", "Compound"),
+#  +     prototype = c("대장/NNG/*+내시경/NNG/*", "대장/NNG/*+용종/NNG/*"),
+#  +     noun_type = "nng",
+#  +     dic_type = "userdic"
+#  + )
+#  ── 사전 파일에 일반명사 추가하기 ───────────────────────────────────────────────
+#  ✔ 신규 추가 건수: 2
+#  ✔ 최종 일반명사 건수: 6
+
+## -----------------------------------------------------------------------------
+#  > get_userdic_noun(noun_type = "nng", userdic_path = "./user_dic")
+#  # A tibble: 6 × 13
+#    표층형     미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기       타입     첫번째품사 마지막품사 표현                    인텍스표현
+#    <chr>      <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr>      <chr>    <chr>      <chr>      <chr>                   <chr>
+#  1 재직증명서 NA      NA      NA      NNG      *        FALSE    재직증명서 Compound *          *          재직/NNG/*+증명서/NNG/* *
+#  2 육아휴직   NA      NA      NA      NNG      *        TRUE     육아휴직   Compound *          *          육아/NNG/*+휴직/NNG/*   *
+#  3 신혼부부   NA      NA      NA      NNG      *        FALSE    신혼부부   Compound *          *          신혼/NNG/*+부부/NNG/*   *
+#  4 타이디버스 NA      NA      NA      NNG      *        FALSE    타이디버스 *        *          *          *                       *
+#  5 대장내시경 NA      NA      NA      NNG      *        TRUE     대장내시경 Compound *          *          대장/NNG/*+내시경/NNG/* *
+#  6 대장용종   NA      NA      NA      NNG      *        TRUE     대장용종   Compound *          *          대장/NNG/*+용종/NNG/*   *
+
+## -----------------------------------------------------------------------------
+#  create_userdic(
+#    userdic_path = "./user_dic",
+#    dic_file = "user-dic.dic"
+#  )
+
+## -----------------------------------------------------------------------------
+#  > create_userdic()
+#  generating userdic...
+#  nng.csv
+#  /usr/local/install_resources/mecab-ko-dic-2.1.1-20180720/model.def is not a binary model. reopen it as text mode...
+#  reading ./user_dic/nng.csv ...
+#  done!
+#  reading ./user_dic/indexed/merged.csv ... 6
+#  emitting double-array: 100% |###########################################|
+#  
+#  done!
+
+## -----------------------------------------------------------------------------
+#  > system("tree ./user_dic")
+#  ./user_dic
+#  ├── indexed
+#  │   ├── merged.csv
+#  │   └── nosys-nng.csv
+#  ├── nng.csv
+#  └── user-dic.dic
+#  
+#  2 directories, 4 files
+
+## -----------------------------------------------------------------------------
+#  > morpho_mecab(doc, type = "morpheme")
+#       NNG      NNG      NNG      JKB      NNG      NNG      JKO      NNG   XSV+EP       EF       SF
+#    "대장" "내시경"   "검사"   "에서"   "대장"   "용종"     "을"   "제거"     "했"     "다"      "."
+
+## -----------------------------------------------------------------------------
+#  > morpho_mecab(doc, type = "morpheme", user_dic = "./user_dic/user-dic.dic")
+#           NNG          NNG          JKB          NNG          JKO          NNG       XSV+EP           EF           SF
+#  "대장내시경"       "검사"       "에서"   "대장용종"         "을"       "제거"         "했"         "다"          "."
 

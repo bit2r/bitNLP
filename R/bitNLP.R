@@ -6,8 +6,8 @@
 #' \tabular{ll}{
 #' Package: \tab bitNLP\cr
 #' Type: \tab Package\cr
-#' Version: \tab 1.3.9\cr
-#' Date: \tab 2023-08-08\cr
+#' Version: \tab 1.4.0\cr
+#' Date: \tab 2023-08-16\cr
 #' License: \tab GPL-2 | file LICENSE\cr
 #' }
 #' @author 유충현

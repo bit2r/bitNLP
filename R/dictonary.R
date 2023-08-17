@@ -343,6 +343,10 @@ add_sysdic <- function() {
 #' create user dictionary with user-defined dictionary files.
 #' @description 사용자가 정의한 사용자 정의 사전 파일을 사용자 사전으로 생성
 #' @details 사용자 사전정의 디렉토리에 있는 모든 사용자정의 사전 파일을 엮어 사용자 사전에 추가한다.
+#' @param userdic_path character. 사용자 정의 명사 사전 파일이 존재하는 경로.
+#' 지정하지 않으면 ./user_dic라는 이름의 경로를 사용함.
+#' @param dic_file character. 생성할 사용자 사전 파일 이름.
+#' 지정하지 않으면 user-dic.dic라는 이름으로 생성함.
 #' @examples
 #' \dontrun{
 #' create_userdic()
@@ -350,8 +354,7 @@ add_sysdic <- function() {
 #' @importFrom glue glue
 #' @importFrom rstudioapi askForPassword
 #' @export
-create_userdic <- function(userdic_path = "./user_dic", dic_file = "user-dic.dic", 
-                           installd = NULL, dic_path = NULL) {
+create_userdic <- function(userdic_path = "./user_dic", dic_file = "user-dic.dic") {
   if (is_windows()) {
     script_path <- system.file("script", package = "bitNLP")
     script <- glue::glue("{script_path}\\create_userdic_win.ps1")
