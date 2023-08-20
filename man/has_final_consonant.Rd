@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{has_final_consonant}
 \alias{has_final_consonant}
-\title{한글의 종성 여부 체크}
+\title{Test whether the final consonant of Korean terms}
 \usage{
 has_final_consonant(x, last = FALSE)
 }

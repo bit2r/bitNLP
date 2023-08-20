@@ -8,10 +8,10 @@ create_userdic(userdic_path = "./user_dic", dic_file = "user-dic.dic")
 }
 \arguments{
 \item{userdic_path}{character. 사용자 정의 명사 사전 파일이 존재하는 경로.
-지정하지 않으면 ./user_dic라는 이름의 경로를 사용함.}
+지정하지 않으면 "./user_dic"이라는 이름의 경로를 사용함.}
 
 \item{dic_file}{character. 생성할 사용자 사전 파일 이름.
-지정하지 않으면 user-dic.dic라는 이름으로 생성함.}
+지정하지 않으면 "user-dic.dic"이라는 이름으로 생성함.}
 }
 \description{
 사용자가 정의한 사용자 정의 사전 파일을 사용자 사전으로 생성

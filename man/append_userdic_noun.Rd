@@ -2,7 +2,7 @@
 % Please edit documentation in R/dictonary.R
 \name{append_userdic_noun}
 \alias{append_userdic_noun}
-\title{Write to the user-defined person dictionary file.}
+\title{Write to the user-defined noun dictionary file.}
 \usage{
 append_userdic_noun(
   term,

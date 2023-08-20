@@ -15,7 +15,7 @@ get_os <- function() {
   tolower(os)
 }
 
-#' 한글의 종성 여부 체크
+#' Test whether the final consonant of Korean terms
 #' @description 한글의 종성 여부
 #' @param x character. 종성 여부를 확인할 문자.
 #' @param last logical. 마지막 음절만 체크여부. 기본값은 FALSE로 전체 음절을 체크함. 
