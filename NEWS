@@ -1,4 +1,15 @@
-CHANGES IN R VERSION 1.4.1.9001:
+CHANGES IN R VERSION 1.4.2.9000:
+  MAJOR CHANGES:
+    * 토크나이저 플랜을 조회 시 사용자 사전 지원 (#20)
+        - get_plan_cost()
+
+  MINOR CHANGES:
+    * 사전의 단어비용 수정 도움말 vignettes에 추가 (#21)
+        - Manage Dictionary vignettes
+        
+        
+
+CHANGES IN R VERSION 1.4.1:
   NEW FEATURES:
     * 사전의 단어비용 수정 기능 추가 (#9)
         - edit_termcost()

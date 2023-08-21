@@ -267,3 +267,69 @@ knitr::include_graphics("images/password.png")
 #           NNG          NNG          JKB          NNG          JKO          NNG       XSV+EP           EF           SF
 #  "대장내시경"       "검사"       "에서"   "대장용종"         "을"       "제거"         "했"         "다"          "."
 
+## -----------------------------------------------------------------------------
+#  > doc <- "신혼부부가 여행을 온다."
+#  > morpho_mecab(doc, type = "morpheme")
+#     NNG    NNG    JKS    NNG    JKO  VV+EF     SF
+#  "신혼" "부부"   "가" "여행"   "을" "온다"    "."
+#  > morpho_mecab(doc, type = "morpheme", user_dic = "./user_dic/user-dic.dic")
+#     NNG    NNG    JKS    NNG    JKO  VV+EF     SF
+#  "신혼" "부부"   "가" "여행"   "을" "온다"    "."
+
+## -----------------------------------------------------------------------------
+#  > get_plan_cost("신혼부부", topn = 2)
+#  # A tibble: 3 × 9
+#    우선순위 표층형   품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용
+#       <int> <chr>    <chr>    <lgl>       <int>    <int>    <int>    <int>    <int>
+#  1        1 신혼     NNG      NA           1781     3535     1034    -1158     -124
+#  2        1 부부     NNG      NA           1781     3534      410      260      546
+#  3        2 신혼부부 NNG      NA           1781     3534     2835    -1158     1677
+
+## -----------------------------------------------------------------------------
+#  edit_termcost(userdic_path = "./user_dic", dic_file = "user-dic.dic")
+
+## ---- echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"-----------
+knitr::include_graphics("images/edit_cost.png")
+
+## -----------------------------------------------------------------------------
+#  > edit_termcost()
+#  
+#  Listening on http://127.0.0.1:6152
+#  ── 사전 파일의 낱말비용 수정하기 ───────────────────────────────────────────────
+#  ✔ 낱말비용 수정 건수: 1
+
+## -----------------------------------------------------------------------------
+#  update_userdic(userdic_path = "./user_dic", dic_file = "user-dic.dic")
+
+## -----------------------------------------------------------------------------
+#  > update_userdic()
+#  updating userdic...
+#  reading ./user_dic/indexed/merged.csv ... 6
+#  emitting double-array: 100% |###########################################|
+#  
+#  done!
+
+## -----------------------------------------------------------------------------
+#  > morpho_mecab(doc, type = "morpheme")
+#     NNG    NNG    JKS    NNG    JKO  VV+EF     SF
+#  "신혼" "부부"   "가" "여행"   "을" "온다"    "."
+#  > morpho_mecab(doc, type = "morpheme", user_dic = "./user_dic/user-dic.dic")
+#         NNG        JKS        NNG        JKO      VV+EF         SF
+#  "신혼부부"       "가"     "여행"       "을"     "온다"        "."
+
+## -----------------------------------------------------------------------------
+#  > get_plan_cost("신혼부부", topn = 2)
+#  # A tibble: 3 × 9
+#    우선순위 표층형   품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용
+#       <int> <chr>    <chr>    <lgl>       <int>    <int>    <int>    <int>    <int>
+#  1        1 신혼     NNG      NA           1781     3535     1034    -1158     -124
+#  2        1 부부     NNG      NA           1781     3534      410      260      546
+#  3        2 신혼부부 NNG      NA           1781     3534     2835    -1158     1677
+#  > get_plan_cost("신혼부부", topn = 2, userdic = "./user_dic/user-dic.dic")
+#  # A tibble: 3 × 9
+#    우선순위 표층형   품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용
+#       <int> <chr>    <chr>    <lgl>       <int>    <int>    <int>    <int>    <int>
+#  1        1 신혼부부 NNG      NA           1781     3534     1000    -1158     -158
+#  2        2 신혼     NNG      NA           1781     3535     1034    -1158     -124
+#  3        2 부부     NNG      NA           1781     3534      410      260      546
+

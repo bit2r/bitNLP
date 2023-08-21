@@ -530,5 +530,149 @@ done!
 
 ## 낱말비용 수정
 
-- TBD
+사용자 사전에 낱말을 등록하여 원하는 형태소 토큰화를 유도하더라도, 모든 사례에서 원하는 토큰화가 이루어진다는 보장은 없습니다. 그 이유는 사용자가 등록한 낱말의 비용이 커서 형태소분석기가 우선순위로 고려하지 않을 수 있기 때문입니다. 이때는 분석가가 직접 낱말비용을 수정해서 원하는 토큰화를 유도해야 합니다.
+
+### 원하지 않는 토큰화 사례
+
+이미 앞에서 사용자 사전에 "신혼부부"를 포함하였습니다. 그러나 다음 문서의 형태소 토큰화는 원하는 결과를 얻지 못합니다. 시스템 사전과 사용자 사전을 사용하는 토큰화에서도 결과는 동일합니다.
+
+```{r}
+#| eval: false
+> doc <- "신혼부부가 여행을 온다."
+> morpho_mecab(doc, type = "morpheme")
+   NNG    NNG    JKS    NNG    JKO  VV+EF     SF 
+"신혼" "부부"   "가" "여행"   "을" "온다"    "." 
+> morpho_mecab(doc, type = "morpheme", user_dic = "./user_dic/user-dic.dic")
+   NNG    NNG    JKS    NNG    JKO  VV+EF     SF 
+"신혼" "부부"   "가" "여행"   "을" "온다"    "." 
+```
+
+"신혼부부"의 토크나이저 플랜을 조회하면, "신혼(NNG)+부부(NNG)"의 우선순위가 "신혼부부(NNG)"보다 높습니다.
+
+- 낱말비용
+    - 신혼: 1034, 부부: 410
+    - 신혼부부: 2835
+- 누적비용
+    - 신혼+부부: 546
+    - 신혼부부: 1677
+    
+비용이 낮은 것이 우선순위가 높기 때문에 원하는 "신혼부부"로 토큰화가 되지 않는 것입니다. 즉 사전에 낱말이 추가되더라도 이전에 포함된 낱말과 비용의 경합을 벌여, 비용이 크면 그 낱말로 토큰화되지 않습니다.
+
+```{r}
+#| eval: false
+> get_plan_cost("신혼부부", topn = 2)
+# A tibble: 3 × 9
+  우선순위 표층형   품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용
+     <int> <chr>    <chr>    <lgl>       <int>    <int>    <int>    <int>    <int>
+1        1 신혼     NNG      NA           1781     3535     1034    -1158     -124
+2        1 부부     NNG      NA           1781     3534      410      260      546
+3        2 신혼부부 NNG      NA           1781     3534     2835    -1158     1677
+```
+
+
+### 원하는 토큰화 유도
+
+원하는 토큰화를 위해서는 낱말의 낱말비용의 값을 좀 더 낮게 수정한 후, 사전에 재등록해야 합니다.
+
+#### 낱말비용 수정
+
+낱말비용을 수정하기 위해서 `edit_termcost()` 함수를 사용합니다.
+
+```{r}
+#| eval: false
+edit_termcost(userdic_path = "./user_dic", dic_file = "user-dic.dic")
+```
+
+다음과 같은 인수를 사용합니다.
+
+- userdic_path: 사용자 정의 사전 파일이 존재하는 경로입니다. 
+    - 지정하지 않으면 "./user_dic"이라는 이름의 경로를 사용합니다.
+- dic_file: 생성할 사용자 사전 파일 이름입니다. 
+    - 지정하지 않으면 "user-dic.dic"이라는 이름으로 생성합니다.
+    
+edit_termcost()을 수행하면 다음과 같은 Shiny 앱이 출력됩니다. 
+
+1. 수정할 낱말의 낱말비용을 수정하고, 
+1. `synchronise` 버튼을 누른 후,
+    - 수정한 값을 반영하려면, 반드시 `synchronise` 버튼을 눌러야 합니다.
+1. `Done` 버튼을 눌러 작업을 마칩니다.
+
+여기서는 "신혼부부"의 낱말비용을 2639에서 1000으로 낮췄습니다.
+
+```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+knitr::include_graphics("images/edit_cost.png")
+```
+
+```{r}
+#| eval: false
+> edit_termcost()
+                                                                                                                         
+Listening on http://127.0.0.1:6152
+── 사전 파일의 낱말비용 수정하기 ───────────────────────────────────────────────           
+✔ 낱말비용 수정 건수: 1
+```
+
+
+#### 사용자 사전 업데이트
+
+낱말비용을 수정했다고, 사전에 반영되지 않습니다. 사전을 다시 업데이트(생성)해야 합니다.
+bitNLP는 낱말비용을 수정 기반의 사용자 사전 업데이트 기능을 사용자 사전만 지원합니다. 왜냐하면 시스템 사전의 낱말비용을 수정하는 것이 예기치 못한 부작용(side-effect)을 가져올 수 있기 때문입니다.
+
+사용자 사전 업데이트하기 위해서 `update_userdic()` 함수를 사용합니다.
+
+```{r}
+#| eval: false
+update_userdic(userdic_path = "./user_dic", dic_file = "user-dic.dic")
+```
+
+다음과 같은 인수를 사용합니다.
+
+- userdic_path: 사용자 정의 사전 파일이 존재하는 경로입니다. 
+    - 지정하지 않으면 "./user_dic"이라는 이름의 경로를 사용합니다.
+- dic_file: 생성할 사용자 사전 파일 이름입니다. 
+    - 지정하지 않으면 "user-dic.dic"이라는 이름으로 생성합니다.
+    
+기본 설정으로 사용자 사전을 업데이트합니다.
+
+```{r}
+#| eval: false
+> update_userdic()
+updating userdic...
+reading ./user_dic/indexed/merged.csv ... 6
+emitting double-array: 100% |###########################################| 
+
+done!
+```
+
+업데이트한 사용자 사전을 이용한 형태소 토큰화는 원하는 결과를 보여줍니다.
+
+```{r}
+#| eval: false
+> morpho_mecab(doc, type = "morpheme")
+   NNG    NNG    JKS    NNG    JKO  VV+EF     SF 
+"신혼" "부부"   "가" "여행"   "을" "온다"    "." 
+> morpho_mecab(doc, type = "morpheme", user_dic = "./user_dic/user-dic.dic")
+       NNG        JKS        NNG        JKO      VV+EF         SF 
+"신혼부부"       "가"     "여행"       "을"     "온다"        "."        
+```
+
+토크나이저 플랜을 조회하면, 사용자 사전을 적용한 두번째 결과에서 원하는 토큰화 플랜을 보여줍니다. 그러므로 원하는 토큰화를 위해서는 비용을 수정한 파일로 생성한 사용자 사전을 사용해야 합니다.
+
+```{r}
+#| eval: false
+> get_plan_cost("신혼부부", topn = 2)
+# A tibble: 3 × 9
+  우선순위 표층형   품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용
+     <int> <chr>    <chr>    <lgl>       <int>    <int>    <int>    <int>    <int>
+1        1 신혼     NNG      NA           1781     3535     1034    -1158     -124
+2        1 부부     NNG      NA           1781     3534      410      260      546
+3        2 신혼부부 NNG      NA           1781     3534     2835    -1158     1677
+> get_plan_cost("신혼부부", topn = 2, userdic = "./user_dic/user-dic.dic")
+# A tibble: 3 × 9
+  우선순위 표층형   품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용
+     <int> <chr>    <chr>    <lgl>       <int>    <int>    <int>    <int>    <int>
+1        1 신혼부부 NNG      NA           1781     3534     1000    -1158     -158
+2        2 신혼     NNG      NA           1781     3535     1034    -1158     -124
+3        2 부부     NNG      NA           1781     3534      410      260      546
+```
 

@@ -13,8 +13,8 @@
 \tabular{ll}{
 Package: \tab bitNLP\cr
 Type: \tab Package\cr
-Version: \tab 1.4.1\cr
-Date: \tab 2023-08-21\cr
+Version: \tab 1.4.2\cr
+Date: \tab 2023-08-22\cr
 License: \tab GPL-2 | file LICENSE\cr
 }
 }

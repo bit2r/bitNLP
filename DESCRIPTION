@@ -1,8 +1,8 @@
 Package: bitNLP
 Type: Package
 Title: Tools for NLP and Text Analytics
-Version: 1.4.1.9002
-Date: 2023-08-21
+Version: 1.4.2.9000
+Date: 2023-08-22
 Description: Tools that support "Natural Language Processing" for text analytics.
 License: GPL-2 | file LICENSE
 Encoding: UTF-8
