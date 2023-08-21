@@ -488,3 +488,58 @@ edit_termcost <- function(userdic_path = "./user_dic", dic_file = "user-dic.dic"
   }  
   cli::cli_alert_success(c("낱말비용 수정 건수: {n_changed}"))
 }
+
+
+#' update user dictionary with user-defined dictionary files.
+#' @description 수정된 사용자 정의 사전 파일을 이용하여 사용자 사전 업데이트
+#' @details 사용자 사전정의 디렉토리 내에 있는 "merged.csv" 파일로 사용자 정의 사전을 업데이트/생성한다.
+#' @param userdic_path character. 사용자 정의 명사 사전 파일이 존재하는 경로.
+#' 지정하지 않으면 "./user_dic"이라는 이름의 경로를 사용함.
+#' @param dic_file character. 생성할 사용자 사전 파일 이름.
+#' 지정하지 않으면 "user-dic.dic"이라는 이름으로 생성함.
+#' @examples
+#' \dontrun{
+#' update_userdic()
+#' }
+#' @importFrom glue glue
+#' @export
+update_userdic <- function(userdic_path = "./user_dic", dic_file = "user-dic.dic") {
+  if (is_windows()) {
+    script_path <- system.file("script", package = "bitNLP")
+    script <- glue::glue("{script_path}\\update_userdic_win.ps1")
+    
+    cmd <- glue::glue('powershell -File "{script}" {userdic_path} {dic_file}')
+    system(glue::glue("{cmd}"))
+  } else {
+    script_path <- system.file("script", package = "bitNLP")
+    update_script <- glue::glue("/bin/bash {script_path}/update_userdic.sh")
+    
+    cmd <- glue::glue("{update_script} {userdic_path} {dic_file}")
+    
+    exec_file <- "/usr/local/libexec/mecab/mecab-dict-index"
+    if (file.access(exec_file, 1) == -1) {
+      if (.Platform$GUI %in% "RStudio") {
+        input <- rstudioapi::askForPassword("sudo password")
+      } else {
+        input <- readline("Enter your password: ")
+      }
+      
+      system("sudo -kS chmod -R 755 /usr/local/libexec/mecab", input = input)
+    }
+    
+    if (file.access(userdic_path, 2) == -1) {
+      if (!exists("input")) {
+        if (.Platform$GUI %in% "RStudio") {
+          input <- rstudioapi::askForPassword("sudo password")
+        } else {
+          input <- readline("Enter your password: ")
+        }
+      }
+      
+      system(glue::glue("sudo -kS {cmd}"), input = input)
+    } else {
+      system(cmd)
+    }  
+  }
+}
+

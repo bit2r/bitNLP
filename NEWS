@@ -1,7 +1,9 @@
-CHANGES IN R VERSION 1.4.1.9000:
+CHANGES IN R VERSION 1.4.1.9001:
   NEW FEATURES:
     * 사전의 단어비용 수정 기능 추가 (#9)
         - edit_termcost()
+    * 사용자 사전 업데이트 기능 추가 (#19)
+        - update_userdic()        
   BUG FIXES:
     * append_userdic_noun() 중복건 추가 시의 버그 수정 (#17)
     * 특정 Linux 환경에서 mecab-dict-index 실행 permission 오류 수정 (#18)
