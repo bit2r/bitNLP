@@ -53,5 +53,7 @@ reference:
   - sentiment_dic
 - subtitle: 형태소분석기 사전 관리
   contents:
+  - add_sysdic
+  - edit_termcost
   - get_plan_cost
   - contains("userdic")

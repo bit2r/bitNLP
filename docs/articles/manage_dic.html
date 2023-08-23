@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bitNLP</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.2.9000</span>
       </span>
     </div>
 
@@ -190,7 +190,9 @@
 <td align="left"><ul>
 <li>edit_index_dic()</li>
 </ul></td>
-<td align="left">미지원</td>
+<td align="left"><ul>
+<li>edit_index_dic()</li>
+</ul></td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -207,25 +209,30 @@
 등록되어 있으나, 비용이 커서 의도하지 않는 결과가 나타날 수 있기
 때문입니다. 이 경우에는 사전에 등록하는 것보다는 낱말비용을 수정하는
 방법으로 원하는 결과의 도출을 유도해야 합니다.</p>
-<div class="section level3">
-<h3 id="형태소-분석">형태소 분석<a class="anchor" aria-label="anchor" href="#%ED%98%95%ED%83%9C%EC%86%8C-%EB%B6%84%EC%84%9D"></a>
-</h3>
-<p>“윤희근은 경찰청장이다.”라는 문장에 대해서, morpho_mecab() 함수를
-이용해서 형태소 단위로 토큰화합니다.</p>
+</div>
+<div class="section level2">
+<h2 id="형태소-분석">형태소 분석<a class="anchor" aria-label="anchor" href="#%ED%98%95%ED%83%9C%EC%86%8C-%EB%B6%84%EC%84%9D"></a>
+</h2>
+<p>“윤희근은 경찰청장이다.”라는 문장에 대해서,
+<code><a href="../reference/morpho_mecab.html">morpho_mecab()</a></code> 함수를 이용해서 형태소 단위로
+토큰화합니다.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="sc">&gt;</span> doc <span class="ot">&lt;-</span> <span class="st">"윤희근은 경찰청장이다."</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">morpho_mecab</span>(doc, <span class="at">type =</span> <span class="st">"morphe"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>   NNP    NNG     JX    NNG    NNG     VCP     EF     SF </span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="st">"윤희"</span>   <span class="st">"근"</span>    <span class="st">"은"</span>  <span class="st">"경찰"</span> <span class="st">"청장"</span>   <span class="st">"이"</span>   <span class="st">"다"</span>    <span class="st">"."</span> </span></code></pre></div>
-</div>
+<p><code>윤희근</code>이라는 인명과 <code>경찰청장</code>이라는
+일반명사가 토큰화되지 못했습니다. 이제 우리는 잘못된 토큰화를 바로잡는
+과정을 진행할 것입니다.</p>
 <div class="section level3">
 <h3 id="get_plan_cost">get_plan_cost()<a class="anchor" aria-label="anchor" href="#get_plan_cost"></a>
 </h3>
-<p>get_plan_cost()는 낱말비용 기반의 토크나이저 플랜을 조회합니다.</p>
+<p><code><a href="../reference/get_plan_cost.html">get_plan_cost()</a></code>는 낱말비용 기반의 토크나이저 플랜을
+조회합니다.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_plan_cost.html">get_plan_cost</a></span><span class="op">(</span><span class="va">x</span>, topn <span class="op">=</span> <span class="fl">3</span>, dic_path <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 <p>다음과 같은 인수를 사용합니다.</p>
 <ul>
-<li>x: 플랜을 조회할 단어나 문장.</li>
+<li>x: 플랜을 조회할 낱말이나 문장.</li>
 <li>topn: 플랜을 조회한 후 표시할 상위 저비용 플랜 개수.
 <ul>
 <li>기본값은 3임.</li>
@@ -239,7 +246,9 @@
 </li>
 </ul>
 <p>“윤희근은 경찰청장이다.”라는 문장에 대해서 낱말비용 기반의 토크나이저
-플랜 상위 2개를 조회합니다.</p>
+플랜 상위 2개를 조회합니다. 결과를 보면 <code>윤희근</code>이라는 인명과
+<code>경찰청장</code>이라는 일반명사가 어떤 순위로 토큰화되는 지 알 수
+있습니다.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_plan_cost</span>(doc, <span class="at">topn =</span> <span class="dv">2</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co"># A tibble: 16 × 9</span></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>   우선순위 표층형 품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용</span>
@@ -272,12 +281,13 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="명사-사용자-사전-정의">명사 사용자 사전 정의<a class="anchor" aria-label="anchor" href="#%EB%AA%85%EC%82%AC-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%82%AC%EC%A0%84-%EC%A0%95%EC%9D%98"></a>
+<h2 id="사용자-사전-정보-생성">사용자 사전 정보 생성<a class="anchor" aria-label="anchor" href="#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%82%AC%EC%A0%84-%EC%A0%95%EB%B3%B4-%EC%83%9D%EC%84%B1"></a>
 </h2>
 <p>사용자 정의 사전에 추가할 낱말들은 대부분 NNG(일반명사),
-NNP(고유명사)일 것이다. 일반명사는 대부분 복합명사일 것이고 고유명사는
+NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것이고 고유명사는
 인명, 지명 등이 대부분일 것입니다.</p>
-<p>bitNLP는 mecab-ko-dic 사전에 명사를 추가하는 기능을 제공합니다.</p>
+<p><code>bitNLP</code>는 <code>mecab-ko-dic</code> 사전에 명사를
+추가하는 기능을 제공합니다.</p>
 <p>“윤희근은 경찰청장이다.”라는 문장을
 “윤희근\NNP+은\JX+경찰청장\NNG+이\VCP+다\EF+.\SF”로 토큰화하기 위해서
 우리는 다음의 사전을 추가해야 합니다.</p>
@@ -296,10 +306,10 @@ NNP(고유명사)일 것이다. 일반명사는 대부분 복합명사일 것이
 <div class="section level3">
 <h3 id="get_userdic_noun">get_userdic_noun()<a class="anchor" aria-label="anchor" href="#get_userdic_noun"></a>
 </h3>
-<p>get_userdic_noun()는 사용자 사전정의 디렉토리의 사전파일 읽어, 정의된
-내용을 tibble 객체로 반환한다. 이 기능을 통해서 사용자 명사 사전의
-등록(정의) 여부를 파악할 수 있다. 다음과 같은 명사 사용자 정의 사전
-파일을 참조합니다.</p>
+<p><code><a href="../reference/get_userdic_noun.html">get_userdic_noun()</a></code>는 사용자 사전정의 디렉토리의 사전파일
+읽어, 정의된 내용을 <code>tibble</code> 객체로 반환합니다. 이 기능을
+통해서 사용자 명사 사전의 등록(정의) 여부를 파악할 수 있습니다. 다음과
+같은 명사 사용자 정의 사전 파일을 참조합니다.</p>
 <ul>
 <li>인명사전 : person.csv</li>
 <li>지명사전 : place.csv</li>
@@ -345,31 +355,31 @@ NNP(고유명사)일 것이다. 일반명사는 대부분 복합명사일 것이
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="dv">2</span> 육아휴직   <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNG      <span class="sc">*</span>        <span class="cn">TRUE</span>     육아휴직   Compound <span class="sc">*</span>          <span class="er">*</span>          육아<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span><span class="sc">+</span>휴직<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span>   <span class="er">*</span>         </span>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="dv">3</span> 신혼부부   <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNG      <span class="sc">*</span>        <span class="cn">FALSE</span>    신혼부부   Compound <span class="sc">*</span>          <span class="er">*</span>          신혼<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span><span class="sc">+</span>부부<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span>   <span class="er">*</span>         </span>
 <span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="dv">4</span> 타이디버스 <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNG      <span class="sc">*</span>        <span class="cn">FALSE</span>    타이디버스 <span class="sc">*</span>        <span class="er">*</span>          <span class="er">*</span>          <span class="er">*</span>                       <span class="er">*</span>         </span></code></pre></div>
-<p>조회된 tibble 객체에서 변수는 다음과 같습니다.:</p>
+<p>조회된 <code>tibble</code> 객체에서 변수는 다음과 같습니다.:</p>
 <ul>
-<li>표층형: 단어명.</li>
+<li>표층형: 낱말명.</li>
 <li>미지정1: 사용하지 않는 컬럼.</li>
 <li>미지정2: 사용하지 않는 컬럼.</li>
 <li>미지정3: 사용하지 않는 컬럼.</li>
 <li>품사태그: 인명의 품사. NNP를 사용함.</li>
 <li>의미부류: 인명, 혹은 지명과 같은 의미 부류.</li>
-<li>종성유무: 단어의 마지막 음절의 종성 여부. T, F 입력.</li>
+<li>종성유무: 낱말의 마지막 음절의 종성 여부. T, F 입력.</li>
 <li>읽기: 읽어서 소리나는 말.</li>
 <li>타입: inflected, compound, Preanalysis, *.</li>
 <li>첫번째 품사: 기분석으로 나눠지는 토큰에 대한 각 품사 입력.</li>
 <li>마지막 품사: 기분석으로 나눠지는 토큰에 대한 각 품사 입력.</li>
-<li>표현: 단어가 토큰들로 나눠질 경우의 원형을 +로 묶어 입력</li>
+<li>표현: 낱말이 토큰들로 나눠질 경우의 원형을 +로 묶어 입력</li>
 <li>인텍스표현: 사용하지 않는 컬럼, *로 표현</li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="append_userdic_noun">append_userdic_noun()<a class="anchor" aria-label="anchor" href="#append_userdic_noun"></a>
 </h3>
-<p>사전 파일을 조회해서 등록하려하는 단어가 없는 것을 확인했으면, 사전
-파일에 등록할 단어를 추가해야 합니다.</p>
-<p>append_userdic_noun()는 사전에 등록하기 위해
-인명/지명/고유명사/일반명사를 mecab-ko-dic의 사용자 사전 디렉토리에
-사용자 정의 사전 파일에 추가합니다.</p>
+<p>사전 파일을 조회해서 등록하려하는 낱말이 없는 것을 확인했으면, 사전
+파일에 등록할 낱말을 추가해야 합니다.</p>
+<p><code><a href="../reference/append_userdic_noun.html">append_userdic_noun()</a></code>는 사전에 등록하기 위해
+인명/지명/고유명사/일반명사를 <code>mecab-ko-dic</code>의 사용자 사전
+디렉토리에 사용자 정의 사전 파일에 추가합니다.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/append_userdic_noun.html">append_userdic_noun</a></span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
@@ -427,22 +437,55 @@ NNP(고유명사)일 것이다. 일반명사는 대부분 복합명사일 것이
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>✔ 신규 추가 건수<span class="sc">:</span> <span class="dv">1</span></span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>✔ 최종 일반명사 건수<span class="sc">:</span> <span class="dv">5</span></span></code></pre></div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="사용자-사전-생성">사용자 사전 생성<a class="anchor" aria-label="anchor" href="#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%82%AC%EC%A0%84-%EC%83%9D%EC%84%B1"></a>
+</h2>
+<p>생성한 사용자 사전 정보로 사전을 생성하는 방법에는 다음과 같은
+두가지가 있습니다.</p>
+<ul>
+<li>시스템 사전에 추가
+<ul>
+<li>관리자 권한으로 <code>mecab-ko-dic</code> 시스템 사전에 추가</li>
+<li>명확하고 변하지 않는 여러 낱말을 일괄적으로 적용할 때 유리</li>
+<li>
+<code><a href="../reference/add_sysdic.html">add_sysdic()</a></code> 함수 이용</li>
+</ul>
+</li>
+<li>사용자 사전 생성
+<ul>
+<li>별도의 <code>mecab-ko-dic</code> 사전 생성</li>
+<li>특정 도메인인 국한된 낱말이거나 일시적인 작업에만 사용할 때
+유리</li>
+<li>시스템 사전 변경의 권한이 없을 경우 사용자 사전 생성</li>
+<li>
+<code><a href="../reference/create_userdic.html">create_userdic()</a></code> 함수 이용</li>
+</ul>
+</li>
+</ul>
+<p>사전 업데이트가 빈번하지 않거나 분석 속도를 낮추고 싶지 않은 경우
+직접 시스템 사전을 변경하는 것이 좋습니다. 사전 업데이트가 자주
+발생하거나 시스템 사전을 변경할 권한이 없으면 사용자 사전을 만드는 것이
+좋습니다.</p>
 <div class="section level3">
-<h3 id="add_userdic">add_userdic()<a class="anchor" aria-label="anchor" href="#add_userdic"></a>
+<h3 id="시스템-사전-추가">시스템 사전 추가<a class="anchor" aria-label="anchor" href="#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%82%AC%EC%A0%84-%EC%B6%94%EA%B0%80"></a>
 </h3>
-<p>add_userdic() 함수는 사용자가 정의한 사용자 정의 사전 파일을
-mecab-ko-dic 사전에 추가합니다. 이 작업이 수행되야 비로소 형태소분석에
-사용자가 추가한 사전이 반영됩니다.</p>
+<div class="section level4">
+<h4 id="add_sysdic">add_sysdic()<a class="anchor" aria-label="anchor" href="#add_sysdic"></a>
+</h4>
+<p><code><a href="../reference/add_sysdic.html">add_sysdic()</a></code> 함수는 사용자가 정의한 사용자 정의 사전
+파일을 <code>mecab-ko-dic</code> 사전에 추가합니다. 이 작업이 수행되야
+비로소 형태소분석에 사용자가 추가한 사전이 반영됩니다.</p>
 <p>이 함수는 인수가 없습니다.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/add_userdic.html">add_userdic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/add_sysdic.html">add_sysdic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>인명과 복합명사를 사전에 적용합니다. 사전 파일을 사전에 적용하기
 위해서는 시스템 관리자 권한이 필요합니다. MacOS나 Linux의 RStudio에서는
 다음과 같은 sudo 패스워드를 묻는 다이얼로그가 나타나며, 패스워드를
 입력해야 작업이 수행됩니다.</p>
 <p><img src="images/password.png" width="95%" style="display: block; margin: auto;"></p>
 <p>패스워드 입력을 정상적으로 마치면 사전을 추가합니다.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">add_userdic</span>()</span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">add_sysdic</span>()</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>Password<span class="sc">:</span>generating userdic...</span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>nng.csv</span>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>install_resources<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="dv">-2</span>.<span class="fl">1.1</span><span class="dv">-20180720</span><span class="sc">/</span>tools<span class="sc">/</span>..<span class="sc">/</span>model.def is not a binary model. reopen it as text mode...</span>
@@ -520,9 +563,9 @@ mecab-ko-dic 사전에 추가합니다. 이 작업이 수행되야 비로소 형
 <span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a><span class="st"> /usr/bin/install -c -m 644 model.bin matrix.bin char.bin sys.dic unk.dic left-id.def right-id.def rewrite.def pos-id.def dicrc '/usr/local/lib/mecab/dic/mecab-ko-dic'</span></span>
 <span id="cb11-77"><a href="#cb11-77" tabindex="-1"></a><span class="st">&gt; </span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="사전-등록-결과-확인">사전 등록 결과 확인<a class="anchor" aria-label="anchor" href="#%EC%82%AC%EC%A0%84-%EB%93%B1%EB%A1%9D-%EA%B2%B0%EA%B3%BC-%ED%99%95%EC%9D%B8"></a>
-</h3>
+<div class="section level4">
+<h4 id="사전-등록-결과-확인">사전 등록 결과 확인<a class="anchor" aria-label="anchor" href="#%EC%82%AC%EC%A0%84-%EB%93%B1%EB%A1%9D-%EA%B2%B0%EA%B3%BC-%ED%99%95%EC%9D%B8"></a>
+</h4>
 <p>사용자가 정의한 사전이 정상적으로 등록되었으니 결과를 확인합니다.</p>
 <p>먼저 낱말비용 기반의 토크나이저 플랜을 조회합니다. 원하는 플랜이
 우선순위 1로 나타났습니다.</p>
@@ -548,6 +591,263 @@ mecab-ko-dic 사전에 추가합니다. 이 작업이 수행되야 비로소 형
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">morpho_mecab</span>(doc, <span class="at">type =</span> <span class="st">"morphe"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>       NNP         JX        NNG        VCP         EF         SF </span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="st">"윤희근"</span>       <span class="st">"은"</span> <span class="st">"경찰청장"</span>       <span class="st">"이"</span>       <span class="st">"다"</span>        <span class="st">"."</span> </span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="사용자-사전-생성-1">사용자 사전 생성<a class="anchor" aria-label="anchor" href="#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%82%AC%EC%A0%84-%EC%83%9D%EC%84%B1-1"></a>
+</h3>
+<p>앞의 두 낱말이 시스템 사전에 추가되었으므로, 이제는 다른 낱말로
+사용자 사전을 생성해 봅니다.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="sc">&gt;</span> doc <span class="ot">&lt;-</span> <span class="st">"대장내시경 검사에서 대장용종을 제거했다."</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">morpho_mecab</span>(doc, <span class="at">type =</span> <span class="st">"morpheme"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>     NNG      NNG      NNG      JKB      NNG      NNG      JKO      NNG   XSV<span class="sc">+</span>EP       EF       SF </span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>  <span class="st">"대장"</span> <span class="st">"내시경"</span>   <span class="st">"검사"</span>   <span class="st">"에서"</span>   <span class="st">"대장"</span>   <span class="st">"용종"</span>     <span class="st">"을"</span>   <span class="st">"제거"</span>     <span class="st">"했"</span>     <span class="st">"다"</span>      <span class="st">"."</span> </span></code></pre></div>
+<p><code>대장내시경</code>과 <code>대장용종</code>이라는 두 일반명사를
+사전 정보 파일에 추가합니다. <code>dic_type</code> 인수값에 “userdic”를
+지정하면 사용자 사전에 등록할 정보 파일이 <code>./user-dic</code>이라는
+경로에 생성됩니다. 물론 생성 경로를 사용자가 지정할 수도 있습니다.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">append_userdic_noun</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="sc">+</span>     <span class="fu">c</span>(<span class="st">"대장내시경"</span>, <span class="st">"대장용종"</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="sc">+</span>     <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"Compound"</span>, <span class="st">"Compound"</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="sc">+</span>     <span class="at">prototype =</span> <span class="fu">c</span>(<span class="st">"대장/NNG/*+내시경/NNG/*"</span>, <span class="st">"대장/NNG/*+용종/NNG/*"</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="sc">+</span>     <span class="at">noun_type =</span> <span class="st">"nng"</span>, </span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="sc">+</span>     <span class="at">dic_type =</span> <span class="st">"userdic"</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="sc">+</span> )</span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>── 사전 파일에 일반명사 추가하기 ───────────────────────────────────────────────           </span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>✔ 신규 추가 건수<span class="sc">:</span> <span class="dv">2</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>✔ 최종 일반명사 건수<span class="sc">:</span> <span class="dv">6</span></span></code></pre></div>
+<p><code><a href="../reference/get_userdic_noun.html">get_userdic_noun()</a></code> 함수의 <code>userdic_path</code>
+인수에 사전 정의 파일이 생성된 경로를 지정하여 그 내용을 조회할 수
+있습니다.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_userdic_noun</span>(<span class="at">noun_type =</span> <span class="st">"nng"</span>, <span class="at">userdic_path =</span> <span class="st">"./user_dic"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co"># A tibble: 6 × 13                                                                                                                                                                                    </span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  표층형     미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기       타입     첫번째품사 마지막품사 표현                    인텍스표현</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     </span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="dv">1</span> 재직증명서 <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNG      <span class="sc">*</span>        <span class="cn">FALSE</span>    재직증명서 Compound <span class="sc">*</span>          <span class="er">*</span>          재직<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span><span class="sc">+</span>증명서<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span> <span class="er">*</span>         </span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="dv">2</span> 육아휴직   <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNG      <span class="sc">*</span>        <span class="cn">TRUE</span>     육아휴직   Compound <span class="sc">*</span>          <span class="er">*</span>          육아<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span><span class="sc">+</span>휴직<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span>   <span class="er">*</span>         </span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="dv">3</span> 신혼부부   <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNG      <span class="sc">*</span>        <span class="cn">FALSE</span>    신혼부부   Compound <span class="sc">*</span>          <span class="er">*</span>          신혼<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span><span class="sc">+</span>부부<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span>   <span class="er">*</span>         </span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="dv">4</span> 타이디버스 <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNG      <span class="sc">*</span>        <span class="cn">FALSE</span>    타이디버스 <span class="sc">*</span>        <span class="er">*</span>          <span class="er">*</span>          <span class="er">*</span>                       <span class="er">*</span>         </span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="dv">5</span> 대장내시경 <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNG      <span class="sc">*</span>        <span class="cn">TRUE</span>     대장내시경 Compound <span class="sc">*</span>          <span class="er">*</span>          대장<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span><span class="sc">+</span>내시경<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span> <span class="er">*</span>         </span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="dv">6</span> 대장용종   <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNG      <span class="sc">*</span>        <span class="cn">TRUE</span>     대장용종   Compound <span class="sc">*</span>          <span class="er">*</span>          대장<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span><span class="sc">+</span>용종<span class="sc">/</span>NNG<span class="sc">/</span><span class="er">*</span>   <span class="er">*</span>     </span></code></pre></div>
+<div class="section level4">
+<h4 id="create_userdic">create_userdic()<a class="anchor" aria-label="anchor" href="#create_userdic"></a>
+</h4>
+<p><code><a href="../reference/create_userdic.html">create_userdic()</a></code> 함수는 지정한 디렉토리에 있는 모든
+사용자 정의 사전 파일을 엮어 사용자 사전을 생성합니다.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/create_userdic.html">create_userdic</a></span><span class="op">(</span></span>
+<span>  userdic_path <span class="op">=</span> <span class="st">"./user_dic"</span>,</span>
+<span>  dic_file <span class="op">=</span> <span class="st">"user-dic.dic"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>다음과 같은 인수를 사용합니다.</p>
+<ul>
+<li>userdic_path: 사용자 정의 명사 사전 파일이 존재하는 경로.
+<ul>
+<li>지정하지 않으면 <code>./user_dic</code>라는 이름의 경로를
+사용함.</li>
+</ul>
+</li>
+<li>dic_file: 성할 사용자 사전 파일 이름.
+<ul>
+<li>지정하지 않으면 <code>user-dic.dic</code>라는 이름으로 생성함.</li>
+</ul>
+</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">create_userdic</span>()</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>generating userdic...</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>nng.csv</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>install_resources<span class="sc">/</span>mecab<span class="sc">-</span>ko<span class="sc">-</span>dic<span class="dv">-2</span>.<span class="fl">1.1</span><span class="dv">-20180720</span><span class="sc">/</span>model.def is not a binary model. reopen it as text mode...</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>reading .<span class="sc">/</span>user_dic<span class="sc">/</span>nng.csv ... </span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>done<span class="sc">!</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>reading .<span class="sc">/</span>user_dic<span class="sc">/</span>indexed<span class="sc">/</span>merged.csv ... <span class="dv">6</span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>emitting double<span class="sc">-</span>array<span class="sc">:</span> <span class="dv">100</span>% <span class="sc">|</span><span class="do">###########################################| </span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>done<span class="sc">!</span></span></code></pre></div>
+<p>이 작업이 끝나면 <code>./user_dic</code>에
+<code>user-dic.dic</code>라는 이름은 사용자 사전이 생성됩니다.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">system</span>(<span class="st">"tree ./user_dic"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>.<span class="sc">/</span>user_dic</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>├── indexed</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>│   ├── merged.csv</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>│   └── nosys<span class="sc">-</span>nng.csv</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>├── nng.csv</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>└── user<span class="sc">-</span>dic.dic</span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="dv">2</span> directories, <span class="dv">4</span> files</span></code></pre></div>
+<p><code>./user_dic/indexed</code> 경로에 있는 파일들은 삭제하지 말고
+보관하는 것이 좋습니다. 형태소 분석의 결과에 따라서 낱말비용을
+수정해야하는 것이 필요할 수 있기 때문입니다.</p>
+</div>
+<div class="section level4">
+<h4 id="형태소-분석-1">형태소 분석<a class="anchor" aria-label="anchor" href="#%ED%98%95%ED%83%9C%EC%86%8C-%EB%B6%84%EC%84%9D-1"></a>
+</h4>
+<p><code><a href="../reference/morpho_mecab.html">morpho_mecab()</a></code> 함수로 형태소 단위로 토큰화해도 결과는
+바뀌지 않습니다. 그 이유는 <code><a href="../reference/morpho_mecab.html">morpho_mecab()</a></code> 함수는 기본적으로
+시스템 사전만 사용하기 때문입니다.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">morpho_mecab</span>(doc, <span class="at">type =</span> <span class="st">"morpheme"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>     NNG      NNG      NNG      JKB      NNG      NNG      JKO      NNG   XSV<span class="sc">+</span>EP       EF       SF </span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  <span class="st">"대장"</span> <span class="st">"내시경"</span>   <span class="st">"검사"</span>   <span class="st">"에서"</span>   <span class="st">"대장"</span>   <span class="st">"용종"</span>     <span class="st">"을"</span>   <span class="st">"제거"</span>     <span class="st">"했"</span>     <span class="st">"다"</span>      <span class="st">"."</span> </span></code></pre></div>
+<p>그러나, <code>user_dic</code> 인수로 사용자 사전을 지정한
+<code><a href="../reference/morpho_mecab.html">morpho_mecab()</a></code> 함수 호출로 원하는 결과를 얻을 수
+있습니다.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">morpho_mecab</span>(doc, <span class="at">type =</span> <span class="st">"morpheme"</span>, <span class="at">user_dic =</span> <span class="st">"./user_dic/user-dic.dic"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>         NNG          NNG          JKB          NNG          JKO          NNG       XSV<span class="sc">+</span>EP           EF           SF </span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="st">"대장내시경"</span>       <span class="st">"검사"</span>       <span class="st">"에서"</span>   <span class="st">"대장용종"</span>         <span class="st">"을"</span>       <span class="st">"제거"</span>         <span class="st">"했"</span>         <span class="st">"다"</span>          <span class="st">"."</span> </span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="낱말비용-수정">낱말비용 수정<a class="anchor" aria-label="anchor" href="#%EB%82%B1%EB%A7%90%EB%B9%84%EC%9A%A9-%EC%88%98%EC%A0%95"></a>
+</h2>
+<p>사용자 사전에 낱말을 등록하여 원하는 형태소 토큰화를 유도하더라도,
+모든 사례에서 원하는 토큰화가 이루어진다는 보장은 없습니다. 그 이유는
+사용자가 등록한 낱말의 비용이 커서 형태소분석기가 우선순위로 고려하지
+않을 수 있기 때문입니다. 이때는 분석가가 직접 낱말비용을 수정해서 원하는
+토큰화를 유도해야 합니다.</p>
+<div class="section level3">
+<h3 id="원하지-않는-토큰화-사례">원하지 않는 토큰화 사례<a class="anchor" aria-label="anchor" href="#%EC%9B%90%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%ED%86%A0%ED%81%B0%ED%99%94-%EC%82%AC%EB%A1%80"></a>
+</h3>
+<p>이미 앞에서 사용자 사전에 “신혼부부”를 포함하였습니다. 그러나 다음
+문서의 형태소 토큰화는 원하는 결과를 얻지 못합니다. 시스템 사전과 사용자
+사전을 사용하는 토큰화에서도 결과는 동일합니다.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="sc">&gt;</span> doc <span class="ot">&lt;-</span> <span class="st">"신혼부부가 여행을 온다."</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">morpho_mecab</span>(doc, <span class="at">type =</span> <span class="st">"morpheme"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>   NNG    NNG    JKS    NNG    JKO  VV<span class="sc">+</span>EF     SF </span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="st">"신혼"</span> <span class="st">"부부"</span>   <span class="st">"가"</span> <span class="st">"여행"</span>   <span class="st">"을"</span> <span class="st">"온다"</span>    <span class="st">"."</span> </span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">morpho_mecab</span>(doc, <span class="at">type =</span> <span class="st">"morpheme"</span>, <span class="at">user_dic =</span> <span class="st">"./user_dic/user-dic.dic"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>   NNG    NNG    JKS    NNG    JKO  VV<span class="sc">+</span>EF     SF </span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="st">"신혼"</span> <span class="st">"부부"</span>   <span class="st">"가"</span> <span class="st">"여행"</span>   <span class="st">"을"</span> <span class="st">"온다"</span>    <span class="st">"."</span> </span></code></pre></div>
+<p>“신혼부부”의 토크나이저 플랜을 조회하면, “신혼(NNG)+부부(NNG)”의
+우선순위가 “신혼부부(NNG)”보다 높습니다.</p>
+<ul>
+<li>낱말비용
+<ul>
+<li>신혼: 1034, 부부: 410</li>
+<li>신혼부부: 2835</li>
+</ul>
+</li>
+<li>누적비용
+<ul>
+<li>신혼+부부: 546</li>
+<li>신혼부부: 1677</li>
+</ul>
+</li>
+</ul>
+<p>비용이 낮은 것이 우선순위가 높기 때문에 원하는 “신혼부부”로 토큰화가
+되지 않는 것입니다. 즉 사전에 낱말이 추가되더라도 이전에 포함된 낱말과
+비용의 경합을 벌여, 비용이 크면 그 낱말로 토큰화되지 않습니다.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_plan_cost</span>(<span class="st">"신혼부부"</span>, <span class="at">topn =</span> <span class="dv">2</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="co"># A tibble: 3 × 9</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  우선순위 표층형   품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>     <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>       <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="dv">1</span>        <span class="dv">1</span> 신혼     NNG      <span class="cn">NA</span>           <span class="dv">1781</span>     <span class="dv">3535</span>     <span class="dv">1034</span>    <span class="sc">-</span><span class="dv">1158</span>     <span class="sc">-</span><span class="dv">124</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="dv">2</span>        <span class="dv">1</span> 부부     NNG      <span class="cn">NA</span>           <span class="dv">1781</span>     <span class="dv">3534</span>      <span class="dv">410</span>      <span class="dv">260</span>      <span class="dv">546</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="dv">3</span>        <span class="dv">2</span> 신혼부부 NNG      <span class="cn">NA</span>           <span class="dv">1781</span>     <span class="dv">3534</span>     <span class="dv">2835</span>    <span class="sc">-</span><span class="dv">1158</span>     <span class="dv">1677</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="원하는-토큰화-유도">원하는 토큰화 유도<a class="anchor" aria-label="anchor" href="#%EC%9B%90%ED%95%98%EB%8A%94-%ED%86%A0%ED%81%B0%ED%99%94-%EC%9C%A0%EB%8F%84"></a>
+</h3>
+<p>원하는 토큰화를 위해서는 낱말의 낱말비용의 값을 좀 더 낮게 수정한 후,
+사전에 재등록해야 합니다.</p>
+<div class="section level4">
+<h4 id="낱말비용-수정-1">낱말비용 수정<a class="anchor" aria-label="anchor" href="#%EB%82%B1%EB%A7%90%EB%B9%84%EC%9A%A9-%EC%88%98%EC%A0%95-1"></a>
+</h4>
+<p>낱말비용을 수정하기 위해서 <code><a href="../reference/edit_termcost.html">edit_termcost()</a></code> 함수를
+사용합니다.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/edit_termcost.html">edit_termcost</a></span><span class="op">(</span>userdic_path <span class="op">=</span> <span class="st">"./user_dic"</span>, dic_file <span class="op">=</span> <span class="st">"user-dic.dic"</span><span class="op">)</span></span></code></pre></div>
+<p>다음과 같은 인수를 사용합니다.</p>
+<ul>
+<li>userdic_path: 사용자 정의 사전 파일이 존재하는 경로입니다.
+<ul>
+<li>지정하지 않으면 “./user_dic”이라는 이름의 경로를 사용합니다.</li>
+</ul>
+</li>
+<li>dic_file: 생성할 사용자 사전 파일 이름입니다.
+<ul>
+<li>지정하지 않으면 “user-dic.dic”이라는 이름으로 생성합니다.</li>
+</ul>
+</li>
+</ul>
+<p>edit_termcost()을 수행하면 다음과 같은 Shiny 앱이 출력됩니다.</p>
+<ol style="list-style-type: decimal">
+<li>수정할 낱말의 낱말비용을 수정하고,</li>
+<li>
+<code>synchronise</code> 버튼을 누른 후,
+<ul>
+<li>수정한 값을 반영하려면, 반드시 <code>synchronise</code> 버튼을
+눌러야 합니다.</li>
+</ul>
+</li>
+<li>
+<code>Done</code> 버튼을 눌러 작업을 마칩니다.</li>
+</ol>
+<p>여기서는 “신혼부부”의 낱말비용을 2639에서 1000으로 낮췄습니다.</p>
+<p><img src="images/edit_cost.png" width="95%" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">edit_termcost</span>()</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>                                                                                                                         </span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>Listening on http<span class="sc">:</span><span class="er">//</span><span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span><span class="sc">:</span><span class="dv">6152</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>── 사전 파일의 낱말비용 수정하기 ───────────────────────────────────────────────           </span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>✔ 낱말비용 수정 건수<span class="sc">:</span> <span class="dv">1</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="사용자-사전-업데이트">사용자 사전 업데이트<a class="anchor" aria-label="anchor" href="#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%82%AC%EC%A0%84-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8"></a>
+</h4>
+<p>낱말비용을 수정했다고, 사전에 반영되지 않습니다. 사전을 다시
+업데이트(생성)해야 합니다. bitNLP는 낱말비용을 수정 기반의 사용자 사전
+업데이트 기능을 사용자 사전만 지원합니다. 왜냐하면 시스템 사전의
+낱말비용을 수정하는 것이 예기치 못한 부작용(side-effect)을 가져올 수
+있기 때문입니다.</p>
+<p>사용자 사전 업데이트하기 위해서 <code><a href="../reference/update_userdic.html">update_userdic()</a></code> 함수를
+사용합니다.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/update_userdic.html">update_userdic</a></span><span class="op">(</span>userdic_path <span class="op">=</span> <span class="st">"./user_dic"</span>, dic_file <span class="op">=</span> <span class="st">"user-dic.dic"</span><span class="op">)</span></span></code></pre></div>
+<p>다음과 같은 인수를 사용합니다.</p>
+<ul>
+<li>userdic_path: 사용자 정의 사전 파일이 존재하는 경로입니다.
+<ul>
+<li>지정하지 않으면 “./user_dic”이라는 이름의 경로를 사용합니다.</li>
+</ul>
+</li>
+<li>dic_file: 생성할 사용자 사전 파일 이름입니다.
+<ul>
+<li>지정하지 않으면 “user-dic.dic”이라는 이름으로 생성합니다.</li>
+</ul>
+</li>
+</ul>
+<p>기본 설정으로 사용자 사전을 업데이트합니다.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">update_userdic</span>()</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>updating userdic...</span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>reading .<span class="sc">/</span>user_dic<span class="sc">/</span>indexed<span class="sc">/</span>merged.csv ... <span class="dv">6</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>emitting double<span class="sc">-</span>array<span class="sc">:</span> <span class="dv">100</span>% <span class="sc">|</span><span class="do">###########################################| </span></span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>done<span class="sc">!</span></span></code></pre></div>
+<p>업데이트한 사용자 사전을 이용한 형태소 토큰화는 원하는 결과를
+보여줍니다.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">morpho_mecab</span>(doc, <span class="at">type =</span> <span class="st">"morpheme"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>   NNG    NNG    JKS    NNG    JKO  VV<span class="sc">+</span>EF     SF </span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="st">"신혼"</span> <span class="st">"부부"</span>   <span class="st">"가"</span> <span class="st">"여행"</span>   <span class="st">"을"</span> <span class="st">"온다"</span>    <span class="st">"."</span> </span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">morpho_mecab</span>(doc, <span class="at">type =</span> <span class="st">"morpheme"</span>, <span class="at">user_dic =</span> <span class="st">"./user_dic/user-dic.dic"</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>       NNG        JKS        NNG        JKO      VV<span class="sc">+</span>EF         SF </span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a><span class="st">"신혼부부"</span>       <span class="st">"가"</span>     <span class="st">"여행"</span>       <span class="st">"을"</span>     <span class="st">"온다"</span>        <span class="st">"."</span>        </span></code></pre></div>
+<p>토크나이저 플랜을 조회하면, 사용자 사전을 적용한 두번째 결과에서
+원하는 토큰화 플랜을 보여줍니다. 그러므로 원하는 토큰화를 위해서는
+비용을 수정한 파일로 생성한 사용자 사전을 사용해야 합니다.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_plan_cost</span>(<span class="st">"신혼부부"</span>, <span class="at">topn =</span> <span class="dv">2</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="co"># A tibble: 3 × 9</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  우선순위 표층형   품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용</span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>     <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>       <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span></span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a><span class="dv">1</span>        <span class="dv">1</span> 신혼     NNG      <span class="cn">NA</span>           <span class="dv">1781</span>     <span class="dv">3535</span>     <span class="dv">1034</span>    <span class="sc">-</span><span class="dv">1158</span>     <span class="sc">-</span><span class="dv">124</span></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="dv">2</span>        <span class="dv">1</span> 부부     NNG      <span class="cn">NA</span>           <span class="dv">1781</span>     <span class="dv">3534</span>      <span class="dv">410</span>      <span class="dv">260</span>      <span class="dv">546</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="dv">3</span>        <span class="dv">2</span> 신혼부부 NNG      <span class="cn">NA</span>           <span class="dv">1781</span>     <span class="dv">3534</span>     <span class="dv">2835</span>    <span class="sc">-</span><span class="dv">1158</span>     <span class="dv">1677</span></span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_plan_cost</span>(<span class="st">"신혼부부"</span>, <span class="at">topn =</span> <span class="dv">2</span>, <span class="at">userdic =</span> <span class="st">"./user_dic/user-dic.dic"</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a><span class="co"># A tibble: 3 × 9</span></span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a>  우선순위 표층형   품사태그 의미부류 좌문맥ID 우문맥ID 낱말비용 연접비용 누적비용</span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a>     <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>       <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span></span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a><span class="dv">1</span>        <span class="dv">1</span> 신혼부부 NNG      <span class="cn">NA</span>           <span class="dv">1781</span>     <span class="dv">3534</span>     <span class="dv">1000</span>    <span class="sc">-</span><span class="dv">1158</span>     <span class="sc">-</span><span class="dv">158</span></span>
+<span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a><span class="dv">2</span>        <span class="dv">2</span> 신혼     NNG      <span class="cn">NA</span>           <span class="dv">1781</span>     <span class="dv">3535</span>     <span class="dv">1034</span>    <span class="sc">-</span><span class="dv">1158</span>     <span class="sc">-</span><span class="dv">124</span></span>
+<span id="cb29-14"><a href="#cb29-14" tabindex="-1"></a><span class="dv">3</span>        <span class="dv">2</span> 부부     NNG      <span class="cn">NA</span>           <span class="dv">1781</span>     <span class="dv">3534</span>      <span class="dv">410</span>      <span class="dv">260</span>      <span class="dv">546</span></span></code></pre></div>
+</div>
 </div>
 </div>
   </div>
