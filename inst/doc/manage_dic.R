@@ -35,13 +35,13 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 #  16        2 .      SF       ""           1794     3560     3518    -1948    11567
 
 ## -----------------------------------------------------------------------------
-#  get_userdic_noun(
+#  get_userdic_meta(
 #    noun_type = c("person", "place", "nnp", "nng"),
 #    userdic_path = NULL
 #  )
 
 ## -----------------------------------------------------------------------------
-#  > get_userdic_noun("person")
+#  > get_userdic_meta("person")
 #  # A tibble: 2 × 13
 #    표층형 미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기   타입  첫번째품사 마지막품사
 #    <chr>  <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr>  <chr> <chr>      <chr>
@@ -50,7 +50,7 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 #  # ℹ 2 more variables: 표현 <chr>, 인텍스표현 <chr>
 
 ## -----------------------------------------------------------------------------
-#  > get_userdic_noun("nng")
+#  > get_userdic_meta("nng")
 #  # A tibble: 4 × 13
 #    표층형     미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기       타입     첫번째품사 마지막품사 표현                    인텍스표현
 #    <chr>      <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr>      <chr>    <chr>      <chr>      <chr>                   <chr>
@@ -60,7 +60,7 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 #  4 타이디버스 NA      NA      NA      NNG      *        FALSE    타이디버스 *        *          *          *                       *
 
 ## -----------------------------------------------------------------------------
-#  append_userdic_noun(
+#  append_userdic_meta(
 #    x,
 #    type = NULL,
 #    prototype = NULL,
@@ -69,11 +69,11 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 #  )
 
 ## -----------------------------------------------------------------------------
-#  > append_userdic_noun(c("윤희근"), noun_type = "person")
+#  > append_userdic_meta(c("윤희근"), noun_type = "person")
 #  ── 사전 파일에 인명 추가하기 ─────────────────────────────────────────────────────
 #  ✔ 신규 추가 건수: 1
 #  ✔ 최종 인명 건수: 3
-#  > get_userdic_noun("person")
+#  > get_userdic_meta("person")
 #  # A tibble: 3 × 13
 #    표층형 미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기  타입  첫번째품사
 #    <chr>  <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr> <chr> <chr>
@@ -83,7 +83,7 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 #  # ℹ 3 more variables: 마지막품사 <chr>, 표현 <chr>, 인텍스표현 <chr>
 
 ## -----------------------------------------------------------------------------
-#  > append_userdic_noun(c("경찰청장"), c("Compound"), c("경찰/NNG/*+청장/NNG/*"),
+#  > append_userdic_meta(c("경찰청장"), c("Compound"), c("경찰/NNG/*+청장/NNG/*"),
 #  +                     noun_type = "nng")
 #  ── 사전 파일에 일반명사 추가하기 ───────────────────────────────────────────────
 #  ✔ 신규 추가 건수: 1
@@ -205,7 +205,7 @@ knitr::include_graphics("images/password.png")
 #    "대장" "내시경"   "검사"   "에서"   "대장"   "용종"     "을"   "제거"     "했"     "다"      "."
 
 ## -----------------------------------------------------------------------------
-#  > append_userdic_noun(
+#  > append_userdic_meta(
 #  +     c("대장내시경", "대장용종"),
 #  +     type = c("Compound", "Compound"),
 #  +     prototype = c("대장/NNG/*+내시경/NNG/*", "대장/NNG/*+용종/NNG/*"),
@@ -217,7 +217,7 @@ knitr::include_graphics("images/password.png")
 #  ✔ 최종 일반명사 건수: 6
 
 ## -----------------------------------------------------------------------------
-#  > get_userdic_noun(noun_type = "nng", userdic_path = "./user_dic")
+#  > get_userdic_meta(noun_type = "nng", userdic_path = "./user_dic")
 #  # A tibble: 6 × 13
 #    표층형     미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기       타입     첫번째품사 마지막품사 표현                    인텍스표현
 #    <chr>      <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr>      <chr>    <chr>      <chr>      <chr>                   <chr>

@@ -38,13 +38,13 @@
 #' }
 #' @examples
 #' \dontrun{
-#' get_userdic_noun("person")
+#' get_userdic_meta("person")
 #' }
 #' @importFrom glue glue
 #' @importFrom readr read_csv
 #' @importFrom cli cli_alert_warning
 #' @export
-get_userdic_noun <- function(noun_type = c("person", "place", "nnp", "nng"), 
+get_userdic_meta <- function(noun_type = c("person", "place", "nnp", "nng"), 
                              userdic_path = NULL) {
   noun_type <- match.arg(noun_type)
   
@@ -111,27 +111,27 @@ get_userdic_noun <- function(noun_type = c("person", "place", "nnp", "nng"),
 #' @examples
 #' \dontrun{
 #' # 인명 사전
-#' get_userdic_noun()
-#' append_userdic_noun(c("변학도"))
+#' get_userdic_meta()
+#' append_userdic_meta(c("변학도"))
 #' 
 #' # 지명 사전
-#' get_userdic_noun("place")
-#' append_userdic_noun(c("영귀미면"), noun_type = "place")
-#' get_userdic_noun("place")
+#' get_userdic_meta("place")
+#' append_userdic_meta(c("영귀미면"), noun_type = "place")
+#' get_userdic_meta("place")
 #' 
 #' # 고유명사 사전  
-#' get_userdic_noun("nnp")
-#' append_userdic_noun(c("릴리움", "인터파크"), c("*", "Preanalysis"), 
+#' get_userdic_meta("nnp")
+#' append_userdic_meta(c("릴리움", "인터파크"), c("*", "Preanalysis"), 
 #'                     c("*", "인터/NNG/*+파크/NNG/*"), noun_type = "nnp")
-#' get_userdic_noun("nnp")
+#' get_userdic_meta("nnp")
 #' 
 #' # 일반명사 사전을 사용자 사전에 빌드할 목적으로 등록함  
-#' get_userdic_noun("nng", dic_type = "userdic")
-#' append_userdic_noun(c("주말부부", "쿼토"), c("Compound", "*"), 
+#' get_userdic_meta("nng", dic_type = "userdic")
+#' append_userdic_meta(c("주말부부", "쿼토"), c("Compound", "*"), 
 #'                     c("주말/NNG/*+부부/NNG/*", "*"), 
 #'                     noun_type = "nng",
 #'                     dic_type = "userdic")
-#' get_userdic_noun("nng")
+#' get_userdic_meta("nng")
 #' }
 #' @import dplyr
 #' @importFrom glue glue
@@ -141,7 +141,7 @@ get_userdic_noun <- function(noun_type = c("person", "place", "nnp", "nng"),
 #' @importFrom cli cli_rule cli_alert_success cli_alert_warning
 #' @importFrom stringr str_extract
 #' @export
-append_userdic_noun <- function(term, type = NULL, prototype = NULL, 
+append_userdic_meta <- function(term, type = NULL, prototype = NULL, 
                                 noun_type = c("person", "place", "nnp", "nng"), 
                                 dic_type = c("sysdic", "userdic"),
                                 userdic_path = NULL) {
@@ -258,7 +258,7 @@ append_userdic_noun <- function(term, type = NULL, prototype = NULL,
     }
   }
   
-  meta <- get_userdic_noun(noun_type, userdic_path)
+  meta <- get_userdic_meta(noun_type, userdic_path)
   
   n_dup <- length(intersect(term, meta$표층형))
   meta <- meta %>% 

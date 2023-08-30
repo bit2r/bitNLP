@@ -26,9 +26,9 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 +:===========================+:=======================================+:==========================+:===================================================+:===================================================+
 | 토크나이저 플랜 조회       | 낱말비용 기반의 토크나이저 플랜 조회   | -   get_plan_cost()       | 공통                                               | 공통                                               |
 +----------------------------+----------------------------------------+---------------------------+----------------------------------------------------+----------------------------------------------------+
-| 기 정의 사전조회           | 사전 정의 파일의 내용을 조회           | -   get_userdic_noun()    | userdic_path 인수에 시스템 사전정의 파일 경로 지정 | userdic_path 인수에 사용자 사전정의 파일 경로 지정 |
+| 기 정의 사전조회           | 사전 정의 파일의 내용을 조회           | -   get_userdic_meta()    | userdic_path 인수에 시스템 사전정의 파일 경로 지정 | userdic_path 인수에 사용자 사전정의 파일 경로 지정 |
 +----------------------------+----------------------------------------+---------------------------+----------------------------------------------------+----------------------------------------------------+
-| 사전 정의 파일에 낱말 추가 | 사전 정의 파일에 등록할 낱말 추가      | -   append_userdic_noun() | userdic_path 인수에 시스템 사전정의 파일 경로 지정 | userdic_path 인수에 사용자 사전정의 파일 경로 지정 |
+| 사전 정의 파일에 낱말 추가 | 사전 정의 파일에 등록할 낱말 추가      | -   append_userdic_meta() | userdic_path 인수에 시스템 사전정의 파일 경로 지정 | userdic_path 인수에 사용자 사전정의 파일 경로 지정 |
 +----------------------------+----------------------------------------+---------------------------+----------------------------------------------------+----------------------------------------------------+
 | 사전 컴파일                | 사전 정의 파일 정보에 인텍스 정보 삽입 | -   add_sysdic()          | add_sysdic() 사용                                  | create_userdic() 사용                              |
 |                            |                                        |                           |                                                    |                                                    |
@@ -131,9 +131,9 @@ get_plan_cost(x, topn = 3, dic_path = NULL)
     - 경찰청장
     
 
-### get_userdic_noun()
+### get_userdic_meta()
 
-`get_userdic_noun()`는 사용자 사전정의 디렉토리의 사전파일 읽어, 정의된 내용을 `tibble` 객체로 반환합니다. 이 기능을 통해서 사용자 명사 사전의 등록(정의) 여부를 파악할 수 있습니다. 다음과 같은 명사 사용자 정의 사전 파일을 참조합니다.
+`get_userdic_meta()`는 사용자 사전정의 디렉토리의 사전파일 읽어, 정의된 내용을 `tibble` 객체로 반환합니다. 이 기능을 통해서 사용자 명사 사전의 등록(정의) 여부를 파악할 수 있습니다. 다음과 같은 명사 사용자 정의 사전 파일을 참조합니다.
 
 - 인명사전 : person.csv
 - 지명사전 : place.csv
@@ -142,7 +142,7 @@ get_plan_cost(x, topn = 3, dic_path = NULL)
 
 ```{r}
 #| eval: false
-get_userdic_noun(
+get_userdic_meta(
   noun_type = c("person", "place", "nnp", "nng"),
   userdic_path = NULL
 )
@@ -161,7 +161,7 @@ get_userdic_noun(
 
 ```{r}
 #| eval: false
-> get_userdic_noun("person")
+> get_userdic_meta("person")
 # A tibble: 2 × 13                                                                                                                  
   표층형 미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기   타입  첫번째품사 마지막품사
   <chr>  <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr>  <chr> <chr>      <chr>     
@@ -174,7 +174,7 @@ get_userdic_noun(
 
 ```{r}
 #| eval: false
-> get_userdic_noun("nng")
+> get_userdic_meta("nng")
 # A tibble: 4 × 13                                                                                                                                                                    
   표층형     미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기       타입     첫번째품사 마지막품사 표현                    인텍스표현
   <chr>      <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr>      <chr>    <chr>      <chr>      <chr>                   <chr>     
@@ -200,15 +200,15 @@ get_userdic_noun(
 - 표현: 낱말이 토큰들로 나눠질 경우의 원형을 +로 묶어 입력
 - 인텍스표현: 사용하지 않는 컬럼, *로 표현
 
-### append_userdic_noun()
+### append_userdic_meta()
 
 사전 파일을 조회해서 등록하려하는 낱말이 없는 것을 확인했으면, 사전 파일에 등록할 낱말을 추가해야 합니다.
 
-`append_userdic_noun()`는 사전에 등록하기 위해 인명/지명/고유명사/일반명사를 `mecab-ko-dic`의 사용자 사전 디렉토리에 사용자 정의 사전 파일에 추가합니다.
+`append_userdic_meta()`는 사전에 등록하기 위해 인명/지명/고유명사/일반명사를 `mecab-ko-dic`의 사용자 사전 디렉토리에 사용자 정의 사전 파일에 추가합니다.
 
 ```{r}
 #| eval: false
-append_userdic_noun(
+append_userdic_meta(
   x,
   type = NULL,
   prototype = NULL,
@@ -234,11 +234,11 @@ append_userdic_noun(
 
 ```{r}
 #| eval: false
-> append_userdic_noun(c("윤희근"), noun_type = "person")
+> append_userdic_meta(c("윤희근"), noun_type = "person")
 ── 사전 파일에 인명 추가하기 ─────────────────────────────────────────────────────                                              
 ✔ 신규 추가 건수: 1
 ✔ 최종 인명 건수: 3
-> get_userdic_noun("person")
+> get_userdic_meta("person")
 # A tibble: 3 × 13                                                                                                   
   표층형 미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기  타입  첫번째품사
   <chr>  <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr> <chr> <chr>     
@@ -252,7 +252,7 @@ append_userdic_noun(
 
 ```{r}
 #| eval: false
-> append_userdic_noun(c("경찰청장"), c("Compound"), c("경찰/NNG/*+청장/NNG/*"), 
+> append_userdic_meta(c("경찰청장"), c("Compound"), c("경찰/NNG/*+청장/NNG/*"), 
 +                     noun_type = "nng")
 ── 사전 파일에 일반명사 추가하기 ───────────────────────────────────────────────                                             
 ✔ 신규 추가 건수: 1
@@ -429,7 +429,7 @@ make[1]: Nothing to be done for `install-exec-am'.
 
 ```{r}
 #| eval: false
-> append_userdic_noun(
+> append_userdic_meta(
 +     c("대장내시경", "대장용종"),
 +     type = c("Compound", "Compound"),
 +     prototype = c("대장/NNG/*+내시경/NNG/*", "대장/NNG/*+용종/NNG/*"),
@@ -441,11 +441,11 @@ make[1]: Nothing to be done for `install-exec-am'.
 ✔ 최종 일반명사 건수: 6
 ```
 
-`get_userdic_noun()` 함수의 `userdic_path` 인수에 사전 정의 파일이 생성된 경로를 지정하여 그 내용을 조회할 수 있습니다.
+`get_userdic_meta()` 함수의 `userdic_path` 인수에 사전 정의 파일이 생성된 경로를 지정하여 그 내용을 조회할 수 있습니다.
 
 ```{r}
 #| eval: false
-> get_userdic_noun(noun_type = "nng", userdic_path = "./user_dic")
+> get_userdic_meta(noun_type = "nng", userdic_path = "./user_dic")
 # A tibble: 6 × 13                                                                                                                                                                                    
   표층형     미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기       타입     첫번째품사 마지막품사 표현                    인텍스표현
   <chr>      <lgl>   <lgl>   <lgl>   <chr>    <chr>    <lgl>    <chr>      <chr>    <chr>      <chr>      <chr>                   <chr>     

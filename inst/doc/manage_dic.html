@@ -382,7 +382,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="left">기 정의 사전조회</td>
 <td align="left">사전 정의 파일의 내용을 조회</td>
 <td align="left"><ul>
-<li>get_userdic_noun()</li>
+<li>get_userdic_meta()</li>
 </ul></td>
 <td align="left">userdic_path 인수에 시스템 사전정의 파일 경로 지정</td>
 <td align="left">userdic_path 인수에 사용자 사전정의 파일 경로 지정</td>
@@ -391,7 +391,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="left">사전 정의 파일에 낱말 추가</td>
 <td align="left">사전 정의 파일에 등록할 낱말 추가</td>
 <td align="left"><ul>
-<li>append_userdic_noun()</li>
+<li>append_userdic_meta()</li>
 </ul></td>
 <td align="left">userdic_path 인수에 시스템 사전정의 파일 경로 지정</td>
 <td align="left">userdic_path 인수에 사용자 사전정의 파일 경로 지정</td>
@@ -542,9 +542,9 @@ NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것
 <li>경찰청장</li>
 </ul></li>
 </ul>
-<div id="get_userdic_noun" class="section level3">
-<h3>get_userdic_noun()</h3>
-<p><code>get_userdic_noun()</code>는 사용자 사전정의 디렉토리의 사전파일
+<div id="get_userdic_meta" class="section level3">
+<h3>get_userdic_meta()</h3>
+<p><code>get_userdic_meta()</code>는 사용자 사전정의 디렉토리의 사전파일
 읽어, 정의된 내용을 <code>tibble</code> 객체로 반환합니다. 이 기능을
 통해서 사용자 명사 사전의 등록(정의) 여부를 파악할 수 있습니다. 다음과
 같은 명사 사용자 정의 사전 파일을 참조합니다.</p>
@@ -554,7 +554,7 @@ NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것
 <li>고유명사사전 : nnp.csv</li>
 <li>일반명사사전 : nng.csv</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">get_userdic_noun</span>(</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">get_userdic_meta</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">noun_type =</span> <span class="fu">c</span>(<span class="st">&quot;person&quot;</span>, <span class="st">&quot;place&quot;</span>, <span class="st">&quot;nnp&quot;</span>, <span class="st">&quot;nng&quot;</span>),</span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">userdic_path =</span> <span class="cn">NULL</span></span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>)</span></code></pre></div>
@@ -574,7 +574,7 @@ NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것
 조회합니다. 사용자의 사전 정의 파일의 내용에 따라 다른 결과가 나올 수
 있습니다.</p>
 <p>인명 사전 정의 파일의 내용은 다음과 같이 조회됩니다.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_userdic_noun</span>(<span class="st">&quot;person&quot;</span>)</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_userdic_meta</span>(<span class="st">&quot;person&quot;</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co"># A tibble: 2 × 13                                                                                                                  </span></span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  표층형 미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기   타입  첫번째품사 마지막품사</span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     </span>
@@ -582,7 +582,7 @@ NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="dv">2</span> 변학도 <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNP      인명     <span class="cn">FALSE</span>    변학도 <span class="sc">*</span>     <span class="er">*</span>          <span class="er">*</span>         </span>
 <span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co"># ℹ 2 more variables: 표현 &lt;chr&gt;, 인텍스표현 &lt;chr&gt;</span></span></code></pre></div>
 <p>일반명사 사전 정의 파일의 내용은 다음과 같이 조회됩니다.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_userdic_noun</span>(<span class="st">&quot;nng&quot;</span>)</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_userdic_meta</span>(<span class="st">&quot;nng&quot;</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co"># A tibble: 4 × 13                                                                                                                                                                    </span></span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  표층형     미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기       타입     첫번째품사 마지막품사 표현                    인텍스표현</span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     </span>
@@ -607,14 +607,14 @@ NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것
 <li>인텍스표현: 사용하지 않는 컬럼, *로 표현</li>
 </ul>
 </div>
-<div id="append_userdic_noun" class="section level3">
-<h3>append_userdic_noun()</h3>
+<div id="append_userdic_meta" class="section level3">
+<h3>append_userdic_meta()</h3>
 <p>사전 파일을 조회해서 등록하려하는 낱말이 없는 것을 확인했으면, 사전
 파일에 등록할 낱말을 추가해야 합니다.</p>
-<p><code>append_userdic_noun()</code>는 사전에 등록하기 위해
+<p><code>append_userdic_meta()</code>는 사전에 등록하기 위해
 인명/지명/고유명사/일반명사를 <code>mecab-ko-dic</code>의 사용자 사전
 디렉토리에 사용자 정의 사전 파일에 추가합니다.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">append_userdic_noun</span>(</span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">append_userdic_meta</span>(</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  x,</span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="cn">NULL</span>,</span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="at">prototype =</span> <span class="cn">NULL</span>,</span>
@@ -646,11 +646,11 @@ NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것
 </ul></li>
 </ul>
 <p>인명사전에 “윤희근”이라는 고유명사를 추가합니다.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">append_userdic_noun</span>(<span class="fu">c</span>(<span class="st">&quot;윤희근&quot;</span>), <span class="at">noun_type =</span> <span class="st">&quot;person&quot;</span>)</span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">append_userdic_meta</span>(<span class="fu">c</span>(<span class="st">&quot;윤희근&quot;</span>), <span class="at">noun_type =</span> <span class="st">&quot;person&quot;</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>── 사전 파일에 인명 추가하기 ─────────────────────────────────────────────────────                                              </span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>✔ 신규 추가 건수<span class="sc">:</span> <span class="dv">1</span></span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>✔ 최종 인명 건수<span class="sc">:</span> <span class="dv">3</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_userdic_noun</span>(<span class="st">&quot;person&quot;</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_userdic_meta</span>(<span class="st">&quot;person&quot;</span>)</span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co"># A tibble: 3 × 13                                                                                                   </span></span>
 <span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  표층형 미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기  타입  첫번째품사</span>
 <span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     </span>
@@ -659,7 +659,7 @@ NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것
 <span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="dv">3</span> 윤희근 <span class="cn">NA</span>      <span class="cn">NA</span>      <span class="cn">NA</span>      NNP      인명     <span class="cn">TRUE</span>     윤희… <span class="sc">*</span>     <span class="er">*</span>         </span>
 <span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co"># ℹ 3 more variables: 마지막품사 &lt;chr&gt;, 표현 &lt;chr&gt;, 인텍스표현 &lt;chr&gt;</span></span></code></pre></div>
 <p>마찬가지로 “경찰청장”이라는 복합명사도 추가합니다.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">append_userdic_noun</span>(<span class="fu">c</span>(<span class="st">&quot;경찰청장&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;Compound&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;경찰/NNG/*+청장/NNG/*&quot;</span>), </span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">append_userdic_meta</span>(<span class="fu">c</span>(<span class="st">&quot;경찰청장&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;Compound&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;경찰/NNG/*+청장/NNG/*&quot;</span>), </span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="sc">+</span>                     <span class="at">noun_type =</span> <span class="st">&quot;nng&quot;</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>── 사전 파일에 일반명사 추가하기 ───────────────────────────────────────────────                                             </span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>✔ 신규 추가 건수<span class="sc">:</span> <span class="dv">1</span></span>
@@ -824,7 +824,7 @@ NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것
 사전 정보 파일에 추가합니다. <code>dic_type</code> 인수값에 “userdic”를
 지정하면 사용자 사전에 등록할 정보 파일이 <code>./user-dic</code>이라는
 경로에 생성됩니다. 물론 생성 경로를 사용자가 지정할 수도 있습니다.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">append_userdic_noun</span>(</span>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">append_userdic_meta</span>(</span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="sc">+</span>     <span class="fu">c</span>(<span class="st">&quot;대장내시경&quot;</span>, <span class="st">&quot;대장용종&quot;</span>),</span>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="sc">+</span>     <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;Compound&quot;</span>, <span class="st">&quot;Compound&quot;</span>),</span>
 <span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="sc">+</span>     <span class="at">prototype =</span> <span class="fu">c</span>(<span class="st">&quot;대장/NNG/*+내시경/NNG/*&quot;</span>, <span class="st">&quot;대장/NNG/*+용종/NNG/*&quot;</span>),</span>
@@ -834,10 +834,10 @@ NNP(고유명사)일 것입니다. 일반명사는 대부분 복합명사일 것
 <span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>── 사전 파일에 일반명사 추가하기 ───────────────────────────────────────────────           </span>
 <span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>✔ 신규 추가 건수<span class="sc">:</span> <span class="dv">2</span></span>
 <span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>✔ 최종 일반명사 건수<span class="sc">:</span> <span class="dv">6</span></span></code></pre></div>
-<p><code>get_userdic_noun()</code> 함수의 <code>userdic_path</code>
+<p><code>get_userdic_meta()</code> 함수의 <code>userdic_path</code>
 인수에 사전 정의 파일이 생성된 경로를 지정하여 그 내용을 조회할 수
 있습니다.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_userdic_noun</span>(<span class="at">noun_type =</span> <span class="st">&quot;nng&quot;</span>, <span class="at">userdic_path =</span> <span class="st">&quot;./user_dic&quot;</span>)</span>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">get_userdic_meta</span>(<span class="at">noun_type =</span> <span class="st">&quot;nng&quot;</span>, <span class="at">userdic_path =</span> <span class="st">&quot;./user_dic&quot;</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co"># A tibble: 6 × 13                                                                                                                                                                                    </span></span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  표층형     미지정1 미지정2 미지정3 품사태그 의미부류 종성유무 읽기       타입     첫번째품사 마지막품사 표현                    인텍스표현</span>
 <span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     </span>
