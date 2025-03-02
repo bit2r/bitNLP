@@ -1,4 +1,10 @@
-CHANGES IN R VERSION 1.4.3.9000:
+CHANGES IN R VERSION 1.4.4.9000:
+  BUG FIXES:
+    * fix append_userdic_meta() (#22)
+            
+            
+            
+CHANGES IN R VERSION 1.4.3:
   MAJOR CHANGES:
     * 사용자 사전 등록의 명사에서 전 품사로 확대 (#22)
         - 함수의 이름 변경
