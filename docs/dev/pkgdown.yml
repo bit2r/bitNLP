@@ -10,7 +10,7 @@ articles:
   manipulate_docs: manipulate_docs.html
   morphology: morphology.html
   with_tidytext: with_tidytext.html
-last_built: 2025-03-03T06:12Z
+last_built: 2025-03-03T06:25Z
 urls:
   reference: https://r2bit.com/bitNLP/reference
   article: https://r2bit.com/bitNLP/articles
