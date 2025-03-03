@@ -1,117 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/articles/Install_in_RstudioCloud.html</loc>
-  </url>
-  <url>
-    <loc>/articles/Install_mecab.html</loc>
-  </url>
-  <url>
-    <loc>/articles/Introduce.html</loc>
-  </url>
-  <url>
-    <loc>/articles/explore_docs.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/manipulate_docs.html</loc>
-  </url>
-  <url>
-    <loc>/articles/morphology.html</loc>
-  </url>
-  <url>
-    <loc>/articles/with_tidytext.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/bitNLP-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/buzz.html</loc>
-  </url>
-  <url>
-    <loc>/reference/coll_scores.html</loc>
-  </url>
-  <url>
-    <loc>/reference/collapse_noun.html</loc>
-  </url>
-  <url>
-    <loc>/reference/collocate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/explore_docs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/filter_text.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_meta.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_ngrams.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_opinion.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_polarity.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_spacing.html</loc>
-  </url>
-  <url>
-    <loc>/reference/has_final_consonant.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/install_mecab_ko.html</loc>
-  </url>
-  <url>
-    <loc>/reference/morpho_mecab.html</loc>
-  </url>
-  <url>
-    <loc>/reference/movie_ratings_train.html</loc>
-  </url>
-  <url>
-    <loc>/reference/polarity.html</loc>
-  </url>
-  <url>
-    <loc>/reference/president_speech.html</loc>
-  </url>
-  <url>
-    <loc>/reference/regist_mecab_ko.html</loc>
-  </url>
-  <url>
-    <loc>/reference/replace_text.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rest_area.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sentiment_dic.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tokenize_noun_ngrams.html</loc>
-  </url>
-  <url>
-    <loc>/reference/unnest_noun_ngrams.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://r2bit.com/bitNLP/404.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/CONDUCT.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/LICENSE-text.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/articles/Install_in_RstudioCloud.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/articles/Install_mecab.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/articles/Introduce.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/articles/explore_docs.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/articles/index.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/articles/manage_dic.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/articles/manipulate_docs.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/articles/morphology.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/articles/with_tidytext.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/authors.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/index.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/add_sysdic.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/append_userdic_meta.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/bitNLP-package.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/buzz.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/coll_scores.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/collapse_noun.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/collocate.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/create_userdic.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/edit_termcost.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/explore_docs.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/filter_text.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/get_meta.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/get_ngrams.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/get_opinion.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/get_plan_cost.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/get_polarity.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/get_spacing.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/get_userdic_meta.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/has_final_consonant.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/index.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/install_mecab_ko.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/morpho_mecab.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/movie_ratings_train.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/polarity.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/president_speech.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/regist_mecab_ko.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/replace_text.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/rest_area.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/sentiment_dic.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/tokenize_noun_ngrams.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/unnest_noun_ngrams.html</loc></url>
+<url><loc>https://r2bit.com/bitNLP/reference/update_userdic.html</loc></url>
 </urlset>
+

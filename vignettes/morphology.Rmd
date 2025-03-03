@@ -168,6 +168,8 @@ president_speech$doc[1:100] %>%
 ```
 
 ```{r, echo=FALSE, out.width='80%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   대통령 연설문 명사 워드클라우드
 knitr::include_graphics("images/wordcloud1.jpg")
 ```
 
@@ -187,6 +189,8 @@ president_speech$doc[1:100] %>%
 ```
 
 ```{r, echo=FALSE, out.width='80%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   대통령 연설문 명사 워드클라우드
 knitr::include_graphics("images/wordcloud2.jpg")
 ```
 

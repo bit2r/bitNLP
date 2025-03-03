@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# bitNLP <a href='https://r2bit.com/bitNLP/' target='_blank'><img src="man/figures/bitNLP_logo.png" align="right" height="120" width="110"/></a>
+# bitNLP <a href='https://r2bit.com/bitNLP/' target='_blank'><img src="man/figures/bitNLP_logo.png" align="right" height="120" width="110" alt="bitNLP logo"/></a>
 
 ## bitNLP 개요
 
@@ -120,6 +120,8 @@ president_speech$doc[1:100] %>%
 ```
 
 ```{r, echo=FALSE, out.width='90%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   대통령 연설문 명사 워드클라우드
 knitr::include_graphics("man/figures/wordcloud1.jpg")
 ```
 

@@ -1,18 +1,24 @@
-pandoc: '2.8'
-pkgdown: 2.0.2
-pkgdown_sha: ~
-
 title: bitNLP
+url: https://r2bit.com/bitNLP/
 
 template:
-  params:
-    bootswatch: cerulean
+  bootstrap: 5
+  light-switch: true  
+  bslib:
+    primary: "#0054AD"
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+    danger: "#A6081A"
 
+development:
+  mode: auto
+  
 reference:
 - title: Tools for Text Analytics
   desc:  Tools that support "Natural Language Processing" for text analytics.
   contents:
   - bitNLP-package
+  
 - subtitle: 텍스트 데이터 전처리 기능
   contents:
   - starts_with("filter")
@@ -24,25 +30,31 @@ reference:
   - ends_with("spacing")
   - ends_with("ngrams")  
   - starts_with("collapse")  
+  
 - subtitle: 텍스트 데이터 탐색 기능
   contents:
   - explore_docs
+  
 - subtitle: 형태소분석 기능
   contents:
   - install_mecab_ko
   - regist_mecab_ko  
   - morpho_mecab
+  
 - subtitle: 감성분석 기능
   contents:
   - get_opinion
   - get_polarity
+  
 - subtitle: 공동발생 분석
   contents:
   - collocate
   - coll_scores  
+  
 - subtitle: 기타 텍스트 처리 기능
   contents:
   - has_final_consonant
+  
 - subtitle: 텍스트 데이터
   contents:
   - buzz
@@ -51,9 +63,18 @@ reference:
   - starts_with("movie_ratings")
   - polarity
   - sentiment_dic
+  
 - subtitle: 형태소분석기 사전 관리
   contents:
   - add_sysdic
   - edit_termcost
   - get_plan_cost
   - contains("userdic")
+  
+  navbar:
+    type: default
+    right:
+    - icon: fa-github fa-lg
+      href: https://github.com/choonghyunryu/ 
+
+

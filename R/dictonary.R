@@ -173,13 +173,13 @@ append_userdic_meta <- function(term, type = NULL, prototype = NULL,
     first_tag <- "*"
     last_tag <- "*"
   } else {
-    tab <- length(prototype) %>% 
-      seq() %>% 
+    tab <- length(prototype) |> 
+      seq() |> 
       purrr::map_df(
         function(x) {
           if (x %in% idx_preanal) {
             first <- stringr::str_extract(prototype[x], "[A-Z]+")
-            last <- stringr::str_extract(prototype[x], "[A-Z]+\\/\\*") %>% 
+            last <- stringr::str_extract(prototype[x], "[A-Z]+\\/\\*") |> 
               stringr::str_extract(., "[A-Z]+")
           } else {
             first <- "*"
@@ -261,7 +261,7 @@ append_userdic_meta <- function(term, type = NULL, prototype = NULL,
   meta <- get_userdic_meta(noun_type, userdic_path)
   
   n_dup <- length(intersect(term, meta$표층형))
-  meta <- meta %>% 
+  meta <- meta |> 
     filter(!`표층형` %in% term)
   
   if (n_dup > 0) {
@@ -269,7 +269,7 @@ append_userdic_meta <- function(term, type = NULL, prototype = NULL,
       glue::glue("기 정의된 {n_dup}건의 낱말이 업데이트 되었습니다."))
   }
   
-  final_consonants <- term %>% 
+  final_consonants <- term |> 
     purrr::map_lgl(
       has_final_consonant, last = TRUE
     )
@@ -282,7 +282,7 @@ append_userdic_meta <- function(term, type = NULL, prototype = NULL,
     prototype <- "*"
   }
   
-  df_nouns <- meta %>% 
+  df_nouns <- meta |> 
     bind_rows(
       data.frame(
         표층형 = term,
@@ -445,12 +445,12 @@ edit_termcost <- function(userdic_path = "./user_dic", dic_file = "user-dic.dic"
                      "표현", "인덱스표현"),
     logo = logo, title = title) 
   
-  changed <- edited %>% 
-    left_join(merged %>% 
-                select(표층형, 낱말비용_before=낱말비용),
-              by = "표층형") %>% 
-    filter(낱말비용 != 낱말비용_before) %>% 
-    select(-낱말비용_before)
+  changed <- edited |> 
+    left_join(merged |> 
+                select(`표층형`, `낱말비용_before`=`낱말비용`),
+              by = "표층형") |> 
+    filter(`낱말비용` != `낱말비용_before`) |> 
+    select(-`낱말비용_before`)
   
   n_changed <- n_dup <- 0
   
@@ -471,10 +471,10 @@ edit_termcost <- function(userdic_path = "./user_dic", dic_file = "user-dic.dic"
       
       n_dup <- length(intersect(change_log$표층형, changed$표층형))
       
-      change_log <- change_log %>% 
+      change_log <- change_log |> 
         filter(!`표층형` %in% changed$표층형)
       
-      changed <- changed %>% 
+      changed <- changed |> 
         bind_rows(change_log)
     }
     

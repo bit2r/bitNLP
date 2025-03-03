@@ -1,13 +1,16 @@
-pandoc: 2.19.2
-pkgdown: 2.0.6
-pkgdown_sha: ~
+pandoc: '3.2'
+pkgdown: 2.1.1.9000
+pkgdown_sha: 7cf401f44a970ea13744fcdd883248552c68ff9d
 articles:
+  explore_docs: explore_docs.html
   Install_in_RstudioCloud: Install_in_RstudioCloud.html
   Install_mecab: Install_mecab.html
   Introduce: Introduce.html
-  explore_docs: explore_docs.html
+  manage_dic: manage_dic.html
   manipulate_docs: manipulate_docs.html
   morphology: morphology.html
   with_tidytext: with_tidytext.html
-last_built: 2022-12-29T22:44Z
-
+last_built: 2025-03-03T05:58Z
+urls:
+  reference: https://r2bit.com/bitNLP/reference
+  article: https://r2bit.com/bitNLP/articles

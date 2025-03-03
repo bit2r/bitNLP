@@ -48,6 +48,8 @@ explore_docs()
 그리과 좌측에는 텍스트 데이터를 편집했을 경우, 데이터를 저장하는 기능의 위젯이 위치합니다. 
 
 ```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   Shiny 앱의 데이터 탭에서는 분석하고자 하는 데이터 셋의 변수 이름과 데이터 유형을 확인할 수 있습니다.
 knitr::include_graphics("images/data_tab.jpg")
 ```
 
@@ -76,6 +78,8 @@ knitr::include_graphics("images/data_tab.jpg")
 
 다음 그림은 `buzz`의 `CONTENTS` 변수를 탐색하는데, 그 대상은 `KEYWORD`가 `맞벌이`인 데이터를 대상으로 합니다. 화면에는 `CONTENTS`와 함께 `TITLE`, `SECTION`, `KEYWORD`를 표시할 것입니다.    
 ```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   Shiny 앱의 검색/대체 탭에서는 데이터 셋에서 조건 변수를 대상으로 키워드를 입력하여, 조건변수에 키워드가 포함된 문서를 검색하는 UI/UX를 제공합니다.
 knitr::include_graphics("images/choice_variable.jpg")
 ```
 
@@ -86,6 +90,8 @@ knitr::include_graphics("images/choice_variable.jpg")
 1000개의 문서들 중에서 19개의 문서에 검색 패턴인 `기저귀`가 포함되었으며, 그 중 첫번째 문서라는 것을 알려줍니다. 패턴과 매치되는 텍스트는 붉은색으로 표시됩니다.
 
 ```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   Shiny 앱의 검색/대체 탭에서는 데이터 셋에서 조건변수에 키워드가 포함된 문서를 검색한 후 우측 결과에 해당 문장을 출력하고, 검출된 키워드를 붉은색으로 표시합니다.
 knitr::include_graphics("images/search.jpg")
 ```
 
@@ -94,6 +100,8 @@ knitr::include_graphics("images/search.jpg")
 오른쪽 방향 버튼을 누르면 두번째 문서화면으로 이동(패치)됩니다. 반대의 경우도 가능합니다.
 
 ```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   Shiny 앱의 검색/대체 탭에서는 데이터 셋에서 조건변수에 키워드가 포함된 문서들을 전후로 패치하여 조회하는 UI/UX 기능을 제공합니다.
 knitr::include_graphics("images/next.jpg")
 ```
 
@@ -102,6 +110,8 @@ knitr::include_graphics("images/next.jpg")
 검색한 패턴을 다른 문자열로 대체할 수도 있습니다. 텍스트 데이터의 정제를 위한 기능입니다. 다음은 **`전업주부`**라는 복합명사(compound noun)가 **`전업 주부`**로 분리되어 있는 사례를 보정하는 예시입니다.
 
 ```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   Shiny 앱의 대체는 데이터 셋에서 조건변수에 패턴 검색을 수행한 후 대체 패턴 문장으로 변경하는 UI/UX 기능을 제공합니다.
 knitr::include_graphics("images/replace.jpg")
 ```
 
@@ -115,6 +125,8 @@ knitr::include_graphics("images/replace.jpg")
 몇몇 개의 문서를 탐색하는 경우에는 문제가 발생하지 않지만, 하루 종일 수백, 수천개의 문서를 탐색하면서 텍스트 분석의 실마리를 찾아야하는 경우에 천사와 같은 기능을 제공해줄 것입니다.
 
 ```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   Shiny 앱의 형태소를 이용한 검색은  패턴 검색의 결과를 추출하는 문서를 원문과 형태소 단위로 이원화 출력해줍니다.
 knitr::include_graphics("images/morpho.jpg")
 ```
 
@@ -126,6 +138,8 @@ knitr::include_graphics("images/morpho.jpg")
 입력 위젯의 `Span`은 공동발현하는 명사가 키워드를 중심으로 몇번 째 거리에서 출현하는가를 정의합니다. 즉, 아래 그림의 예제는 기저귀와 2번째 거리 이내의 명사를 리스트업합니다.
 
 ```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   Shiny 앱의 공동발생분석 탭 메뉴는 공통으로 발현하는 문장을 명사 단위로 추출하여 출력해줍니다.
 knitr::include_graphics("images/co-location.jpg")
 ```
 
@@ -137,6 +151,8 @@ knitr::include_graphics("images/co-location.jpg")
 이 기능 역시 문서의 주제를 찾는데 유용합니다.
 
 ```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   Shiny 앱의 N-Gram 탭 메뉴는 문장을 명사 단위로 N-Gram 추출하여 출력해줍니다.
 knitr::include_graphics("images/ngram.jpg")
 ```
 
@@ -148,5 +164,7 @@ bitNLP 패키지에서 실행한 Shiny 앱은 모달(Modal) 창을 띄웁니다.
 `R Command` 탭은 간단한 R 스크립트를 수행할 수 있습니다. 다음 예제는 `Text Data Explorer`를 사용중에 `get_spacing()`으로 문서의 띄어쓰기를 보정하는 예시입니다.
 
 ```{r, echo=FALSE, out.width='95%', fig.align='center', fig.pos="!h"}
+#| fig.alt: >
+#|   Shiny 앱의 R Command 탭 메뉴는 R 명령어를 수행할 수 있는 기능을 제공합니다.
 knitr::include_graphics("images/rcommand.jpg")
 ```
