@@ -10,7 +10,7 @@
 수행하는, **한글 텍스트 데이터 분석 도구들의 모음**입니다.
 
 `bitNLP`의 다음 기능은 bitNLP 패키지의 비네트인
-<a href="https://r2bit.com/bitNLP/articles/Introduce.html"
+<a href="https://r2bit.com/bitNLP/dev/articles/Introduce.html"
 target="_blank">Introduce bitNLP</a>에 소개되어 있습니다.
 
 - 텍스트 데이터 전처리 기능
@@ -178,6 +178,7 @@ target="_blank">Explore Documents</a>에 설명되어 있습니다.
 
 <img src="man/figures/replace.jpg" alt="탐색 및 치환 기능 화면" width="80%" />
 <p class="caption">
+
 탐색 및 치환 기능 화면
 </p>
 

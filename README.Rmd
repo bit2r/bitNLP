@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 `bitNLP`는 `텍스트 데이터를 탐색(Explore Documents)`하고, `자연어 처리(Natural Language Processing)` 및 `형태소분석`, `감성분석`을 수행하는, **한글 텍스트 데이터 분석 도구들의 모음**입니다.
 
-`bitNLP`의 다음 기능은 bitNLP 패키지의 비네트인 [Introduce bitNLP](https://r2bit.com/bitNLP/articles/Introduce.html){target='_blank'}에 소개되어 있습니다.
+`bitNLP`의 다음 기능은 bitNLP 패키지의 비네트인 [Introduce bitNLP](https://r2bit.com/bitNLP/dev/articles/Introduce.html){target='_blank'}에 소개되어 있습니다.
 
 * 텍스트 데이터 전처리 기능
 * 텍스트 데이터 탐색 기능
